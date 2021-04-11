@@ -1,6 +1,5 @@
 package Program;
 import java.util.Scanner;
-import java.time.LocalDate;
 
 public class Contas {
     private double valor;
@@ -99,40 +98,34 @@ public class Contas {
         this.tipo = tipo;
     }
     
-    void pagamentoContas() {
+    protected void pagamentoContas() {
         Scanner input = new Scanner(System.in);
         
-        Contas conta;
-        char barra;
+        Contas conta = new Contas();
+        char barra1, barra2;
+        
         System.out.print("Qual conta deseja pagar? ");
         conta.tipo = input.nextLine();
         
         System.out.print("Data de vencimento? No seguinte formato dia/mes/ano: ");
-        conta.diaVencimento = input.nextInt();
-        barra = input.next().charAt(0);
-        conta.mesVencimento = input.nextInt();
-        //barra = input.next().charAt(0);
-        conta.anoVencimento = input.nextInt();
+        conta.setDiaVencimento(input.nextInt());
+        barra1 = input.next().charAt(0);
+        conta.setMesVencimento(input.nextInt());
+        barra2 = input.next().charAt(0);
+        conta.setAnoVencimento(input.nextInt());
         
         System.out.print("Valor: ");
-        cin >> conta.valor = input.nextInt();
+        conta.setValor(input.nextInt());
 
-        // UTILIZANDO A STRUCT ** PARA PEGAR A DATA DIRETO DO SISTEMA
-        struct tm *p;
-        time_t seconds;
-        time(&seconds);
-        p = localtime(&seconds);
-
-        //Verificar se deseja realizar o pagamento
+        //VERIFICAR SE DESEJA REALIZAR O PAGAMENTO
         char opcao;
         System.out.println("Deseja realizar o pagamento? S ou N");
         opcao = input.next().charAt(0);
         
         if (opcao == 'S') { 
-            conta.diaPagamento = p->tm_mday;
-            conta.mesPagamento = p->tm_mon + 1;
-            conta.anoPagamento = p->tm_year + 1900;
-            fprintf (arq, "%d%c%d%c%d \t %s \t %.2lf", conta.diaPagamento, barra, conta.mesPagamento, barra, conta.anoPagamento, conta.getTipoConta().c_str(), conta.valor);
+            conta.setDiaPagamento(diaPagamento);
+            conta.setMesPagamento(mesPagamento);
+            conta.setAnoPagamento(anoPagamento);
         }
         else {
             System.out.println("Não foi paga");

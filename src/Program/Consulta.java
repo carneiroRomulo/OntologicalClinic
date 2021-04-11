@@ -1,4 +1,5 @@
 package Program;
+import java.util.List;
 
 public class Consulta {
     private double valor;
@@ -61,5 +62,5 @@ public class Consulta {
     }
     
     // RECEBER CONSULTA
-    public void receberConsulta() {}   
+    public void receberConsulta(List<Cliente> cliente) {}   
 }
