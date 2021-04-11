@@ -13,19 +13,30 @@ public class Administrador extends Funcionario {
     private List<Recepcionista> recepcionistas;
     private List<Cliente> clientes;
 
-    // CONSTRUTOR VAZIO
-    public Administrador(String login, String senha) {
+    // CONSTRUTOR 
+    
+    public Administrador() {}
+
+    public Administrador(List<Administrador> administradores, List<AssistenteAdministrativo> assistentesAdministrativos, List<Dentista> dentistas, List<AssistenteDentista> assistentesDentistas, List<Recepcionista> recepcionistas, List<Cliente> clientes, double salario, int cargaHoraria, int cargo, String nome, String sobrenome, String endereco, String email, String CPF, String RG, String telefone, String dataNascimento) {
+        super(salario, cargaHoraria, cargo, nome, sobrenome, endereco, email, 
+                CPF, RG, telefone, dataNascimento);
         this.login = "admin";
         this.senha = "admin";
+        this.administradores = administradores;
+        this.assistentesAdministrativos = assistentesAdministrativos;
+        this.dentistas = dentistas;
+        this.assistentesDentistas = assistentesDentistas;
+        this.recepcionistas = recepcionistas;
+        this.clientes = clientes;
     }
 
-    public Administrador(String login, String senha, List<Administrador> administradores, 
+    public Administrador(List<Administrador> administradores, 
             List<AssistenteAdministrativo> assistentesAdministrativos, 
             List<Dentista> dentistas, List<AssistenteDentista> assistentesDentistas, 
             List<Recepcionista> recepcionistas, List<Cliente> clientes, 
             double salario, int cargaHoraria, int cargo, String nome, 
             String sobrenome, String endereco, String email, String CPF, 
-            String RG, String telefone, String dataNascimento) {
+            String RG, String telefone, String dataNascimento, String login, String senha) {
         super(salario, cargaHoraria, cargo, nome, sobrenome, endereco, email, 
                 CPF, RG, telefone, dataNascimento);
         this.login = login;
@@ -110,73 +121,64 @@ public class Administrador extends Funcionario {
     
     /* CREATE */
     // CRIA UMA PESSOA GENÉRICA
-    public <G> void createPessoa(String nome, String endereco, 
+    public <G> void createPessoa(String nome, String sobrenome, String endereco, 
             String email, String CPF, String RG,String telefone, 
             String dataNascimento, double salario, int cargaHoraria, int cargo){
-        this.setNome(nome);
-        this.setEndereco(endereco);
-        this.setEmail(email);
-        this.setCPF(CPF);
-        this.setRG(RG);
-        this.setTelefone(telefone);
-        this.setDataNascimento(dataNascimento);
-        this.setSalario(salario);
-        this.setCargaHoraria(cargaHoraria);
-        this.setCargo(cargo);
+        setNome(nome);
+        setSobrenome(sobrenome);
+        setEndereco(endereco);
+        setEmail(email);
+        setCPF(CPF);
+        setRG(RG);
+        setTelefone(telefone);
+        setDataNascimento(dataNascimento);
+        setSalario(salario);
+        setCargaHoraria(cargaHoraria);
+        setCargo(cargo);
     }
 
-    /* DELETE */
-    // DELETA UM ADMINISTRADOR
-    private void deletePessoa(Object obj){
-        if(obj.equals(Administrador)) {}
-        
-    }
-    // DELETA UM ASSISTENTE ADMINISTRATIVO
-    private void deleteAssistenteAdministrativo(AssistenteAdministrativo assistenteAdministrativo){
-        if(!assistentesAdministrativos.isEmpty()) {
-            assistentesAdministrativos.remove(assistenteAdministrativo);
+    // DELETA UMA PESSOA
+    private <Object> void deletePessoa(Object pessoa){
+        try {
+            if(pessoa.getClass() == Administrador.class && !administradores.isEmpty()) {
+                administradores.remove(pessoa);
+            }
+            else if(pessoa.getClass() == AssistenteAdministrativo.class && !assistentesAdministrativos.isEmpty()) {
+                assistentesAdministrativos.remove(pessoa);
+            }
+            else if(pessoa.getClass() == Dentista.class && !dentistas.isEmpty()) {
+                dentistas.remove(pessoa);
+            }
+            else if(pessoa.getClass() == AssistenteDentista.class && !assistentesDentistas.isEmpty()) {
+                assistentesDentistas.remove(pessoa);
+
+            }
+            else if(pessoa.getClass() == Recepcionista.class && !recepcionistas.isEmpty()) {
+                recepcionistas.remove(pessoa);
+
+            }
+            else if(pessoa.getClass() == Cliente.class && !clientes.isEmpty()) {
+                clientes.remove(pessoa);
+            }
+        } catch (Exception e){
+            System.err.println("Não foi possivel deletar a pessoa");
         }
     }
-    // DELETA UM DENTISTA
-    private void deleteDentista(Dentista dentista){
-        if(!dentistas.isEmpty()) {
-            dentistas.remove(dentista);
-        }
-    }
-    // DELETA UM ASSISTENTE DE DENTISTA
-    private void deleteAssistenteDentista(AssistenteDentista assistenteDentista) {
-        if(!assistentesDentistas.isEmpty()) {
-            assistentesDentistas.remove(assistenteDentista);
-        }
-    }
-    // DELETA UM RECEPCIONISTA
-    private void deleteRecepcionista(Recepcionista recepcionista) {
-        if(!recepcionistas.isEmpty()) {
-            recepcionistas.remove(recepcionista);
-        }
-    }
-    // DELETA UM CLIENTE
-    private void deleteCliente(Cliente cliente) {
-        if(!clientes.isEmpty()) {
-            clientes.remove(cliente);
-        }
-    }
-    
     
     // FAZ A LEITURA DOS DADOS DURANTE O CADASTRO
-    private void lerDados(String nome, int dataNascimento){
-        Scanner input = new Scanner(System.in);
+    private void lerDados(String nome, String sobrenome, String endereco, String email, 
+            String CPF, String RG, String telefone, String dataNascimento, 
+            double salario, int cargaHoraria, int cargo) {
         
-        boolean valida;
+        Scanner input = new Scanner(System.in); 
+        boolean valida = true;
         do {
-            valida = true;
-
             System.out.print("Nome: ");
             nome = input.nextLine();
             
             for(char i : nome.toCharArray()) {
                 if (!Character.isLetter(i)) {
-                    System.out.println("Nome possui caracteres inválidos");
+                    System.err.println("Nome possui caracteres inválidos");
                     valida = false;
                 }
             }
@@ -184,14 +186,8 @@ public class Administrador extends Funcionario {
         // IDADE
         do { 
             valida = true;
-            System.out.print("Idade: ");
-            dataNascimento = input.nextInt();
-            
-            if (idade < 18 || idade > 90) {
-                System.out.println("Idade Mínima: 18 anos");
-                System.out.println("Idade Máxima: 90 anos");
-                valida = false;
-            }
+            dataNascimento = input.nextLine();
+            /*VERIFICAR IDADE AQUI*/
         } while (valida != true);
 
         // CARGO
@@ -216,12 +212,9 @@ public class Administrador extends Funcionario {
             System.out.print("Salario: ");
             salario = input.nextInt();
             
-            if (salario < 1100) {
-                System.out.println("Salário mínimo: R$1100,00");
-                valida = false;
-            }
-            else if (salario > 30000) {
-                System.out.println("Salário máximo: R$30.000,00");
+            if (salario < 1100 || salario > 30000) {
+                System.err.println("Salário mínimo: R$1100,00");
+                System.err.println("Salário máximo: R$30.000,00");
                 valida = false;
             }
         } while (valida != true);
@@ -233,16 +226,14 @@ public class Administrador extends Funcionario {
             System.out.print("Carga Horaria: ");
             cargaHoraria = input.nextInt();
             
-            if(cargaHoraria < 6) {
-                System.out.print("Carga Horária Mínima: 6 horas");
-                valida = false;
-            }
-            else if (cargaHoraria > 12) {
-                System.out.println("Carga Horária Máxima: 12 horas");
+            if(cargaHoraria < 6 || cargaHoraria > 12) {
+                System.err.print("Carga Horária Mínima: 6 horas");
+                System.err.println("Carga Horária Máxima: 12 horas");
                 valida = false;
             }
         } while (valida != true);
     }
+    
     // GERA O RELATORIO
     private void gerarRelatorio(){}
     // MOSTRA O MENU DE OPÇÕES DO SISTEMA
@@ -255,16 +246,6 @@ public class Administrador extends Funcionario {
         List<Cliente> cliente;
 
         int comando;
-
-
-        File arqContas, arqConsultas, arqSalarios, arqFolhaDePonto;
-        if((arqConsultas = fopen ("Consultas.txt", "w")) == null 
-                || (arqContas = fopen("Contas.txt", "w")) == null
-                || (arqSalarios = fopen("Salarios.txt", "w")) == null 
-                || (arqFolhaDePonto = fopen ("FolhaDePonto.txt", "w")) == null) {
-            System.err.println("Falha ao abrir arquivo");
-            System.exit(0);
-        }
 
         while(true) {
             System.out.println("------------MENU------------");
@@ -280,7 +261,7 @@ public class Administrador extends Funcionario {
 
             switch(comando) {
                 case 01: {
-                    agenda.abrirAgenda(dentista);
+                    agenda.abrirAgenda();
                     break;
                 }
                 case 02: {
@@ -292,7 +273,7 @@ public class Administrador extends Funcionario {
                             cliente = i.getCliente();
                         }
                     }
-                    consulta.receberConsulta(arqConsultas, cliente);
+                    consulta.receberConsulta();
                     break;
                 }
                 case 03: {            
@@ -306,51 +287,66 @@ public class Administrador extends Funcionario {
                 }
                 // CADASTRA UM NOVO FUCIONARIO
                 case 05: {
-                    string nome;
-                    int idade, cargaHoraria, cargo;
-                    double salario;
-                    leDados(nome, idade, salario, cargaHoraria, cargo);
+                    String nome = "", sobrenome = "", endereco = "", email = "", 
+                            CPF = "", RG = "", telefone = "", dataNascimento = "";
+                    int cargaHoraria = 0, cargo = 0;
+                    double salario = 0.0;
+                    lerDados(nome, sobrenome, endereco, email, CPF, RG, telefone, 
+                            dataNascimento, salario, cargaHoraria, cargo);
 
-                    try {
-                        // CADASTRA UM ADMINISTRADOR
-                        if (cargo == 01) {
-                            administradores.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                    // CADASTRA UM ADMINISTRADOR
+                    switch(cargo){
+                        case 1:{
+                            administradores.add(createPessoa(nome, sobrenome, 
+                                    endereco, email, CPF, RG, telefone, dataNascimento, 
+                                    salario, cargaHoraria, cargo));
+                            break;
                         }
                         // CADASTRA UM ASSISTENTE ADMINISTRATIVO
-                        else if (cargo == 02) {
-                            assistentesAdministrativos.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        case 2:{
+                            assistentesAdministrativos.add(createPessoa(nome, 
+                                    sobrenome, endereco, email, CPF, RG, telefone, 
+                                    dataNascimento, salario, cargaHoraria, cargo));
+                            break;
                         }
                         // CADASTRA UM DENTISTA
-                        else if (cargo == 03) {
-                            dentistas.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        case 3:{
+                            dentistas.add(createPessoa(nome, sobrenome, 
+                                    endereco, email, CPF, RG, telefone, 
+                                    dataNascimento, salario, 
+                                    cargaHoraria, cargo));
+                            break;
                         }
                         // CADASTRA UM ASSISTENTE DE DENTISTA
-                        else if (cargo == 04) {
-                            assistentesDentistas.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        case 4:{
+                            assistentesDentistas.add(createPessoa(nome, sobrenome, 
+                                    endereco, email, CPF, RG, telefone, dataNascimento, 
+                                    salario, cargaHoraria, cargo));
+                            break;
                         }
                         // CADASTRA UM RECEPCIONISTA
-                        else {
-                            recepcionistas.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        case 5:{
+                            recepcionistas.add(createPessoa(nome, sobrenome, 
+                                    endereco, email, CPF, RG, telefone, dataNascimento, 
+                                    salario, cargaHoraria, cargo));
+                            break;
                         }
-
-                        System.out.println("Cadastro realizado com sucesso");
-                        System.out.println("Redirecionando para o menu...");
-                    } catch (Exception e){
-                        System.err.println("Erro no cadastro do funcionario");
+                        default:{
+                            System.err.println("Erro no cadastro do funcionario");
+                            break;
+                        }
                     }
-                    break;
+                    System.out.println("Cadastro realizado com sucesso");
+                    System.out.println("Redirecionando para o menu...");
                 }
                 case 00: {
-                    fclose (arqConsultas);
-                    fclose (arqSalarios);
-                    fclose (arqContas);
-                    fclose (arqFolhaDePonto);
                     System.out.println("ENCERRANDO SESSÃO...");
                     System.exit(1);
                 }
             }
         }
     }
+    
     // RETORNA A FOLHA DE PONTO DE UM DETERMINADO FUNCIONARIO
     private void folhaDePonto(){
         Scanner input= new Scanner(System.in);
@@ -398,18 +394,18 @@ public class Administrador extends Funcionario {
                 System.out.print("Deseja salvar? S ou N");
                 salvar = input.next().charAt(0);
 
-                if (salvar == 'S') {
-                    //Jogando tudo isso para um arquivo
-                    //File arquivo = new File("file.txt");
-                    //fprintf (arquivo, "%s \t %d%c%d%c%d \t %s", i, dia, barra, mes, barra, ano, obs);
-                    return;
-                }
-                else if (salvar == 'N') {
-                    return;
-                }
-                else {
-                    System.err.println("Opcao invalida");
-                    return;
+                switch(salvar){
+                    case 'S': {
+                        System.out.println("Salvo com sucesso");
+                        return;
+                    }
+                    case 'N': {
+                        return;
+                    }
+                    default: {
+                        System.err.println("Opcao invalida");
+                        return;
+                    }
                 }
            }
         }

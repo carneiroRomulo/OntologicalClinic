@@ -60,4 +60,6 @@ public class Consulta {
         this.anoPagamento = anoPagamento;
     }
     
+    // RECEBER CONSULTA
+    public void receberConsulta() {}   
 }

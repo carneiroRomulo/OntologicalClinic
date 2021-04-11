@@ -64,7 +64,7 @@ public class Agenda {
     }
     
     //ABRE A AGENDA DE UM DETERMINADO DENTISTA
-    public void abrirAgenda(List<Dentista> dentista){}
+    public void abrirAgenda(){}
     // EDITA A AGENDA DE UM DETERMINADO DENTISTA
-    public void editarAgenda(List<Dentista> dentista){}
+    public void editarAgenda(){}
 }
