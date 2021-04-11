@@ -264,7 +264,6 @@ public class Administrador extends Funcionario {
         setCargo(emprego);
     }
 
-    /*
     // REMOVE UM ADMINISTRADOR
     private void deleteAdmin(Administrador administrador){
         if(administradores.isEmpty()) {
@@ -304,7 +303,7 @@ public class Administrador extends Funcionario {
     
     // GERA O RELATORIO
     private void gerarRelatorio(){}
-    */
+
     // MOSTRA O MENU DE OPÇÕES DO SISTEMA
     protected void mostrarMenu(){
         Scanner input = new Scanner(System.in);
@@ -478,14 +477,10 @@ public class Administrador extends Funcionario {
             chave = input.nextLine();
             
             for(Administrador i : administradores){
-                try {
-                    if(acesso.equals(i.getLogin()) || chave.equals(i.getSenha())) {
-                        System.out.printf("Bem vindo ", i.getNome());
-                        mostrarMenu();
-                    }
-                } catch (Exception e ){
-                    System.err.println("Acesso inválido, por favor tente novamente");
-                }
+                if(acesso.equals(i.getLogin()) || chave.equals(i.getSenha())) {
+                    System.out.printf("Bem vindo ", i.getNome());
+                    mostrarMenu();
+                } else System.err.println("Acesso inválido, por favor tente novamente");
             }
         }
     }

@@ -9,7 +9,7 @@ public class Clinica {
 
     // CONTRUTOR VAZIO
     public Clinica() {
-        this.nomeEmpresa = "Curral";
+        this.nomeEmpresa = "CLINICA CURRAL";
         this.endereco = "Rua Qualquer, nº 22";
         this.cnpj = "12121212121";
         this.telefone = "3333-3333";
