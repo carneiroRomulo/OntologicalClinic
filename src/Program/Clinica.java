@@ -8,7 +8,13 @@ public class Clinica {
     private String email;
 
     // CONTRUTOR VAZIO
-    public Clinica() {}
+    public Clinica() {
+        this.nomeEmpresa = "Curral";
+        this.endereco = "Rua Qualquer, nº 22";
+        this.cnpj = "12121212121";
+        this.telefone = "3333-3333";
+        this.email = "curral@contato.com";
+    }
 
     public Clinica(String nomeEmpresa, String endereco, String cnpj, String telefone, String email) {
         this.nomeEmpresa = nomeEmpresa;

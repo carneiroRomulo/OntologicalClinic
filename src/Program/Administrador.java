@@ -14,7 +14,10 @@ public class Administrador extends Funcionario {
     private List<Cliente> clientes;
 
     // CONSTRUTOR VAZIO
-    public Administrador() {}
+    public Administrador(String login, String senha) {
+        this.login = "admin";
+        this.senha = "admin";
+    }
 
     public Administrador(String login, String senha, List<Administrador> administradores, 
             List<AssistenteAdministrativo> assistentesAdministrativos, 
@@ -109,8 +112,7 @@ public class Administrador extends Funcionario {
     // CRIA UMA PESSOA GENÉRICA
     public <G> void createPessoa(String nome, String endereco, 
             String email, String CPF, String RG,String telefone, 
-            String dataNascimento, double salario, int cargaHoraria, int cargo,
-            String login, String senha){
+            String dataNascimento, double salario, int cargaHoraria, int cargo){
         this.setNome(nome);
         this.setEndereco(endereco);
         this.setEmail(email);
@@ -121,8 +123,6 @@ public class Administrador extends Funcionario {
         this.setSalario(salario);
         this.setCargaHoraria(cargaHoraria);
         this.setCargo(cargo);
-        this.setLogin(login);
-        this.setSenha(senha);
     }
 
     /* DELETE */
@@ -246,7 +246,111 @@ public class Administrador extends Funcionario {
     // GERA O RELATORIO
     private void gerarRelatorio(){}
     // MOSTRA O MENU DE OPÇÕES DO SISTEMA
-    protected void mostrarMenu(){}
+    protected void mostrarMenu(){
+        Scanner input = new Scanner(System.in);
+        
+        Agenda agenda = new Agenda();
+        Consulta consulta = new Consulta();
+        Contas conta = new Contas();
+        List<Cliente> cliente;
+
+        int comando;
+
+
+        File arqContas, arqConsultas, arqSalarios, arqFolhaDePonto;
+        if((arqConsultas = fopen ("Consultas.txt", "w")) == null 
+                || (arqContas = fopen("Contas.txt", "w")) == null
+                || (arqSalarios = fopen("Salarios.txt", "w")) == null 
+                || (arqFolhaDePonto = fopen ("FolhaDePonto.txt", "w")) == null) {
+            System.err.println("Falha ao abrir arquivo");
+            System.exit(0);
+        }
+
+        while(true) {
+            System.out.println("------------MENU------------");
+            System.out.println("01 - Acessar agenda");
+            System.out.println("02 - Receber Consulta");
+            System.out.println("03 - Pagamento de Contas");
+            System.out.println("04 - Mostrar Folha de Ponto");
+            System.out.println("05 - Cadastrar novo Usuário");
+            System.out.println("00 - Fechar Sistema");
+
+            System.out.print("Digite uma opcao: ");
+            comando = input.nextInt();
+
+            switch(comando) {
+                case 01: {
+                    agenda.abrirAgenda(dentista);
+                    break;
+                }
+                case 02: {
+                    System.out.print("Com qual dentista é a consulta? ");
+                    String nome = input.nextLine();
+
+                    for (Dentista i : dentistas) {
+                        if (nome.equals(i.getNome())) {
+                            cliente = i.getCliente();
+                        }
+                    }
+                    consulta.receberConsulta(arqConsultas, cliente);
+                    break;
+                }
+                case 03: {            
+                    conta.pagamentoContas();
+                    break;
+                }
+                // MOSTRA A FOLHA DE PONTO DE UM DETERMINADO FUNCIONARIO
+                case 04: {
+                    folhaDePonto();
+                    break;
+                }
+                // CADASTRA UM NOVO FUCIONARIO
+                case 05: {
+                    string nome;
+                    int idade, cargaHoraria, cargo;
+                    double salario;
+                    leDados(nome, idade, salario, cargaHoraria, cargo);
+
+                    try {
+                        // CADASTRA UM ADMINISTRADOR
+                        if (cargo == 01) {
+                            administradores.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        }
+                        // CADASTRA UM ASSISTENTE ADMINISTRATIVO
+                        else if (cargo == 02) {
+                            assistentesAdministrativos.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        }
+                        // CADASTRA UM DENTISTA
+                        else if (cargo == 03) {
+                            dentistas.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        }
+                        // CADASTRA UM ASSISTENTE DE DENTISTA
+                        else if (cargo == 04) {
+                            assistentesDentistas.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        }
+                        // CADASTRA UM RECEPCIONISTA
+                        else {
+                            recepcionistas.add(createPessoa(nome, idade, salario, cargaHoraria, cargo));
+                        }
+
+                        System.out.println("Cadastro realizado com sucesso");
+                        System.out.println("Redirecionando para o menu...");
+                    } catch (Exception e){
+                        System.err.println("Erro no cadastro do funcionario");
+                    }
+                    break;
+                }
+                case 00: {
+                    fclose (arqConsultas);
+                    fclose (arqSalarios);
+                    fclose (arqContas);
+                    fclose (arqFolhaDePonto);
+                    System.out.println("ENCERRANDO SESSÃO...");
+                    System.exit(1);
+                }
+            }
+        }
+    }
     // RETORNA A FOLHA DE PONTO DE UM DETERMINADO FUNCIONARIO
     private void folhaDePonto(){
         Scanner input= new Scanner(System.in);
@@ -313,5 +417,29 @@ public class Administrador extends Funcionario {
     }
     
     // ACESSAR O SISTEMA
-    protected void acessarSistema(){}
+    public void acessarSistema(Administrador admin){
+        Scanner input = new Scanner(System.in);
+        Clinica clinica = new Clinica();
+        String login, senha;
+
+        System.out.printf("--------------CLINICA ", clinica.getNomeEmpresa(),"--------------\n");
+
+        while(true) {
+            System.out.print("Login: ");
+            login = input.nextLine();
+            System.out.print("Senha: ");
+            senha = input.nextLine();
+            
+            for(Administrador i : administradores){
+                try {
+                    if(login.equals(i.getLogin()) || senha.equals(i.getSenha())) {
+                        System.out.printf("Bem vindo ", i.getNome());
+                        mostrarMenu();
+                    }
+                } catch (Exception e ){
+                    System.err.println("Acesso inválido, por favor tente novamente");
+                }
+            }
+        }
+    }
 }
