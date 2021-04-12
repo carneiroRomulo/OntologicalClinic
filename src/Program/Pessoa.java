@@ -8,14 +8,14 @@ public class Pessoa {
     private String CPF;
     private String RG;
     private String telefone;
-    private String dataNascimento;
+    private int idade;
     
 
     // CONSTRUTOR VAZIO
     public Pessoa() {}
 
     public Pessoa(String nome, String sobrenome, String endereco, String email, String CPF, String RG, 
-            String telefone, String dataNascimento) {
+            String telefone, int idade) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.endereco = endereco;
@@ -23,7 +23,7 @@ public class Pessoa {
         this.CPF = CPF;
         this.RG = RG;
         this.telefone = telefone;
-        this.dataNascimento = dataNascimento;
+        this.idade = idade;
     }
 
     /* GETTERS */
@@ -56,8 +56,8 @@ public class Pessoa {
         return telefone;
     }
     // RETORNA A DATA DE NASCIMENTO DA PESSOA
-    public String getDataNascimento() {
-        return dataNascimento;
+    public int getIdade() {
+        return idade;
     }
 
     /* SETTERS */
@@ -90,7 +90,7 @@ public class Pessoa {
         this.telefone = telefone;
     }
     // ALTERA A DATA DE NASCIMENTO DA PESSOA
-    protected void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    protected void setIdade(int idade) {
+        this.idade = idade;
     }
 }

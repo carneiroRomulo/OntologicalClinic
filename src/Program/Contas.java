@@ -77,7 +77,7 @@ public class Contas {
         conta.tipo = input.nextLine();
         conta.setTipo(conta.tipo);
         
-        System.out.print("Data de vencimento? No seguinte formato dd/mm/yyyy: ");
+        System.out.print("Data de vencimento (dd/mm/yyyy)? ");
         conta.dataVencimento = input.nextLine();
         conta.setDataVencimento(conta.dataVencimento);
         
@@ -90,7 +90,7 @@ public class Contas {
 
         //VERIFICA SE DESEJA REALIZAR O PAGAMENTO
         char opcao;
-        System.out.println("Deseja realizar o pagamento? S ou N");
+        System.out.print("Deseja realizar o pagamento (S/N)? ");
         opcao = input.next().charAt(0);
         
         if (opcao == 'S') {  
@@ -112,7 +112,7 @@ public class Contas {
                     setValor(conta.valor);
                     System.out.println ("\nA conta está vencida, será acrescido uma multa de 3% no valor da conta. \nNovo valor: " + conta.valor);
                     
-                    System.out.println("Deseja realizar o pagamento? S ou N");
+                    System.out.print("Deseja realizar o pagamento (S/N)? ");
                     opcao = input.next().charAt(0);
         
                     if (opcao == 'S') {

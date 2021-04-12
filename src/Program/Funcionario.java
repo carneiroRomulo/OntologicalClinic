@@ -8,8 +8,8 @@ public class Funcionario extends Pessoa {
     // CONSTRUTOR VAZIO
     public Funcionario() {}
 
-    public Funcionario(double salario, int cargaHoraria, int cargo, String nome, String sobrenome, String endereco, String email, String CPF, String RG, String telefone, String dataNascimento) {
-        super(nome, sobrenome, endereco, email, CPF, RG, telefone, dataNascimento);
+    public Funcionario(double salario, int cargaHoraria, int cargo, String nome, String sobrenome, String endereco, String email, String CPF, String RG, String telefone, int idade) {
+        super(nome, sobrenome, endereco, email, CPF, RG, telefone, idade);
         this.salario = salario;
         this.cargaHoraria = cargaHoraria;
         this.cargo = cargo;

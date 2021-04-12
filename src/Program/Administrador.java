@@ -17,9 +17,9 @@ public class Administrador extends Funcionario {
     
     public Administrador() {}
 
-    public Administrador(List<Administrador> administradores, List<AssistenteAdministrativo> assistentesAdministrativos, List<Dentista> dentistas, List<AssistenteDentista> assistentesDentistas, List<Recepcionista> recepcionistas, List<Cliente> clientes, double salario, int cargaHoraria, int cargo, String nome, String sobrenome, String endereco, String email, String CPF, String RG, String telefone, String dataNascimento) {
+    public Administrador(List<Administrador> administradores, List<AssistenteAdministrativo> assistentesAdministrativos, List<Dentista> dentistas, List<AssistenteDentista> assistentesDentistas, List<Recepcionista> recepcionistas, List<Cliente> clientes, double salario, int cargaHoraria, int cargo, String nome, String sobrenome, String endereco, String email, String CPF, String RG, String telefone, int idade) {
         super(salario, cargaHoraria, cargo, nome, sobrenome, endereco, email, 
-                CPF, RG, telefone, dataNascimento);
+                CPF, RG, telefone, idade);
         this.login = "admin";
         this.senha = "admin";
         this.administradores = administradores;
@@ -329,7 +329,7 @@ public class Administrador extends Funcionario {
 
             switch(comando) {
                 case 01: {
-                    agenda.abrirAgenda();
+                    //agenda.abrirAgenda();
                     break;
                 }
                 case 02: {
