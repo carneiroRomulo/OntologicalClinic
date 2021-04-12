@@ -1,32 +1,28 @@
 package Program;
+import java.text.DateFormat;
 import java.util.Scanner;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Contas {
     private double valor;
     String tipo;
-
-    private int diaVencimento;
-    private int mesVencimento;
-    private int anoVencimento;
-    
-    private int diaPagamento;
-    private int mesPagamento;
-    private int anoPagamento;
+   String dataVencimento;
+   String dataPagamento;
     
 
     // CONTRUTOR VAZIO
     public Contas() {}
 
-    public Contas(double valor, int diaVencimento, int mesVencimento, 
-            int anoVencimento, int diaPagamento, int mesPagamento, 
-            int anoPagamento, String tipo) {
+    public Contas(double valor, String dataVencimento, String dataPagamento, String tipo) {
         this.valor = valor;
-        this.diaVencimento = diaVencimento;
-        this.mesVencimento = mesVencimento;
-        this.anoVencimento = anoVencimento;
-        this.diaPagamento = diaPagamento;
-        this.mesPagamento = mesPagamento;
-        this.anoPagamento = anoPagamento;
+        this.dataVencimento = dataVencimento;
+        this.dataPagamento = dataPagamento;
         this.tipo = tipo;
     }
 
@@ -35,30 +31,15 @@ public class Contas {
     public double getValor() {
         return valor;
     }
-    // RETORNA O DIA DO VENCIMENTO DA CONTA
-    public int getDiaVencimento() {
-        return diaVencimento;
+    // RETORNA A DATA DO VENCIMENTO DA CONTA
+    public String getDataVencimento () {
+        return dataVencimento;
     }
-    // RETORNA O MES DO VENCIMENTO DA CONTA
-    public int getMesVencimento() {
-        return mesVencimento;
+    // RETORNA A DATA DO PAGAMENTO DA CONTA
+    public String getDataPagamento() {
+        return dataPagamento;
     }
-    // RETORNA O ANO DO VENCIMENTO DA CONTA
-    public int getAnoVencimento() {
-        return anoVencimento;
-    }
-    // RETORNA O DIA DO PAGAMENTO DA CONTA
-    public int getDiaPagamento() {
-        return diaPagamento;
-    }
-    // RETORNA O MES DO PAGAMENTO DA CONTA
-    public int getMesPagamento() {
-        return mesPagamento;
-    }
-    // RETORNA O ANO DO PAGAMENTO DA CONTA
-    public int getAnoPagamento() {
-        return anoPagamento;
-    }
+
     // RETORNA O TIPO DE CONTA
     public String getTipo() {
         return tipo;
@@ -69,66 +50,107 @@ public class Contas {
     protected void setValor(double valor) {
         this.valor = valor;
     }
-    // ALTERA O DIA DO VENCIMENTO DA CONTA
-    protected void setDiaVencimento(int diaVencimento) {
-        this.diaVencimento = diaVencimento;
+    // ALTERA A DATA DO VENCIMENTO DA CONTA
+    protected void setDataVencimento (String dataVencimento) {
+        this.dataVencimento = dataVencimento;
     }
-    // ALTERA O MES DO VENCIMENTO DA CONTA
-    protected void setMesVencimento(int mesVencimento) {
-        this.mesVencimento = mesVencimento;
+    
+    // ALTERA A DATA DO PAGAMENTO DA CONTA
+    protected void setDataPagamento (String dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
-    // ALTERA O ANO DO VENCIMENTO DA CONTA
-    protected void setAnoVencimento(int anoVencimento) {
-        this.anoVencimento = anoVencimento;
-    }
-    // ALTERA O DIA DO PAGAMENTO DA CONTA
-    protected void setDiaPagamento(int diaPagamento) {
-        this.diaPagamento = diaPagamento;
-    }
-    // ALTERA O MES DO PAGAMENTO DA CONTA
-    protected void setMesPagamento(int mesPagamento) {
-        this.mesPagamento = mesPagamento;
-    }
-    // ALTERA O ANO DO PAGAMENTO DA CONTA
-    protected void setAnoPagamento(int anoPagamento) {
-        this.anoPagamento = anoPagamento;
-    }
+ 
     // ALTERA O TIPO DE CONTA
     protected void setTipo(String tipo) {
         this.tipo = tipo;
     }
     
+    //REALIZA O PAGAMENTO DAS CONTAS
     protected void pagamentoContas() {
         Scanner input = new Scanner(System.in);
         
         Contas conta = new Contas();
+        //CARACTERES AUXILIARES PARA FAZER LEITURA DA BARRA NA DATA
         char barra1, barra2;
         
         System.out.print("Qual conta deseja pagar? ");
         conta.tipo = input.nextLine();
+        conta.setTipo(conta.tipo);
         
-        System.out.print("Data de vencimento? No seguinte formato dia/mes/ano: ");
-        conta.setDiaVencimento(input.nextInt());
-        barra1 = input.next().charAt(0);
-        conta.setMesVencimento(input.nextInt());
-        barra2 = input.next().charAt(0);
-        conta.setAnoVencimento(input.nextInt());
+        System.out.print("Data de vencimento? No seguinte formato dd/mm/yyyy: ");
+        conta.dataVencimento = input.nextLine();
+        conta.setDataVencimento(conta.dataVencimento);
         
         System.out.print("Valor: ");
-        conta.setValor(input.nextInt());
+        conta.valor = input.nextDouble();
+        conta.setValor(conta.valor);
+        
+        //USADO PARA PEGAR A DATA DE PAGAMENTO DIRETO DO SISTEMA
+        Date data = new Date(); 
 
-        //VERIFICAR SE DESEJA REALIZAR O PAGAMENTO
+        //VERIFICA SE DESEJA REALIZAR O PAGAMENTO
         char opcao;
         System.out.println("Deseja realizar o pagamento? S ou N");
         opcao = input.next().charAt(0);
         
-        if (opcao == 'S') { 
-            conta.setDiaPagamento(diaPagamento);
-            conta.setMesPagamento(mesPagamento);
-            conta.setAnoPagamento(anoPagamento);
+        if (opcao == 'S') {  
+            try {
+                //PEGA A DATA NO INSTANTE DO PAGAMENTO E COLOCA A DATA EM FORMATO DD/MM/AA 
+                String formatoData = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(data);
+                conta.setDataPagamento(formatoData);
+                
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                Date dataP = formato.parse(conta.dataPagamento);
+                Date dataV = formato.parse(conta.dataVencimento);
+                //COMPARA SE A CONTA ESTÁ VENCIDA (DATA DE PAGAMENTO É ANTERIOR A DATA DE VENCIMENTO)
+                if (dataP.before(dataV)) {
+                    System.out.println ("A data de pagamento foi: " + conta.dataPagamento);
+                }
+                else {
+                    //ADICIONA UM PERCENTUAL DE 3% DE MULTA PELO ATRASO
+                    conta.valor = conta.valor + (conta.valor * 0.03);
+                    setValor(conta.valor);
+                    System.out.println ("\nA conta está vencida, será acrescido uma multa de 3% no valor da conta. \nNovo valor: " + conta.valor);
+                    
+                    System.out.println("Deseja realizar o pagamento? S ou N");
+                    opcao = input.next().charAt(0);
+        
+                    if (opcao == 'S') {
+                        System.out.println ("A data de pagamento foi: " + conta.dataPagamento);
+                    } 
+                    else {
+                        System.out.println("A conta não foi paga");
+                    }
+                }
+                
+                //CRIA UM ARQUIVO PARA JOGAR OS DADOS DAS CONTAS PAGAS
+                File arq = new File ("Contas.txt");
+                try { 
+                    arq.createNewFile();
+                    
+                    //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                    //O 2º PARÂMETRO SENDO NEGATIVO, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                    FileWriter fileWriter = new FileWriter (arq,false);
+                    
+                    //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                    PrintWriter printWriter = new PrintWriter (fileWriter);
+                    printWriter.print(conta.getTipo());
+                    printWriter.print("\t" + conta.getValor());
+                    printWriter.print("\t" + conta.getDataPagamento());
+                    
+                    //LIBERA A ESCRITA NO ARQUIVO
+                    printWriter.flush();
+                    
+                    //FECHA O ARQUIVO
+                    printWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+           } catch (ParseException ex) {}
         }
         else {
-            System.out.println("Não foi paga");
+            System.out.println("A conta não foi paga");
         }
     }
 }
+

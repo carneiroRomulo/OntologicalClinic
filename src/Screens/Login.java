@@ -11,7 +11,7 @@ public class Login extends JFrame{
 
     public Login(){
         Clinica clinica = new Clinica();
-        ImageIcon image = new ImageIcon("apple.png");
+        ImageIcon image = new ImageIcon("flamengo.png");
 
         JLabel label = new JLabel(); // create a label
         label.setText("UFOP"); // set text of label
