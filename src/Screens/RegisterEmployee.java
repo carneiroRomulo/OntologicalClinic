@@ -179,7 +179,7 @@ public class RegisterEmployee extends JFrame{
             String password = String.copyValueOf(passwordField.getPassword());
             String confirmPassword = String.copyValueOf(confirmPasswordField.getPassword());
             if(event.getSource() == registerButton){
-                // Validate password
+                // Valida a senha
                 if(confirmPassword.equals(password) && !(confirmPassword.length() < 6)){
                     pageLabel.setText("Deu certo");
                 }
@@ -187,7 +187,14 @@ public class RegisterEmployee extends JFrame{
                     pageLabel.setText("Deu errado");
                 }
                 
+                // Valida a idade
+                if(ageButton.getSelectedItem() == "") {
+                    pageLabel.setText("Selecione uma idade válida");
+                }
+                else {
+                }
             }
+                
             if(event.getSource() == backButton) {
                 Menu menu = new Menu("admin");
                 dispose();

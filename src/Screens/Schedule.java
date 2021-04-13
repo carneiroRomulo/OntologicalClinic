@@ -35,7 +35,7 @@ public class Schedule extends JFrame{
         pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
         
-        String[] dentists = {"Joao", "Maria", "Fernando", "Luis"};
+        String[] dentists = {"", "Joao", "Maria", "Fernando", "Luis"};
         dentistsButton = new JComboBox(dentists);
         dentistsLabel = new JLabel("Dentistas");
         dentistsButton.setBounds(250, 100, 300, 20);
@@ -150,7 +150,12 @@ public class Schedule extends JFrame{
                 }
             }
             if(event.getSource() == editButton) {
-                pageLabel.setText("EDITAR");
+                if(dentistsButton.getSelectedItem() == "") {
+                    pageLabel.setText("Selecione um dentista");
+                }
+                else {
+                    pageLabel.setText("EDITAR");
+                }
             }
             if(event.getSource() == backButton) {
                 Menu menu = new Menu("admin");
