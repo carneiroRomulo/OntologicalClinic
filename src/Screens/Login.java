@@ -15,12 +15,12 @@ import javax.swing.JTextField;
 
 public class Login extends JFrame{
     // login variables
-    private JLabel userLabel;
+    private JLabel usuarioLabel;
     private JTextField userTextField;
     
     //password variables
-    private JLabel passwordLabel;
-    private JPasswordField userPasswordField;
+    private JLabel senhaLabel;
+    private JPasswordField senhaField;
     
     private JButton loginButton;
     
@@ -29,29 +29,29 @@ public class Login extends JFrame{
     // o construtor adiciona JLabels ao JFrame
     public Login(){
         Clinica clinica = new Clinica();
-        setTitle(clinica.getNomeEmpresa()); // set the title of the frame
+        setTitle(clinica.getNomeEmpresa()); // define o titulo do programa
         
         userTextField = new JTextField(20);
         userTextField.setBounds(300, 200, 200, 20);
         add(userTextField);
-        userLabel = new JLabel("User");
-        userLabel.setToolTipText("Enter the user id");
-        userLabel.setBounds(300, 180, 150, 20);
-        add(userLabel); // adiciona o userLabel ao JFrame
+        usuarioLabel = new JLabel("User");
+        usuarioLabel.setToolTipText("Enter the user id");
+        usuarioLabel.setBounds(300, 180, 150, 20);
+        add(usuarioLabel); // adiciona o usuario ao JFrame
         
-        userPasswordField = new JPasswordField(20);
-        userPasswordField.setBounds(300, 250, 200, 20);
-        add(userPasswordField);
-        passwordLabel = new JLabel("Password");
-        passwordLabel.setToolTipText("Enter the password login");
-        passwordLabel.setBounds(300, 230, 150, 20);
-        add(passwordLabel); // adiciona o passwordLabel ao JFrame
+        senhaField = new JPasswordField(20);
+        senhaField.setBounds(300, 250, 200, 20);
+        add(senhaField);
+        senhaLabel = new JLabel("Password");
+        senhaLabel.setToolTipText("Enter the password login");
+        senhaLabel.setBounds(300, 230, 150, 20);
+        add(senhaLabel); // adiciona o senhaao JFrame
         
-        ValidateAcess validate = new ValidateAcess();
+        ValidarLogin handler = new ValidarLogin();
         loginButton = new JButton("Login");
         loginButton.setBounds(419, 280, 80, 20);
         loginButton.setFocusable(false);
-        loginButton.addActionListener(validate);
+        loginButton.addActionListener(handler);
         add(loginButton);
         
         warningLabel = new JLabel();
@@ -67,12 +67,12 @@ public class Login extends JFrame{
         setVisible(true); // exibe o frame
     }
     
-    private class ValidateAcess implements ActionListener {
+    private class ValidarLogin implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == loginButton) {
                 String userID = userTextField.getText();
-                String passwordID = String.copyValueOf(userPasswordField.getPassword());
+                String passwordID = String.copyValueOf(senhaField.getPassword());
                 if(userID.equals("admin")) {
                     if(passwordID.equals("admin")) {
                         dispose();
@@ -80,12 +80,12 @@ public class Login extends JFrame{
                     }
                     else {
                         warningLabel.setForeground(Color.red);
-                        warningLabel.setText("Acess Denied");
+                        warningLabel.setText("Acesso Negado");
                     }
                 }
                 else {
                     warningLabel.setForeground(Color.red);
-                    warningLabel.setText("Acess Denied");
+                    warningLabel.setText("Acesso Negado");
                 }
             }
         }

@@ -9,17 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class RegisterEmployee extends JFrame{
+public class RegistrarFuncionario extends JFrame{
     JLabel pageLabel;
     
-    JTextField nameTextField = new JTextField(20);
-    JLabel nameLabel = new JLabel("Nome");
+    JTextField nomeTextField = new JTextField(20);
+    JLabel nomeLabel = new JLabel("Nome");
     
-    JTextField lastNameTextField = new JTextField(20);
-    JLabel lastNameLabel = new JLabel("Sobrenome");
+    JTextField lastnomeTextField = new JTextField(20);
+    JLabel sobrenomeLabel = new JLabel("Sobrenome");
     
-    JTextField adressTextField = new JTextField(20);
-    JLabel adressLabel = new JLabel("Endereço");
+    JTextField enderecoTextField = new JTextField(20);
+    JLabel enderecoLabel = new JLabel("Endereço");
     
     JTextField emailTextField = new JTextField(20);
     JLabel emailLabel = new JLabel("E-mail");
@@ -30,16 +30,16 @@ public class RegisterEmployee extends JFrame{
     JTextField rgTextField = new JTextField(20);
     JLabel rgLabel = new JLabel("RG");
     
-    JTextField phoneTextField = new JTextField(20);
-    JLabel phoneLabel = new JLabel("Telefone");
+    JTextField telefoneTextField = new JTextField(20);
+    JLabel telefoneLabel = new JLabel("Telefone");
     
-    String[] ages = {"","18", "19", "20", "21", "22", "23","24","25","26","27","28","30",
+    String[] idades = {"","18", "19", "20", "21", "22", "23","24","25","26","27","28","30",
         "31", "32", "33", "34", "35", "36","37","38","39","40","41","42", "43", "44",
         "45", "46", "47", "48","49","50","51","52","53","54", "55", "56", "57", "58",
         "59", "60","61","62","63","64","65","66", "67", "68", "69", "70", "71", "72",
         "73","74","75","76","77","78", "79", "80"};
-    JComboBox ageButton = new JComboBox(ages);
-    JLabel ageLabel = new JLabel("Idade");
+    JComboBox idadeButton = new JComboBox(idades);
+    JLabel idadeLabel = new JLabel("Idade");
     
     JTextField salaryTextField = new JTextField(20);
     JLabel salaryLabel = new JLabel("Salário");
@@ -65,28 +65,28 @@ public class RegisterEmployee extends JFrame{
     JButton registerButton = new JButton("Registrar");
     JButton backButton = new JButton("Voltar");
     
-    public RegisterEmployee() {
+    public RegistrarFuncionario() {
         pageLabel = new JLabel("REGISTRAR FUNCIONARIO"); // titulo da tela
         pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
         
-        nameTextField.setBounds(250, 100, 150, 20);
-        add(nameTextField);
-        nameLabel.setToolTipText("Insira o nome");
-        nameLabel.setBounds(250, 80, 300, 20);
-        add(nameLabel); // adiciona o nameLabel ao JFrame
+        nomeTextField.setBounds(250, 100, 150, 20);
+        add(nomeTextField);
+        nomeLabel.setToolTipText("Insira o nome");
+        nomeLabel.setBounds(250, 80, 300, 20);
+        add(nomeLabel); // adiciona o nomeao JFrame
         
-        lastNameTextField.setBounds(400, 100, 150, 20);
-        add(lastNameTextField);
-        lastNameLabel.setToolTipText("Insira o sobrenome");
-        lastNameLabel.setBounds(400, 80, 150, 20);
-        add(lastNameLabel); // adiciona o lastNameLabel ao JFrame
+        lastnomeTextField.setBounds(400, 100, 150, 20);
+        add(lastnomeTextField);
+        sobrenomeLabel.setToolTipText("Insira o sobrenome");
+        sobrenomeLabel.setBounds(400, 80, 150, 20);
+        add(sobrenomeLabel); // adiciona o sobrenome ao JFrame
         
-        adressTextField.setBounds(250, 140, 300, 20);
-        add(adressTextField);
-        adressLabel.setToolTipText("Insira o endereço");
-        adressLabel.setBounds(250, 120, 300, 20);
-        add(adressLabel); // adiciona o adressLabel ao JFrame
+        enderecoTextField.setBounds(250, 140, 300, 20);
+        add(enderecoTextField);
+        enderecoLabel.setToolTipText("Insira o endereço");
+        enderecoLabel.setBounds(250, 120, 300, 20);
+        add(enderecoLabel); // adiciona o enderecoao JFrame
         
         emailTextField.setBounds(250, 180, 300, 20);
         add(emailTextField);
@@ -106,17 +106,17 @@ public class RegisterEmployee extends JFrame{
         rgLabel.setBounds(400, 200, 150, 20);
         add(rgLabel); // adiciona o rgLabel ao JFrame
         
-        phoneTextField.setBounds(250, 260, 150, 20);
-        add(phoneTextField);
-        phoneLabel.setToolTipText("Insira o telefone");
-        phoneLabel.setBounds(250, 240, 150, 20);
-        add(phoneLabel); // adiciona o phoneLabel ao JFrame
+        telefoneTextField.setBounds(250, 260, 150, 20);
+        add(telefoneTextField);
+        telefoneLabel.setToolTipText("Insira o telefone");
+        telefoneLabel.setBounds(250, 240, 150, 20);
+        add(telefoneLabel); // adiciona o telefoneao JFrame
         
-        ageButton.setBounds(400, 260, 150, 20);
-        add(ageButton);
-        ageLabel.setToolTipText("Insira a idade");
-        ageLabel.setBounds(400, 240, 150, 20);
-        add(ageLabel); // adiciona o ageLabel ao JFrame
+        idadeButton.setBounds(400, 260, 150, 20);
+        add(idadeButton);
+        idadeLabel.setToolTipText("Insira a idade");
+        idadeLabel.setBounds(400, 240, 150, 20);
+        add(idadeLabel); // adiciona o idadeao JFrame
         
         salaryTextField.setBounds(250, 300, 150, 20);
         add(salaryTextField);
@@ -188,7 +188,7 @@ public class RegisterEmployee extends JFrame{
                 }
                 
                 // Valida a idade
-                if(ageButton.getSelectedItem() == "") {
+                if(idadeButton.getSelectedItem() == "") {
                     pageLabel.setText("Selecione uma idade válida");
                 }
                 else {

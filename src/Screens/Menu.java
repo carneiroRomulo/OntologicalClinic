@@ -7,15 +7,15 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class Menu extends JFrame{
-    // variable that shows the logged user
+    // variavel que mostra o usuario logado
     JLabel userLabel;
     
-    JButton acessAgendaButton;
-    JButton appointmentButton;
-    JButton billPaymentButton;
-    JButton timeSheetButton;
-    JButton registerEmployeeButton;
-    JButton closeSystemButton;
+    JButton acessarAgendaButton;
+    JButton marcarConsultaButton;
+    JButton pagarContasButton;
+    JButton folhaDePontoButton;
+    JButton registrarFuncionarioButton;
+    JButton fecharSistemaButton;
 
     public Menu(String userID) {
         userLabel = new JLabel(userID);
@@ -23,73 +23,69 @@ public class Menu extends JFrame{
         add(userLabel); // add the userLabel to JFrame
         
         GoTo go = new GoTo();
-        acessAgendaButton = new JButton("Acessar Agenda");
-        acessAgendaButton.setBounds(250, 100, 300, 50);
-        acessAgendaButton.setFocusable(false);
-        acessAgendaButton.addActionListener(go);
-        add(acessAgendaButton);
+        acessarAgendaButton = new JButton("Acessar Agenda");
+        acessarAgendaButton.setBounds(250, 100, 300, 50);
+        acessarAgendaButton.setFocusable(false);
+        acessarAgendaButton.addActionListener(go);
+        add(acessarAgendaButton);
         
-        appointmentButton = new JButton("Marcar Consulta");
-        appointmentButton.setBounds(250, 160, 300, 50);
-        appointmentButton.setFocusable(false);
-        appointmentButton.addActionListener(go);
-        add(appointmentButton);
+        marcarConsultaButton = new JButton("Marcar Consulta");
+        marcarConsultaButton.setBounds(250, 160, 300, 50);
+        marcarConsultaButton.setFocusable(false);
+        marcarConsultaButton.addActionListener(go);
+        add(marcarConsultaButton);
         
-        billPaymentButton = new JButton("Pagamento de Contas");
-        billPaymentButton.setBounds(250, 220, 300, 50);
-        billPaymentButton.setFocusable(false);
-        billPaymentButton.addActionListener(go);
-        add(billPaymentButton);
+        pagarContasButton = new JButton("Pagamento de Contas");
+        pagarContasButton.setBounds(250, 220, 300, 50);
+        pagarContasButton.setFocusable(false);
+        pagarContasButton.addActionListener(go);
+        add(pagarContasButton);
         
-        timeSheetButton = new JButton("Folha de Ponto");
-        timeSheetButton.setBounds(250, 280, 300, 50);
-        timeSheetButton.setFocusable(false);
-        timeSheetButton.addActionListener(go);
-        add(timeSheetButton);
+        folhaDePontoButton = new JButton("Folha de Ponto");
+        folhaDePontoButton.setBounds(250, 280, 300, 50);
+        folhaDePontoButton.setFocusable(false);
+        folhaDePontoButton.addActionListener(go);
+        add(folhaDePontoButton);
         
-        registerEmployeeButton = new JButton("Registrar Funcionário");
-        registerEmployeeButton.setBounds(250, 340, 300, 50);
-        registerEmployeeButton.setFocusable(false);
-        registerEmployeeButton.addActionListener(go);
-        add(registerEmployeeButton);
+        registrarFuncionarioButton = new JButton("Registrar Funcionário");
+        registrarFuncionarioButton.setBounds(250, 340, 300, 50);
+        registrarFuncionarioButton.setFocusable(false);
+        registrarFuncionarioButton.addActionListener(go);
+        add(registrarFuncionarioButton);
         
-        closeSystemButton = new JButton("Fechar Sistema");
-        closeSystemButton.setBounds(250, 400, 300, 50);
-        closeSystemButton.setFocusable(false);
-        closeSystemButton.addActionListener(go);
-        add(closeSystemButton);
+        fecharSistemaButton = new JButton("Fechar Sistema");
+        fecharSistemaButton.setBounds(250, 400, 300, 50);
+        fecharSistemaButton.setFocusable(false);
+        fecharSistemaButton.addActionListener(go);
+        add(fecharSistemaButton);
         
         setTitle("CLINICA CURRAL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(800, 600); // ajust the size of the frame
+        setSize(800, 600); // ajusta o tamanho da tela
         setLayout(null);
-        setVisible(true); // show the frame
-    }
-
-    Menu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setVisible(true); // mostra a tela
     }
     
     private class GoTo implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
-            if(event.getSource() == acessAgendaButton) {
-                Schedule agenda = new Schedule();
+            if(event.getSource() == acessarAgendaButton) {
+                Agenda agenda = new Agenda();
             }
-            else if(event.getSource() == appointmentButton) {
-                Appointment appointment = new Appointment();
+            else if(event.getSource() == marcarConsultaButton) {
+                Consulta appointment = new Consulta();
             }
-            else if(event.getSource() == billPaymentButton) {
-                PayBills payBills = new PayBills();
+            else if(event.getSource() == pagarContasButton) {
+                Contas payBills = new Contas();
             }
-            else if(event.getSource() == timeSheetButton) {
-                TimeSheet timeSheet = new TimeSheet();
+            else if(event.getSource() == folhaDePontoButton) {
+                FolhaDePonto timeSheet = new FolhaDePonto();
             }
-            else if(event.getSource() == registerEmployeeButton) {
-                RegisterEmployee registerEmployee = new RegisterEmployee();
+            else if(event.getSource() == registrarFuncionarioButton) {
+                RegistrarFuncionario registerEmployee = new RegistrarFuncionario();
             }
-            else if(event.getSource() == closeSystemButton) {
+            else if(event.getSource() == fecharSistemaButton) {
                 dispose();
             }
             dispose();

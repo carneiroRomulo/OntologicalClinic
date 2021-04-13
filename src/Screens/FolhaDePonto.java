@@ -6,21 +6,21 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class TimeSheet extends JFrame{
-    JLabel pageLabel = new JLabel("FOLHA DE PONTO");
+public class FolhaDePonto extends JFrame{
+    JLabel paginaLabel = new JLabel("FOLHA DE PONTO");
     
-    JButton backButton = new JButton("Voltar");
+    JButton voltarButton = new JButton("Voltar");
 
-    public TimeSheet() {
-        pageLabel.setBounds(250, 40, 200, 20);
-        add(pageLabel); // adiciona o pageLabel ao JFrame
+    public FolhaDePonto() {
+        paginaLabel.setBounds(250, 40, 200, 20);
+        add(paginaLabel); // adiciona o paginaLabel ao JFrame
         
         
-        ValidateTimeSheet handler = new ValidateTimeSheet();
-        backButton.setBounds(250, 460, 150, 20);
-        backButton.setFocusable(false);
-        backButton.addActionListener(handler);
-        add(backButton);
+        ValidarFolhaDePonto handler = new ValidarFolhaDePonto();
+        voltarButton.setBounds(250, 460, 150, 20);
+        voltarButton.setFocusable(false);
+        voltarButton.addActionListener(handler);
+        add(voltarButton);
         
         setTitle("CLINICA CURRAL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,10 +30,10 @@ public class TimeSheet extends JFrame{
         setVisible(true); // show the frame
     }
  
-    private class ValidateTimeSheet implements ActionListener {
+    private class ValidarFolhaDePonto implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
-            if(event.getSource() == backButton) {
+            if(event.getSource() == voltarButton) {
                 Menu menu = new Menu("admin");
                 dispose();
             }

@@ -4,11 +4,11 @@
 
 package Program;
 import Screens.Menu;
-import Screens.RegisterClient;
+import Screens.RegistrarCliente;
 
 public class ClinicaOdontologica {
 
     public static void main(String[] args) {
-        RegisterClient person = new RegisterClient();
+        RegistrarCliente person = new RegistrarCliente();
     }
 }
