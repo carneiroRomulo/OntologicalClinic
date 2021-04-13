@@ -15,12 +15,12 @@ import javax.swing.JTextField;
 
 public class Login extends JFrame{
     // login variables
-    private JLabel userLable;
+    private JLabel userLabel;
     private JTextField userTextField;
     
     //password variables
-    private JLabel passwordLable;
-    private JTextField userPasswordField;
+    private JLabel passwordLabel;
+    private JPasswordField userPasswordField;
     
     private JButton loginButton;
     
@@ -34,24 +34,24 @@ public class Login extends JFrame{
         userTextField = new JTextField(20);
         userTextField.setBounds(300, 200, 200, 20);
         add(userTextField);
-        userLable = new JLabel("User");
-        userLable.setToolTipText("Enter the user id");
-        userLable.setBounds(300, 180, 150, 20);
-        add(userLable); // adiciona o userLable ao JFrame
+        userLabel = new JLabel("User");
+        userLabel.setToolTipText("Enter the user id");
+        userLabel.setBounds(300, 180, 150, 20);
+        add(userLabel); // adiciona o userLabel ao JFrame
         
         userPasswordField = new JPasswordField(20);
         userPasswordField.setBounds(300, 250, 200, 20);
         add(userPasswordField);
-        passwordLable = new JLabel("Password");
-        passwordLable.setToolTipText("Enter the password login");
-        passwordLable.setBounds(300, 230, 150, 20);
-        add(passwordLable); // adiciona o passwordLable ao JFrame
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setToolTipText("Enter the password login");
+        passwordLabel.setBounds(300, 230, 150, 20);
+        add(passwordLabel); // adiciona o passwordLabel ao JFrame
         
-        ValidateAcess see = new ValidateAcess();
+        ValidateAcess validate = new ValidateAcess();
         loginButton = new JButton("Login");
         loginButton.setBounds(419, 280, 80, 20);
         loginButton.setFocusable(false);
-        loginButton.addActionListener(see);
+        loginButton.addActionListener(validate);
         add(loginButton);
         
         warningLabel = new JLabel();
@@ -60,10 +60,6 @@ public class Login extends JFrame{
         add(warningLabel);
         
         
-        TextFieldHandler handler = new TextFieldHandler();
-        userTextField.addActionListener(handler);
-        userPasswordField.addActionListener(handler);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setSize(800, 600); // ajusta o tamanho do frame
@@ -76,11 +72,16 @@ public class Login extends JFrame{
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == loginButton) {
                 String userID = userTextField.getText();
-                String passwordID = String.valueOf(userPasswordField);
-                if(userID.equals("admin") || passwordID.equals("admin")){
-                    Menu menu = new Menu(userID);
-                    warningLabel.setText("");
-                    dispose();
+                String passwordID = String.copyValueOf(userPasswordField.getPassword());
+                if(userID.equals("admin")) {
+                    if(passwordID.equals("admin")) {
+                        dispose();
+                        Menu menu = new Menu(userID);
+                    }
+                    else {
+                        warningLabel.setForeground(Color.red);
+                        warningLabel.setText("Acess Denied");
+                    }
                 }
                 else {
                     warningLabel.setForeground(Color.red);
@@ -89,22 +90,5 @@ public class Login extends JFrame{
             }
         }
     }
-    // Classe interna para manipulação de eventos
-    private class TextFieldHandler implements ActionListener {
-        // processa os eventos dos campo texto
-        public void actionPerformed(ActionEvent event) {
-            String string = ""; // declara a string a ser exibida
-
-            // o usuário pressionou ENTER no JTextField loginTextField
-            if(event.getSource() == userTextField)
-                string = String.format("Login: %s", event.getActionCommand());
-            // o usuário pressionou ENTER no JTextField userPasswordField
-            else if(event.getSource()== userPasswordField)
-                string = String.format("Password: %s", event.getActionCommand());
-
-            // exibe o conteúdo do campo de texto
-            JOptionPane.showMessageDialog(null, string);
-        }
-    } 
 }
 
