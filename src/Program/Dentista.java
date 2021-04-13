@@ -3,13 +3,13 @@ import java.util.List;
         
 public class Dentista extends Funcionario {
     private List<Funcionario> assistenteConsultorio;
-    private List<Cliente> cliente;
+    private Cliente cliente;
     private List<Agenda> agenda;
 
     // CONSTRUTOR VAZIO
     public Dentista() {}
 
-    public Dentista(List<Funcionario> assistenteConsultorio, List<Cliente> cliente, 
+    public Dentista(List<Funcionario> assistenteConsultorio, Cliente cliente, 
             List<Agenda> agenda, double salario, int cargaHoraria, int cargo, 
             String nome, String sobrenome, String endereco, String email, String CPF, 
             String RG, String telefone, int idade) {
@@ -27,7 +27,7 @@ public class Dentista extends Funcionario {
         return assistenteConsultorio;
     }
     // RETORNA OS CLIENTES DO DENTISTA
-    public List<Cliente> getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
     // RETORNA A AGENDA DO CLIENTE
@@ -41,7 +41,7 @@ public class Dentista extends Funcionario {
         this.assistenteConsultorio = assistenteConsultorio;
     }
     // ALTERA OS CLIENTES DO DENTISTA
-    protected void setCliente(List<Cliente> cliente) {
+    protected void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
     // ALTERA A AGENDA DO DENTISTA
