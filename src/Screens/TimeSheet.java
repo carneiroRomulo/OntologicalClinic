@@ -12,7 +12,7 @@ public class TimeSheet extends JFrame{
     JButton backButton = new JButton("Voltar");
 
     public TimeSheet() {
-        pageLabel.setBounds(340, 40, 200, 20);
+        pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
         
         

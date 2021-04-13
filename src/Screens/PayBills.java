@@ -11,7 +11,7 @@ public class PayBills extends JFrame{
     JButton backButton = new JButton("Voltar");
 
     public PayBills() {
-        pageLabel.setBounds(315, 40, 200, 20);
+        pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
         
         ValidateBills handler = new ValidateBills();

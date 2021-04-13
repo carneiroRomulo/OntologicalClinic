@@ -33,7 +33,7 @@ public class RegisterEmployee extends JFrame{
     JTextField phoneTextField = new JTextField(20);
     JLabel phoneLabel = new JLabel("Telefone");
     
-    String[] ages = {"18", "19", "20", "21", "22", "23","24","25","26","27","28","30",
+    String[] ages = {"","18", "19", "20", "21", "22", "23","24","25","26","27","28","30",
         "31", "32", "33", "34", "35", "36","37","38","39","40","41","42", "43", "44",
         "45", "46", "47", "48","49","50","51","52","53","54", "55", "56", "57", "58",
         "59", "60","61","62","63","64","65","66", "67", "68", "69", "70", "71", "72",
@@ -44,11 +44,11 @@ public class RegisterEmployee extends JFrame{
     JTextField salaryTextField = new JTextField(20);
     JLabel salaryLabel = new JLabel("Salário");
     
-    String[] workload = {"6", "7", "8", "9", "10", "11", "12"};
+    String[] workload = {"","6", "7", "8", "9", "10", "11", "12"};
     JComboBox workloadButton = new JComboBox(workload);
     JLabel workloadLabel = new JLabel("Regime de Trabalho");
     
-    String[] roles = {"Administrador", "Assistente Administrativo", "Dentista", "Assistente de Dentista",
+    String[] roles = {"","Administrador", "Assistente Administrativo", "Dentista", "Assistente de Dentista",
         "Recepcionista"};
     JComboBox roleButton = new JComboBox(roles);
     JLabel roleLabel = new JLabel("Cargo");
@@ -67,7 +67,7 @@ public class RegisterEmployee extends JFrame{
     
     public RegisterEmployee() {
         pageLabel = new JLabel("REGISTRAR FUNCIONARIO"); // titulo da tela
-        pageLabel.setBounds(320, 40, 200, 20);
+        pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
         
         nameTextField.setBounds(250, 100, 150, 20);

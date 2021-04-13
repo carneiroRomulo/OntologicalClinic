@@ -32,7 +32,7 @@ public class Schedule extends JFrame{
         ValidateSchedule handler = new ValidateSchedule();
 
         pageLabel = new JLabel("CONSULTAR AGENDA");
-        pageLabel.setBounds(330, 40, 200, 20);
+        pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
         
         String[] dentists = {"Joao", "Maria", "Fernando", "Luis"};
@@ -99,7 +99,7 @@ public class Schedule extends JFrame{
                     dataLabel3.setVisible(true);
                     timeLabel3.setVisible(true);
                 }
-                if(dentistsButton.getSelectedItem().equals("Maria")){
+                else if(dentistsButton.getSelectedItem().equals("Maria")){
 
                     add(clientLabel1);
                     add(dataLabel1);
@@ -117,7 +117,7 @@ public class Schedule extends JFrame{
                     dataLabel2.setVisible(false);
                     timeLabel2.setVisible(false);
                 }
-                if(dentistsButton.getSelectedItem().equals("Joao")){
+                else if(dentistsButton.getSelectedItem().equals("Joao")){
                     
                     add(clientLabel2);
                     add(dataLabel2);
@@ -130,6 +130,19 @@ public class Schedule extends JFrame{
                     clientLabel2.setVisible(true);
                     dataLabel2.setVisible(true);
                     timeLabel2.setVisible(true);
+                    
+                    clientLabel3.setVisible(false);
+                    dataLabel3.setVisible(false);
+                    timeLabel3.setVisible(false);
+                }
+                else {
+                    clientLabel1.setVisible(false);
+                    dataLabel1.setVisible(false);
+                    timeLabel1.setVisible(false);
+                    
+                    clientLabel2.setVisible(false);
+                    dataLabel2.setVisible(false);
+                    timeLabel2.setVisible(false);
                     
                     clientLabel3.setVisible(false);
                     dataLabel3.setVisible(false);

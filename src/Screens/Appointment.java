@@ -11,7 +11,7 @@ public class Appointment extends JFrame{
     JButton backButton = new JButton("Voltar");
 
     public Appointment() {
-        pageLabel.setBounds(330, 40, 200, 20);
+        pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
         
         ValidateAppointment handler = new ValidateAppointment();
