@@ -63,6 +63,7 @@ public class RegisterEmployee extends JFrame{
     JLabel confirmPasswordLabel = new JLabel("Confirmar Senha");
     
     JButton registerButton = new JButton("Registrar");
+    JButton backButton = new JButton("Voltar");
     
     public RegisterEmployee() {
         pageLabel.setBounds(320, 40, 200, 20);
@@ -152,11 +153,16 @@ public class RegisterEmployee extends JFrame{
         confirmPasswordLabel.setBounds(400, 400, 150, 20);
         add(confirmPasswordLabel); // adiciona o confirmPasswordLabel ao JFrame
         
-        ValidateRegister reg = new ValidateRegister();
+        ValidateRegister handler = new ValidateRegister();
         registerButton.setBounds(400, 460, 150, 20);
         registerButton.setFocusable(false);
-        registerButton.addActionListener(reg);
+        registerButton.addActionListener(handler);
         add(registerButton);
+        
+        backButton.setBounds(250, 460, 150, 20);
+        backButton.setFocusable(false);
+        backButton.addActionListener(handler);
+        add(backButton);
         
         setTitle("CLINICA CURRAL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -173,11 +179,17 @@ public class RegisterEmployee extends JFrame{
             String confirmPassword = String.copyValueOf(confirmPasswordField.getPassword());
             if(event.getSource() == registerButton){
                 // Validate password
-                if(confirmPassword.equals(password)){
+                if(confirmPassword.equals(password) && confirmPassword.length() != 0){
+                    pageLabel.setText("Deu certo");
                 }
                 else{
+                    pageLabel.setText("Deu errado");
                 }
                 
+            }
+            if(event.getSource() == backButton) {
+                Menu menu = new Menu("admin");
+                dispose();
             }
         }
     }

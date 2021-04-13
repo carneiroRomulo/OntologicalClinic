@@ -23,37 +23,37 @@ public class Menu extends JFrame{
         add(userLabel); // add the userLabel to JFrame
         
         GoTo go = new GoTo();
-        acessAgendaButton = new JButton("Acess Agenda");
+        acessAgendaButton = new JButton("Acessar Agenda");
         acessAgendaButton.setBounds(250, 100, 300, 50);
         acessAgendaButton.setFocusable(false);
         acessAgendaButton.addActionListener(go);
         add(acessAgendaButton);
         
-        appointmentButton = new JButton("Schedule an Appointment");
+        appointmentButton = new JButton("Marcar Consulta");
         appointmentButton.setBounds(250, 160, 300, 50);
         appointmentButton.setFocusable(false);
         appointmentButton.addActionListener(go);
         add(appointmentButton);
         
-        billPaymentButton = new JButton("Bill Payment");
+        billPaymentButton = new JButton("Pagamento de Contas");
         billPaymentButton.setBounds(250, 220, 300, 50);
         billPaymentButton.setFocusable(false);
         billPaymentButton.addActionListener(go);
         add(billPaymentButton);
         
-        timeSheetButton = new JButton("Time Sheet");
+        timeSheetButton = new JButton("Folha de Ponto");
         timeSheetButton.setBounds(250, 280, 300, 50);
         timeSheetButton.setFocusable(false);
         timeSheetButton.addActionListener(go);
         add(timeSheetButton);
         
-        registerEmployeeButton = new JButton("Register Employee");
+        registerEmployeeButton = new JButton("Registrar Funcionário");
         registerEmployeeButton.setBounds(250, 340, 300, 50);
         registerEmployeeButton.setFocusable(false);
         registerEmployeeButton.addActionListener(go);
         add(registerEmployeeButton);
         
-        closeSystemButton = new JButton("Close System");
+        closeSystemButton = new JButton("Fechar Sistema");
         closeSystemButton.setBounds(250, 400, 300, 50);
         closeSystemButton.setFocusable(false);
         closeSystemButton.addActionListener(go);
@@ -66,12 +66,16 @@ public class Menu extends JFrame{
         setLayout(null);
         setVisible(true); // show the frame
     }
+
+    Menu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     private class GoTo implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == acessAgendaButton) {
-                Agenda agenda = new Agenda();
+                Schedule agenda = new Schedule();
             }
             else if(event.getSource() == appointmentButton) {
                 Appointment appointment = new Appointment();
