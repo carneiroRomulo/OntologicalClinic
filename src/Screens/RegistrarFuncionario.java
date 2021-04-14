@@ -1,5 +1,6 @@
 package Screens;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -15,7 +16,7 @@ public class RegistrarFuncionario extends JFrame{
     JTextField nomeTextField = new JTextField(20);
     JLabel nomeLabel = new JLabel("Nome");
     
-    JTextField lastnomeTextField = new JTextField(20);
+    JTextField sobrenomeTextField = new JTextField(20);
     JLabel sobrenomeLabel = new JLabel("Sobrenome");
     
     JTextField enderecoTextField = new JTextField(20);
@@ -41,28 +42,28 @@ public class RegistrarFuncionario extends JFrame{
     JComboBox idadeButton = new JComboBox(idades);
     JLabel idadeLabel = new JLabel("Idade");
     
-    JTextField salaryTextField = new JTextField(20);
-    JLabel salaryLabel = new JLabel("Salário");
+    JTextField salarioTextField = new JTextField(20);
+    JLabel salarioLabel = new JLabel("Salário");
     
     String[] workload = {"","6", "7", "8", "9", "10", "11", "12"};
-    JComboBox workloadButton = new JComboBox(workload);
-    JLabel workloadLabel = new JLabel("Regime de Trabalho");
+    JComboBox regimeButton = new JComboBox(workload);
+    JLabel regimeLabel = new JLabel("Regime de Trabalho");
     
     String[] roles = {"","Administrador", "Assistente Administrativo", "Dentista", "Assistente de Dentista",
         "Recepcionista"};
-    JComboBox roleButton = new JComboBox(roles);
-    JLabel roleLabel = new JLabel("Cargo");
+    JComboBox cargoButton = new JComboBox(roles);
+    JLabel cargoLabel = new JLabel("Cargo");
     
-    JTextField userTextField = new JTextField(20);
-    JLabel userLabel = new JLabel("Usuário");
+    JTextField usuarioTextField = new JTextField(20);
+    JLabel usuarioLabel = new JLabel("Usuário");
     
-    JPasswordField passwordField = new JPasswordField(20);
-    JLabel passwordLabel = new JLabel("Senha");
+    JPasswordField senhaField = new JPasswordField(20);
+    JLabel senhaLabel = new JLabel("Senha");
     
-    JPasswordField confirmPasswordField = new JPasswordField(20);
-    JLabel confirmPasswordLabel = new JLabel("Confirmar Senha");
+    JPasswordField confirmarSenhaField = new JPasswordField(20);
+    JLabel confirmarSenhaLabel = new JLabel("Confirmar Senha");
     
-    JButton registerButton = new JButton("Registrar");
+    JButton registrarButton = new JButton("Registrar");
     JButton backButton = new JButton("Voltar");
     
     public RegistrarFuncionario() {
@@ -76,8 +77,8 @@ public class RegistrarFuncionario extends JFrame{
         nomeLabel.setBounds(250, 80, 300, 20);
         add(nomeLabel); // adiciona o nomeao JFrame
         
-        lastnomeTextField.setBounds(400, 100, 150, 20);
-        add(lastnomeTextField);
+        sobrenomeTextField.setBounds(400, 100, 150, 20);
+        add(sobrenomeTextField);
         sobrenomeLabel.setToolTipText("Insira o sobrenome");
         sobrenomeLabel.setBounds(400, 80, 150, 20);
         add(sobrenomeLabel); // adiciona o sobrenome ao JFrame
@@ -118,47 +119,47 @@ public class RegistrarFuncionario extends JFrame{
         idadeLabel.setBounds(400, 240, 150, 20);
         add(idadeLabel); // adiciona o idadeao JFrame
         
-        salaryTextField.setBounds(250, 300, 150, 20);
-        add(salaryTextField);
-        salaryLabel.setToolTipText("Insira o salário");
-        salaryLabel.setBounds(250, 280, 150, 20);
-        add(salaryLabel); // adiciona o salaryLabel ao JFrame
+        salarioTextField.setBounds(250, 300, 150, 20);
+        add(salarioTextField);
+        salarioLabel.setToolTipText("Insira o salário");
+        salarioLabel.setBounds(250, 280, 150, 20);
+        add(salarioLabel); // adiciona o salarioao JFrame
         
-        workloadButton.setBounds(400, 300, 150, 20);
-        add(workloadButton);
-        workloadLabel.setToolTipText("Insira o regime de trabalho");
-        workloadLabel.setBounds(400, 280, 150, 20);
-        add(workloadLabel); // adiciona o workloadLabel ao JFrame
+        regimeButton.setBounds(400, 300, 150, 20);
+        add(regimeButton);
+        regimeLabel.setToolTipText("Insira o regime de trabalho");
+        regimeLabel.setBounds(400, 280, 150, 20);
+        add(regimeLabel); // adiciona o regimeao JFrame
         
-        roleButton.setBounds(250, 340, 300, 20);
-        add(roleButton);
-        roleLabel.setToolTipText("Insira o cargo");
-        roleLabel.setBounds(250, 320, 300, 20);
-        add(roleLabel); // adiciona o roleLabel ao JFrame
+        cargoButton.setBounds(250, 340, 300, 20);
+        add(cargoButton);
+        cargoLabel.setToolTipText("Insira o cargo");
+        cargoLabel.setBounds(250, 320, 300, 20);
+        add(cargoLabel); // adiciona o cargoao JFrame
         
-        userTextField.setBounds(250, 380, 300, 20);
-        add(userTextField);
-        userLabel.setToolTipText("Insira o ID do usuário");
-        userLabel.setBounds(250, 360, 300, 20);
-        add(userLabel); // adiciona o userLabel ao JFrame
+        usuarioTextField.setBounds(250, 380, 300, 20);
+        add(usuarioTextField);
+        usuarioLabel.setToolTipText("Insira o ID do usuário");
+        usuarioLabel.setBounds(250, 360, 300, 20);
+        add(usuarioLabel); // adiciona o usuario ao JFrame
         
-        passwordField.setBounds(250, 420, 150, 20);
-        add(passwordField);
-        passwordLabel.setToolTipText("Insira a senha");
-        passwordLabel.setBounds(250, 400, 150, 20);
-        add(passwordLabel); // adiciona o passwordLabel ao JFrame
+        senhaField.setBounds(250, 420, 150, 20);
+        add(senhaField);
+        senhaLabel.setToolTipText("Insira a senha");
+        senhaLabel.setBounds(250, 400, 150, 20);
+        add(senhaLabel); // adiciona o senhaao JFrame
         
-        confirmPasswordField.setBounds(400, 420, 150, 20);
-        add(confirmPasswordField);
-        confirmPasswordLabel.setToolTipText("Confirme a senha");
-        confirmPasswordLabel.setBounds(400, 400, 150, 20);
-        add(confirmPasswordLabel); // adiciona o confirmPasswordLabel ao JFrame
+        confirmarSenhaField.setBounds(400, 420, 150, 20);
+        add(confirmarSenhaField);
+        confirmarSenhaLabel.setToolTipText("Confirme a senha");
+        confirmarSenhaLabel.setBounds(400, 400, 150, 20);
+        add(confirmarSenhaLabel); // adiciona o confirmsenhaao JFrame
         
         ValidateRegister handler = new ValidateRegister();
-        registerButton.setBounds(400, 460, 150, 20);
-        registerButton.setFocusable(false);
-        registerButton.addActionListener(handler);
-        add(registerButton);
+        registrarButton.setBounds(400, 460, 150, 20);
+        registrarButton.setFocusable(false);
+        registrarButton.addActionListener(handler);
+        add(registrarButton);
         
         backButton.setBounds(250, 460, 150, 20);
         backButton.setFocusable(false);
@@ -176,22 +177,56 @@ public class RegistrarFuncionario extends JFrame{
     private class ValidateRegister implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
-            String password = String.copyValueOf(passwordField.getPassword());
-            String confirmPassword = String.copyValueOf(confirmPasswordField.getPassword());
-            if(event.getSource() == registerButton){
-                // Valida a senha
-                if(confirmPassword.equals(password) && !(confirmPassword.length() < 6)){
-                    pageLabel.setText("Deu certo");
+            String nome = nomeTextField.getText();
+            String sobrenome = sobrenomeTextField.getText();
+            String email = emailTextField.getText();
+            String password = String.copyValueOf(senhaField.getPassword());
+            String confirmPassword = String.copyValueOf(confirmarSenhaField.getPassword());
+            
+            if(event.getSource() == registrarButton){
+                // valida nome
+                if(nome.length() < 30 && nome.length() > 0 && nome.matches("[a-zA-Z]*")) {
+                    nomeLabel.setForeground(Color.DARK_GRAY);
                 }
                 else{
-                    pageLabel.setText("Deu errado");
+                    nomeLabel.setForeground(Color.RED);
+                }
+                // valida sobrenome
+                if(sobrenome.length() < 30 && sobrenome.length() > 0 && sobrenome.matches("[a-zA-Z]*")) {
+                    sobrenomeLabel.setForeground(Color.DARK_GRAY);
+                }
+                else{
+                    sobrenomeLabel.setForeground(Color.RED);
+                }
+                // valida e-mail
+                if (email.contains("@") && email.length() > 0){
+                    emailLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    emailLabel.setForeground(Color.RED);
+                }
+                // Valida a senha
+                if(confirmPassword.equals(password) && !(confirmPassword.length() < 6)){
+                    senhaLabel.setForeground(Color.DARK_GRAY);
+                    confirmarSenhaLabel.setForeground(Color.DARK_GRAY);
+                }
+                else{
+                    senhaLabel.setForeground(Color.RED);
+                    confirmarSenhaLabel.setForeground(Color.RED);
+                }
+                // valida regime de trabalho
+                if(regimeButton.getSelectedItem() != "") {
+                    regimeLabel.setForeground(Color.DARK_GRAY);
+                } else {
+                    regimeLabel.setForeground(Color.RED);
                 }
                 
                 // Valida a idade
-                if(idadeButton.getSelectedItem() == "") {
-                    pageLabel.setText("Selecione uma idade válida");
+                if(idadeButton.getSelectedItem() != "") {
+                    idadeLabel.setForeground(Color.DARK_GRAY);
                 }
                 else {
+                    idadeLabel.setForeground(Color.RED);
                 }
             }
                 

@@ -66,7 +66,7 @@ public class Menu extends JFrame{
         setLayout(null);
         setVisible(true); // mostra a tela
     }
-    
+
     private class GoTo implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
