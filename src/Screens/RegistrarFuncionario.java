@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.MaskFormatter;
 
 public class RegistrarFuncionario extends JFrame{
     JLabel pageLabel;
@@ -25,13 +27,13 @@ public class RegistrarFuncionario extends JFrame{
     JTextField emailTextField = new JTextField(20);
     JLabel emailLabel = new JLabel("E-mail");
     
-    JTextField cpfTextField = new JTextField(20);
+    JTextField cpfTextField;
     JLabel cpfLabel = new JLabel("CPF");
     
-    JTextField rgTextField = new JTextField(20);
+    JTextField rgTextField;
     JLabel rgLabel = new JLabel("RG");
     
-    JTextField telefoneTextField = new JTextField(20);
+    JTextField telefoneTextField;
     JLabel telefoneLabel = new JLabel("Telefone");
     
     String[] idades = {"","18", "19", "20", "21", "22", "23","24","25","26","27","28","30",
@@ -66,7 +68,7 @@ public class RegistrarFuncionario extends JFrame{
     JButton registrarButton = new JButton("Registrar");
     JButton backButton = new JButton("Voltar");
     
-    public RegistrarFuncionario() {
+    public RegistrarFuncionario(){
         pageLabel = new JLabel("REGISTRAR FUNCIONARIO"); // titulo da tela
         pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
@@ -95,18 +97,33 @@ public class RegistrarFuncionario extends JFrame{
         emailLabel.setBounds(250, 160, 300, 20);
         add(emailLabel); // adiciona o emailLabel ao JFrame
         
+        try {
+            cpfTextField = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+        } catch(java.text.ParseException e) {
+            e.printStackTrace(System.err);
+        }
         cpfTextField.setBounds(250, 220, 150, 20);
         add(cpfTextField);
         cpfLabel.setToolTipText("Insira o CPF");
         cpfLabel.setBounds(250, 200, 150, 20);
         add(cpfLabel); // adiciona o cpfLabel ao JFrame
         
+        try {
+            rgTextField = new JFormattedTextField(new MaskFormatter("##.###.###"));
+        } catch(java.text.ParseException e) {
+            e.printStackTrace(System.err);
+        }
         rgTextField.setBounds(400, 220, 150, 20);
         add(rgTextField);
         rgLabel.setToolTipText("Insira o RG");
         rgLabel.setBounds(400, 200, 150, 20);
         add(rgLabel); // adiciona o rgLabel ao JFrame
         
+        try {
+            telefoneTextField = new JFormattedTextField(new MaskFormatter("(##) # ####-####"));
+        } catch(java.text.ParseException e) {
+            e.printStackTrace(System.err);
+        }
         telefoneTextField.setBounds(250, 260, 150, 20);
         add(telefoneTextField);
         telefoneLabel.setToolTipText("Insira o telefone");
@@ -119,6 +136,11 @@ public class RegistrarFuncionario extends JFrame{
         idadeLabel.setBounds(400, 240, 150, 20);
         add(idadeLabel); // adiciona o idadeao JFrame
         
+        try {
+            salarioTextField = new JFormattedTextField(new MaskFormatter("R$ #####,##"));
+        } catch(java.text.ParseException e) {
+            e.printStackTrace(System.err);
+        }
         salarioTextField.setBounds(250, 300, 150, 20);
         add(salarioTextField);
         salarioLabel.setToolTipText("Insira o salário");
