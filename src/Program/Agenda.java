@@ -1,4 +1,8 @@
 package Program;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -152,6 +156,37 @@ public class Agenda {
                 }
                 
                 editarAgenda(agenda);
+                
+                //CRIA UM ARQUIVO PARA JOGAR OS DADOS DAS CONTAS PAGAS
+                File arq = new File ("Agenda.txt");
+                try { 
+                    arq.createNewFile();
+                    
+                    //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                    //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                    //SENDO TRUE ESCREVE DE ONDE PAROU
+                    FileWriter fileWriter = new FileWriter (arq, true);
+                    
+                    //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                    PrintWriter printWriter = new PrintWriter (fileWriter);
+                    for (int i = 0; i < agenda.size(); i++) {
+                        printWriter.println ("Dentista: " + dentistas.get(i).getNome());
+                        printWriter.print (dentistas.get(i).getCliente().getNome());
+                        printWriter.print("\t" + agenda.get(i).getData());
+                        printWriter.println("\t" + agenda.get(i).getHorario());
+                        printWriter.print("\n");
+                    }
+
+                    //LIBERA A ESCRITA NO ARQUIVO
+                    printWriter.flush();
+                    
+                    //FECHA O ARQUIVO
+                    printWriter.close();
+            
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
                 sairDaAgenda = 1;
             }
             else {
@@ -160,8 +195,9 @@ public class Agenda {
             
         } while (sairDaAgenda != 1);
     }
-    // EDITA A AGENDA DE UM DETERMINADO DENTISTA
-    public void editarAgenda(List<Agenda> agenda){
+    
+    // EDITA A AGENDA DE UM DETERMINADO DENTISTA    
+    public void editarAgenda(List<Agenda> agenda) {
          Scanner input = new Scanner(System.in);
         Agenda aux = new Agenda();
         int comando;

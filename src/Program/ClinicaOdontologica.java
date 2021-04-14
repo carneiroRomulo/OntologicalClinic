@@ -4,10 +4,15 @@
 
 package Program;
 import Screens.Menu;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ClinicaOdontologica {
 
     public static void main(String[] args) {
-        Menu menu = new Menu("Romulo");
+        //Menu menu = new Menu("Romulo");
+        Agenda agenda = new Agenda();
+        List<Dentista> dentistas = new ArrayList<Dentista>();
+        agenda.abrirAgenda(dentistas);
     }
 }
