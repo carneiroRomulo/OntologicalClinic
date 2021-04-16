@@ -67,7 +67,7 @@ public class Agenda {
             
             do {
                 //IMPRIME TODOS OS DENTISTAS
-                System.out.println("Dentistas disponíveis: ");
+                System.out.println("\nDentistas disponíveis: ");
                 for (int i = 0; i < dentistas.size(); i++) {
                     System.out.println(dentistas.get(i).getNome());                  
                 }
@@ -157,7 +157,7 @@ public class Agenda {
                 
                 editarAgenda(agenda);
                 
-                //CRIA UM ARQUIVO PARA JOGAR OS DADOS DAS CONTAS PAGAS
+                //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
                 File arq = new File ("Agenda.txt");
                 try { 
                     arq.createNewFile();

@@ -1,39 +1,29 @@
 package Program;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Administrador extends Funcionario {
     private String login;
     private String senha;
-    private List<Administrador> administradores;
-    private List<AssistenteAdministrativo> assistentesAdministrativos;
-    private List<Dentista> dentistas;
-    private List<AssistenteDentista> assistentesDentistas;
-    private List<Recepcionista> recepcionistas;
-    private List<Cliente> clientes;
 
     // CONSTRUTOR 
     
-    public Administrador() {}
-
-    public Administrador(List<Administrador> administradores, List<AssistenteAdministrativo> assistentesAdministrativos, List<Dentista> dentistas, List<AssistenteDentista> assistentesDentistas, List<Recepcionista> recepcionistas, List<Cliente> clientes, double salario, int cargaHoraria, int cargo, String nome, String sobrenome, String endereco, String email, String CPF, String RG, String telefone, int idade) {
-        super(salario, cargaHoraria, cargo, nome, sobrenome, endereco, email, 
-                CPF, RG, telefone, idade);
-        this.login = "admin";
-        this.senha = "admin";
-        this.administradores = administradores;
-        this.assistentesAdministrativos = assistentesAdministrativos;
-        this.dentistas = dentistas;
-        this.assistentesDentistas = assistentesDentistas;
-        this.recepcionistas = recepcionistas;
-        this.clientes = clientes;
+    public Administrador() {
+        login = "admin";
+        senha = "admin";
     }
 
-    public Administrador(List<Administrador> administradores, 
-            List<AssistenteAdministrativo> assistentesAdministrativos, 
-            List<Dentista> dentistas, List<AssistenteDentista> assistentesDentistas, 
-            List<Recepcionista> recepcionistas, List<Cliente> clientes, 
+    public Administrador( 
             double salario, int cargaHoraria, int cargo, String nome, 
             String sobrenome, String endereco, String email, String CPF, 
             String RG, String telefone, int idade, String login, String senha) {
@@ -41,12 +31,6 @@ public class Administrador extends Funcionario {
                 CPF, RG, telefone, idade);
         this.login = login;
         this.senha = senha;
-        this.administradores = administradores;
-        this.assistentesAdministrativos = assistentesAdministrativos;
-        this.dentistas = dentistas;
-        this.assistentesDentistas = assistentesDentistas;
-        this.recepcionistas = recepcionistas;
-        this.clientes = clientes;
     }
 
     /* GETTERS */
@@ -59,31 +43,6 @@ public class Administrador extends Funcionario {
         return senha;
     }
     
-    // RETORNA A LISTA DOS ADMINISTRADORES DO CONSULTORIO
-    public List<Administrador> getAdministradores() {
-        return administradores;
-    }
-    // RETORNA A LISTA DO ASSESSORES ADMINISTRATIVOS DO CONSULTORIO    
-    public List<AssistenteAdministrativo> getAssistentesAdministrativos() {
-        return assistentesAdministrativos;
-    }
-    // RETORNA A LISTA DE DENTISTAS DO CONSULTORIO    
-    public List<Dentista> getDentistas() {
-        return dentistas;
-    }
-    // RETORNA A LISTA DE ASSISTENTES DE DENTISTAS DO CONSULTORIO    
-    public List<AssistenteDentista> getAssistentesDentistas() {
-        return assistentesDentistas;
-    }
-    // RETORNA A LISTA DE RECEPCIONISTAS DO CONSULTORIO    
-    public List<Recepcionista> getRecepcionistas() {
-        return recepcionistas;
-    }
-    // RETORNA A LISTA DE CLIENTES DO CONSULTORIO        
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
-
     /* SETTERS */
     // ALTERA O LOGIN DE UM ADMINISTRADOR OU ASSISTENTE ADMINISTRATIVO
     protected void setLogin(String login) {
@@ -94,46 +53,20 @@ public class Administrador extends Funcionario {
         this.senha = senha;
     }
     
-    // ALTERA A LISTA DOS ADMINISTRADORES DO CONSULTORIO
-    protected void setAdministradores(List<Administrador> administradores) {
-        this.administradores = administradores;
-    }
-    // ALTERA A LISTA DO ASSESSORES ADMINISTRATIVOS DO CONSULTORIO    
-    protected void setAssistentesAdministrativos(List<AssistenteAdministrativo> assistentesAdministrativos) {
-        this.assistentesAdministrativos = assistentesAdministrativos;
-    }
-    // ALTERA A LISTA DE DENTISTAS DO CONSULTORIO    
-    protected void setDentistas(List<Dentista> dentistas) {
-        this.dentistas = dentistas;
-    }
-    // ALTERA A LISTA DE ASSISTENTES DE DENTISTAS DO CONSULTORIO
-    protected void setAssistentesDentistas(List<AssistenteDentista> assistentesDentistas) {
-        this.assistentesDentistas = assistentesDentistas;
-    }
-    // ALTERA A LISTA DE RECEPCIONISTAS DO CONSULTORIO    
-    protected void setRecepcionistas(List<Recepcionista> recepcionistas) {
-        this.recepcionistas = recepcionistas;
-    }
-    // ALTERA A LISTA DE CLIENTES DO CONSULTORIO        
-    protected void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
-    }
-    
     /* CREATE */
     // CRIA UMA PESSOA GENÉRICA
-    public <G> void createPessoa(){
-        String nome, sobrenome, endereco, email, CPF, RG, telefone, dataNascimento; 
+    public void createPessoa(List list){
+        String nome, sobrenome, endereco, email, CPF, RG, telefone;
         double pagamento;
-        int horario, emprego;
+        int horario, emprego, idade;
         
         Scanner input = new Scanner(System.in); 
         boolean valida;
-        
         /* LEITURA E VALIDAÇÃO DOS DADOS */
         // NOME
         do {
             valida = true;
-            System.out.print("Nome: ");
+            System.out.print("\nNome: ");
             nome = input.nextLine();
             
             //VERIFICAÇÃO DO NOME
@@ -152,11 +85,13 @@ public class Administrador extends Funcionario {
             System.out.print("Sobrenome: ");
             sobrenome = input.nextLine();
             
-            for(char i : sobrenome.toCharArray()) {
-                if (!Character.isLetter(i)) {
-                    System.err.println("Sobrenome possui caracteres inválidos");
-                    valida = false;
-                }
+            //VERIFICAÇÃO DO SOBRENOME
+            if (!sobrenome.matches("[a-zA-Z]*")) {
+                System.err.println("Sobrenome possui caracteres inválidos");
+                valida = false;
+            }
+            else {
+                valida = true;
             }
         } while (valida != true);
         
@@ -165,15 +100,31 @@ public class Administrador extends Funcionario {
             valida = true;
             System.out.print("Endereço: ");
             endereco = input.nextLine();
-            /*VERIFICAR ENDEREÇO AQUI*/
+            
+            //VERIFICAÇÃO DO ENDEREÇO (ACEITA APENAS LETRAS, NUMEROS E VÍRGULA)
+            if (!endereco.matches("[a-zA-Z0-9,-, ]*")) {
+                System.err.println("Endereço possui caracteres inválidos");
+                valida = false;
+            }
+            else {
+                valida = true;
+            }
         } while (valida != true);
         
         // EMAIL
         do { 
             valida = true;
-            System.out.print("Data de nascimento (dd/mm/aa): ");
+            System.out.print("Email: ");
             email = input.nextLine();
-            /*VERIFICAR EMAIL AQUI*/
+            
+            //VERIFICAÇÃO DO EMAIL (ACEITA APENAS LETRAS, NUMEROS E @)
+            if (!email.matches("[a-zA-Z0-9@.]*")) {
+                System.err.println("Email possui caracteres inválidos");
+                valida = false;
+            }
+            else {
+                valida = true;
+            }
         } while (valida != true);
         
         // CPF
@@ -181,14 +132,32 @@ public class Administrador extends Funcionario {
             valida = true;
             System.out.print("CPF: ");
             CPF = input.nextLine();
-            /*VERIFICAR CPF AQUI*/
+            
+             //VERIFICAÇÃO DO CPF (ACEITA APENAS NÚMEROS, PONTO E BARRA)
+            if (!CPF.matches("[0-9.-]*")) {
+                System.err.println("CPF possui caracteres inválidos");
+                valida = false;
+            }
+            else {
+                valida = true;
+            }
+            
         } while (valida != true);
+        
         // RG
         do { 
             valida = true;
             System.out.print("RG: ");
             RG = input.nextLine();
-            /*VERIFICAR RG AQUI*/
+            
+             //VERIFICAÇÃO DO RG (ACEITA APENAS NÚMEROS, PONTO E BARRA)
+            if (!RG.matches("[0-9.-]*")) {
+                System.err.println("RG possui caracteres inválidos");
+                valida = false;
+            }
+            else {
+                valida = true;
+            }
         } while (valida != true);
         
         // TELEFONE
@@ -196,15 +165,27 @@ public class Administrador extends Funcionario {
             valida = true;
             System.out.print("Telefone: ");
             telefone = input.nextLine();
-            /*VERIFICAR TELEFONE AQUI*/
+            
+             //VERIFICAÇÃO DO CPF (ACEITA APENAS NÚMEROS, PONTO E BARRA)
+            if (!telefone.matches("[0-9(-)---]*")) {
+                System.err.println("Telefone possui caracteres inválidos");
+                valida = false;
+            }
+            else {
+                valida = true;
+            }
         } while (valida != true);
         
-        // DATA DE NASCIMENTO
+        // IDADE
         do { 
             valida = true;
-            System.out.print("Data de nascimento (dd/mm/aa): ");
-            dataNascimento = input.nextLine();
-            /*VERIFICAR IDADE AQUI*/
+            System.out.print("Idade: ");
+            idade = input.nextInt();
+           
+            if(idade < 18 || idade > 90) {
+                System.err.println("Idade Mínima: 18 anos\nIdade Máxima: 90 anos");
+                valida = false;
+            }               
         } while (valida != true);
         
         // SALARIO
@@ -237,7 +218,7 @@ public class Administrador extends Funcionario {
         // CARGO
         do {
             valida = true;
-            System.out.println("01 - ADMINISTRADOR");
+            System.out.println("\n01 - ADMINISTRADOR");
             System.out.println("02 - ASSISTENTE ADM");
             System.out.println("03 - DENTISTA");
             System.out.println("04 - ASSISTENTE DENT");
@@ -246,65 +227,118 @@ public class Administrador extends Funcionario {
             emprego = input.nextInt();
            
             if(emprego < 1 || emprego > 5) {
-                System.out.println("Cargo inválido");
+                System.err.println("Cargo inválido");
                 valida = false;
             }
-        } while (valida != true);
-
+        } while (valida != true);  
         
-        
-        setNome(nome);
-        setSobrenome(sobrenome);
-        setEndereco(endereco);
-        setEmail(email);
-        setCPF(CPF);
-        setRG(RG);
-        setTelefone(telefone);
-        setDataNascimento(dataNascimento);
-        setSalario(pagamento);
-        setCargaHoraria(horario);
-        setCargo(emprego);
-    }
+        switch(emprego) {
+            case 1:{
+                Administrador adm = new Administrador();
+                adm.setNome(nome);
+               
+                adm.setSobrenome(sobrenome);
+                adm.setEndereco(endereco);
+                adm.setEmail(email);
+                adm.setCPF(CPF);
+                adm.setRG(RG);
+                adm.setTelefone(telefone);
+                adm.setIdade(idade);
+                adm.setSalario(pagamento);
+                adm.setCargaHoraria(horario);
+                adm.setCargo(emprego);
 
-    // REMOVE UM ADMINISTRADOR
-    private void deleteAdmin(Administrador administrador){
-        if(administradores.isEmpty()) {
-            administradores.remove(administrador);
-        }
-    }
-    // REMOVE UM ASSISTENTE ADMINISTRATIVO
-    private void deleteAssistenteAdmin(AssistenteAdministrativo assistenteAdmin){
-        if(assistentesAdministrativos.isEmpty()) {
-            assistentesAdministrativos.remove(assistenteAdmin);
-        }
-    }
-    // REMOVE UM DENTISTA
-    private void deleteDentistas(Dentista dentista){
-        if(dentistas.isEmpty()) {
-            dentistas.remove(dentista);
-        }
-    }
-    // REMOVE UM ASSISTENTE DE DENTISTA
-    private void deleteAssistenteDentista(AssistenteDentista assistenteDentista){
-        if(assistentesDentistas.isEmpty()) {
-            assistentesDentistas.remove(assistenteDentista);
-        }
-    }
-    // REMOVE UM RECEPCIONISTA
-    private void deleteRecepcionista(Recepcionista recepcionista){
-        if(recepcionistas.isEmpty()) {
-            recepcionistas.remove(recepcionista);
-        }
-    }
-    // REMOVE UM CLIENTE
-    private void deleteCliente(Cliente cliente){
-        if(clientes.isEmpty()) {
-            clientes.remove(cliente);
+                list.add(adm);
+                break;
+            }
+            // CADASTRA UM ASSISTENTE ADMINISTRATIVO
+            case 2:{
+                AssistenteAdministrativo assistente = new AssistenteAdministrativo();
+                assistente.setNome(nome);
+               
+                assistente.setSobrenome(sobrenome);
+                assistente.setEndereco(endereco);
+                assistente.setEmail(email);
+                assistente.setCPF(CPF);
+                assistente.setRG(RG);
+                assistente.setTelefone(telefone);
+                assistente.setIdade(idade);
+                assistente.setSalario(pagamento);
+                assistente.setCargaHoraria(horario);
+                assistente.setCargo(emprego);
+
+                list.add(assistente);
+                break;
+            }
+            
+            // CADASTRA UM DENTISTA
+            case 3:{
+                Dentista dentista = new Dentista();
+
+                dentista.setNome(nome); 
+                dentista.setSobrenome(sobrenome);
+                dentista.setEndereco(endereco);
+                dentista.setEmail(email);
+                dentista.setCPF(CPF);
+                dentista.setRG(RG);
+                dentista.setTelefone(telefone);
+                dentista.setIdade(idade);
+                dentista.setSalario(pagamento);
+                dentista.setCargaHoraria(horario);
+                dentista.setCargo(emprego);
+
+                list.add(dentista);
+                
+                break;
+            }
+            // CADASTRA UM ASSISTENTE DE DENTISTA
+            case 4:{
+                AssistenteDentista assistenteDentista = new AssistenteDentista();
+               
+                assistenteDentista.setNome(nome);
+               
+                assistenteDentista.setSobrenome(sobrenome);
+                assistenteDentista.setEndereco(endereco);
+                assistenteDentista.setEmail(email);
+                assistenteDentista.setCPF(CPF);
+                assistenteDentista.setRG(RG);
+                assistenteDentista.setTelefone(telefone);
+                assistenteDentista.setIdade(idade);
+                assistenteDentista.setSalario(pagamento);
+                assistenteDentista.setCargaHoraria(horario);
+                assistenteDentista.setCargo(emprego);
+
+                list.add(assistenteDentista);
+                break;
+            }
+            // CADASTRA UM RECEPCIONISTA
+            case 5:{
+                Recepcionista recepcionista = new Recepcionista();
+                recepcionista.setNome(nome);
+               
+                recepcionista.setSobrenome(sobrenome);
+                recepcionista.setEndereco(endereco);
+                recepcionista.setEmail(email);
+                recepcionista.setCPF(CPF);
+                recepcionista.setRG(RG);
+                recepcionista.setTelefone(telefone);
+                recepcionista.setIdade(idade);
+                recepcionista.setSalario(pagamento);
+                recepcionista.setCargaHoraria(horario);
+                recepcionista.setCargo(emprego);
+
+                list.add(recepcionista);
+                break;
+            }
+            default:{
+                System.err.println("Erro no cadastro de funcionario");
+                break;
+            }
         }
     }
     
     // GERA O RELATORIO
-    private void gerarRelatorio(){}
+    //private void gerarRelatorio(){}
 
     // MOSTRA O MENU DE OPÇÕES DO SISTEMA
     protected void mostrarMenu(){
@@ -314,7 +348,14 @@ public class Administrador extends Funcionario {
         Consulta consulta = new Consulta();
         Contas conta = new Contas();
         List<Cliente> cliente = new ArrayList<>();
-
+        
+        File arqAgenda = new File ("Agenda.txt");
+        File arqContas = new File ("Contas.txt");
+        File arqConsultas = new File ("Consultas.txt");
+        File arqSalarios  = new File ("Salarios.txt");
+        File arqFolhaDePonto = new File ("FolhaDePonto.txt");
+        
+        
         int comando;
 
         while(true) {
@@ -331,21 +372,24 @@ public class Administrador extends Funcionario {
 
             switch(comando) {
                 case 01: {
-                    //agenda.abrirAgenda();
+                    //agenda.abrirAgenda(dentistas);
                     break;
                 }
                 case 02: {
                     System.out.print("Com qual dentista é a consulta? ");
                     String nome = input.nextLine();
 
-                    for (Dentista i : dentistas) {
-                        if (nome.equals(i.getNome())) {
-                            cliente = i.getCliente();
-                        }
-                    }
+//                    for (Dentista i : dentistas) {
+//                        if (nome.equals(i.getNome())) {
+//                            cliente.add(i.getCliente());
+//                        }
+//                    }
+                    
                     consulta.receberConsulta(cliente);
                     break;
                 }
+                
+                //FAZ O PAGAMENTO DE ALGUMA CONTA
                 case 03: {            
                     conta.pagamentoContas();
                     break;
@@ -357,30 +401,230 @@ public class Administrador extends Funcionario {
                 }
                 // CADASTRA UM NOVO FUCIONARIO
                 case 05: {
+                    int cargo;
+                    boolean valida;
+                    
+                    // CARGO
+                    do {
+                        valida = true;
+                        System.out.println("\n01 - ADMINISTRADOR");
+                        System.out.println("02 - ASSISTENTE ADM");
+                        System.out.println("03 - DENTISTA");
+                        System.out.println("04 - ASSISTENTE DENT");
+                        System.out.println("05 - RECEPCIONISTA");
+                        System.out.print("Cargo: ");
+                        cargo = input.nextInt();
+
+                        if(cargo < 1 || cargo > 5) {
+                            System.err.println("Cargo inválido");
+                            valida = false;
+                        }
+                    } while (valida != true);  
+                    
                     switch(cargo){
                         // CADASTRA UM ADMINISTRADOR
                         case 1:{
-                            administradores.add(createPessoa());
+                            
+                            //CRIA UMA LISTA DE ADM'S E VAI JOGANDO EM UM ARQUIVO 
+                            List<Administrador> adm = new ArrayList<Administrador>();
+                            createPessoa(adm);
+                            
+                            //CRIA UM ARQUIVO PARA JOGAR OS DADOS DOS FUNCIONÁRIOS
+                            File arqAdm = new File ("Administradores.txt");
+                            try { 
+                                arqAdm.createNewFile();
+
+                                //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                                //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                                //SENDO TRUE ESCREVE DE ONDE PAROU
+                                FileWriter fileWriter = new FileWriter (arqAdm, true);
+
+                                //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                                PrintWriter printWriter = new PrintWriter (fileWriter);
+                                for (int i = 0; i < adm.size(); i++ ) {
+                                    printWriter.println ("Administrador: " + adm.get(i).getNome());
+                                    printWriter.println ("Idade: " + adm.get(i).getIdade());
+                                    printWriter.println ("Cargo: " + adm.get(i).getCargo());
+                                    printWriter.println ("Salário: " + adm.get(i).getSalario());
+                                    printWriter.println ("Telefone: " + adm.get(i).getTelefone());
+                                    printWriter.println ("Endereço: " + adm.get(i).getEndereco());
+                                    printWriter.println ("Carga Horária: " + adm.get(i).getCargaHoraria());
+                                    printWriter.println ("Login: " + adm.get(i).getLogin());
+                                    printWriter.println ("Senha: " + adm.get(i).getSenha());
+                                    printWriter.print("\n");
+                                }
+                                
+                                //LIBERA A ESCRITA NO ARQUIVO
+                                printWriter.flush();
+
+                                //FECHA O ARQUIVO
+                                printWriter.close();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         }
                         // CADASTRA UM ASSISTENTE ADMINISTRATIVO
                         case 2:{
-                            assistentesAdministrativos.add(createPessoa());
+                            //CRIA UMA LISTA DE ASSISTENTES ADMINISTRATIVOS E VAI JOGANDO EM UM ARQUIVO 
+                            List<AssistenteAdministrativo> assistentes = new ArrayList<AssistenteAdministrativo>();
+                            createPessoa(assistentes);
+
+                            //CRIA UM ARQUIVO PARA JOGAR OS DADOS DOS FUNCIONÁRIOS
+                            File arqAssAdm = new File("AssistentesAdm.txt");
+                            try {
+                                arqAssAdm.createNewFile();
+
+                                //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                                //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                                //SENDO TRUE ESCREVE DE ONDE PAROU
+                                FileWriter fileWriter = new FileWriter(arqAssAdm, true);
+
+                                //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                                PrintWriter printWriter = new PrintWriter(fileWriter);
+                                for (int i = 0; i < assistentes.size(); i++) {
+                                    printWriter.println("Administrador: " + assistentes.get(i).getNome());
+                                    printWriter.println("Idade: " + assistentes.get(i).getIdade());
+                                    printWriter.println("Cargo: " + assistentes.get(i).getCargo());
+                                    printWriter.println("Salário: " + assistentes.get(i).getSalario());
+                                    printWriter.println("Telefone: " + assistentes.get(i).getTelefone());
+                                    printWriter.println("Endereço: " + assistentes.get(i).getEndereco());
+                                    printWriter.println("Carga Horária: " + assistentes.get(i).getCargaHoraria());
+                                    printWriter.println("Login: " + assistentes.get(i).getLogin());
+                                    printWriter.println("Senha: " + assistentes.get(i).getSenha());
+                                    printWriter.print("\n");
+                                }
+
+                                //LIBERA A ESCRITA NO ARQUIVO
+                                printWriter.flush();
+
+                                //FECHA O ARQUIVO
+                                printWriter.close();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         }
                         // CADASTRA UM DENTISTA
-                        case 3:{
-                            dentistas.add(createPessoa());
+                        case 3:{                            
+                            //CRIA UMA LISTA DE ADM'S E VAI JOGANDO EM UM ARQUIVO 
+                            List<Dentista> dentista = new ArrayList<Dentista>();
+                            createPessoa(dentista);
+
+                            //CRIA UM ARQUIVO PARA JOGAR OS DADOS DOS FUNCIONÁRIOS
+                            File arqDentista = new File("Dentistas.txt");
+                            try {
+                                arqDentista.createNewFile();
+
+                                //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                                //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                                //SENDO TRUE ESCREVE DE ONDE PAROU
+                                FileWriter fileWriter = new FileWriter(arqDentista, true);
+
+                                //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                                PrintWriter printWriter = new PrintWriter(fileWriter);
+                                for (int i = 0; i < dentista.size(); i++) {
+                                    printWriter.println("Administrador: " + dentista.get(i).getNome());
+                                    printWriter.println("Idade: " + dentista.get(i).getIdade());
+                                    printWriter.println("Cargo: " + dentista.get(i).getCargo());
+                                    printWriter.println("Salário: " + dentista.get(i).getSalario());
+                                    printWriter.println("Telefone: " + dentista.get(i).getTelefone());
+                                    printWriter.println("Endereço: " + dentista.get(i).getEndereco());
+                                    printWriter.println("Carga Horária: " + dentista.get(i).getCargaHoraria());
+                                    printWriter.print("\n");
+                                }
+
+                                //LIBERA A ESCRITA NO ARQUIVO
+                                printWriter.flush();
+
+                                //FECHA O ARQUIVO
+                                printWriter.close();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         }
                         // CADASTRA UM ASSISTENTE DE DENTISTA
                         case 4:{
-                            assistentesDentistas.add(createPessoa());
+                            //CRIA UMA LISTA DE ADM'S E VAI JOGANDO EM UM ARQUIVO 
+                            List<AssistenteDentista> assDentista = new ArrayList<AssistenteDentista>();
+                            createPessoa(assDentista);
+
+                            //CRIA UM ARQUIVO PARA JOGAR OS DADOS DOS FUNCIONÁRIOS
+                            File arqAssDen = new File("AssistentesDeDentista.txt");
+                            try {
+                                arqAssDen.createNewFile();
+
+                                //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                                //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                                //SENDO TRUE ESCREVE DE ONDE PAROU
+                                FileWriter fileWriter = new FileWriter(arqAssDen, true);
+
+                                //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                                PrintWriter printWriter = new PrintWriter(fileWriter);
+                                for (int i = 0; i < assDentista.size(); i++) {
+                                    printWriter.println("Administrador: " + assDentista.get(i).getNome());
+                                    printWriter.println("Idade: " + assDentista.get(i).getIdade());
+                                    printWriter.println("Cargo: " + assDentista.get(i).getCargo());
+                                    printWriter.println("Salário: " + assDentista.get(i).getSalario());
+                                    printWriter.println("Telefone: " + assDentista.get(i).getTelefone());
+                                    printWriter.println("Endereço: " + assDentista.get(i).getEndereco());
+                                    printWriter.println("Carga Horária: " + assDentista.get(i).getCargaHoraria());
+                                    printWriter.print("\n");
+                                }
+
+                                //LIBERA A ESCRITA NO ARQUIVO
+                                printWriter.flush();
+
+                                //FECHA O ARQUIVO
+                                printWriter.close();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         }
                         // CADASTRA UM RECEPCIONISTA
                         case 5:{
-                            recepcionistas.add(createPessoa());
+                            //CRIA UMA LISTA DE ADM'S E VAI JOGANDO EM UM ARQUIVO 
+                            List<Recepcionista> recepcionista = new ArrayList<Recepcionista>();
+                            createPessoa(recepcionista);
+
+                            //CRIA UM ARQUIVO PARA JOGAR OS DADOS DOS FUNCIONÁRIOS
+                            File arqRecepcionistas = new File("Recepcionistas.txt");
+                            try {
+                                arqRecepcionistas.createNewFile();
+
+                                //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                                //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                                //SENDO TRUE ESCREVE DE ONDE PAROU
+                                FileWriter fileWriter = new FileWriter(arqRecepcionistas, true);
+
+                                //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                                PrintWriter printWriter = new PrintWriter(fileWriter);
+                                for (int i = 0; i < recepcionista.size(); i++) {
+                                    printWriter.println("Administrador: " + recepcionista.get(i).getNome());
+                                    printWriter.println("Idade: " + recepcionista.get(i).getIdade());
+                                    printWriter.println("Cargo: " + recepcionista.get(i).getCargo());
+                                    printWriter.println("Salário: " + recepcionista.get(i).getSalario());
+                                    printWriter.println("Telefone: " + recepcionista.get(i).getTelefone());
+                                    printWriter.println("Endereço: " + recepcionista.get(i).getEndereco());
+                                    printWriter.println("Carga Horária: " + recepcionista.get(i).getCargaHoraria());
+                                    printWriter.print("\n");
+                                }
+
+                                //LIBERA A ESCRITA NO ARQUIVO
+                                printWriter.flush();
+
+                                //FECHA O ARQUIVO
+                                printWriter.close();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         }
                         default:{
@@ -389,13 +633,15 @@ public class Administrador extends Funcionario {
                         }
                     }
                     System.out.println("Cadastro realizado com sucesso");
-                    System.out.println("Redirecionando para o menu...");
+                    System.out.println("Redirecionando para o menu..."); 
+                    break;
                 }
                 case 00: {
                     System.out.println("ENCERRANDO SESSÃO...");
                     System.exit(1);
                 }
-            }
+            }      
+             System.out.println("");      
         }
     }
     
@@ -422,26 +668,45 @@ public class Administrador extends Funcionario {
         
         for (Object i : nomes) {
             if (nome.equals(i)) {
-                int dia, mes, ano;
-                char barra, obs, salvar;
+                String data, obs;
+                char salvar;
                 
-                System.out.print("Insira a data em que o funcionario trabalhou (dd/mm/aa):");
-                dia = input.nextInt();
-                barra = input.next().charAt(0);
-                mes = input.nextInt();
-                //barra = input.next().charAt(0);
-                ano = input.nextInt();
-                
-                if (dia > 31 || dia <= 0 || mes <= 0 || mes > 12 || ano <= 0 || ano > 2021) {
-                    System.out.println("Data invalida");     
-                    return;
-                }
-                System.out.print("Alguma observacao a ser feita referente ao dia de trabalho? [S - N]");
-                obs = input.next().charAt(0);
+                //VERIFICA SE A DATA É VÁLIDA
+                boolean controle = false;
+                do {
+                    System.out.print("Data (dd/mm/yy): ");
+                    data = input.next();
 
-                //FAZER UMA TABELA BONITA
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+                    formato.setLenient(false);
+
+                    //PEGA A DATA ATUAL DO SISTEMA
+                    Date hoje = new Date();
+                    String dataHoje = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(hoje); 
+
+                    try {
+                        Date dat = formato.parse(data); 
+                        Date datHoje = formato.parse(dataHoje);
+                        //COMPARA SE A DATA DESEJADA JÁ PASSOU
+                        if (dat.after(datHoje) || dat.equals(datHoje)) {
+                            controle = true;
+                        } 
+                        else {
+                            System.err.println("Essa data já passou. Consultas a partir do dia de hoje: " + dataHoje);
+                        }
+                    } catch (ParseException e) {   
+                        System.err.println("Data inválida, digite novamente...");
+                        controle = false;   
+                    }
+                } while (controle != true);
+                
+                
+                
+                System.out.print("Alguma observacao a ser feita referente ao dia de trabalho? ");
+                obs = input.next();
+
                 System.out.printf("Folha de Ponto – ", i);
-                System.out.printf("Data \t Observacao", dia, barra, mes, barra, ano, "\t", obs);
+                System.out.printf("Data \t Observacao", data, "\t", obs);
 
                 System.out.print("Deseja salvar? S ou N");
                 salvar = input.next().charAt(0);
@@ -455,32 +720,38 @@ public class Administrador extends Funcionario {
                         return;
                     }
                     default: {
-                        System.err.println("Opcao invalida");
+                        System.err.println("Opção inválida");
                         return;
                     }
                 }
            }
         }
-        System.err.println("Esse funcionario nao existe na clinica");
+        System.err.println("Esse funcionario não existe na clínica");
     }
     
     // ACESSAR O SISTEMA
     public void acessarSistema(){
+        List<Administrador> administradores = new ArrayList<Administrador>();
         Scanner input = new Scanner(System.in);
         Clinica clinica = new Clinica();
         String acesso, chave;
+        if ((administradores.size()) == 0) {
+            Administrador adm = new Administrador();
+            adm.setNome("");
+            administradores.add(adm);
+        }
 
-        System.out.printf("--------------CLINICA ", clinica.getNomeEmpresa(),"--------------\n");
+        System.out.print("--------------CLINICA " + clinica.getNomeEmpresa() + "--------------\n");
 
         while(true) {
             System.out.print("Login: ");
-            acesso = input.nextLine();
+            acesso = input.next();
             System.out.print("Senha: ");
-            chave = input.nextLine();
+            chave = input.next();
             
-            for(Administrador i : administradores){
-                if(acesso.equals(i.getLogin()) || chave.equals(i.getSenha())) {
-                    System.out.printf("Bem vindo ", i.getNome());
+            for (int i = 0; i < administradores.size(); i++) {
+                if(acesso.equals(administradores.get(i).getLogin()) || chave.equals(administradores.get(i).getSenha())) {
+                    System.out.println("\nBem vindo " + administradores.get(i).getNome() + "\n");
                     mostrarMenu();
                 } else System.err.println("Acesso inválido, por favor tente novamente");
             }
