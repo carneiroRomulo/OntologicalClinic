@@ -9,8 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.text.MaskFormatter;
 
 public class RegistrarFuncionario extends JFrame{
     JLabel pageLabel;
@@ -97,33 +95,21 @@ public class RegistrarFuncionario extends JFrame{
         emailLabel.setBounds(250, 160, 300, 20);
         add(emailLabel); // adiciona o emailLabel ao JFrame
         
-        try {
-            cpfTextField = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
-        } catch(java.text.ParseException e) {
-            e.printStackTrace(System.err);
-        }
+        cpfTextField = new JTextField();
         cpfTextField.setBounds(250, 220, 150, 20);
         add(cpfTextField);
         cpfLabel.setToolTipText("Insira o CPF");
         cpfLabel.setBounds(250, 200, 150, 20);
         add(cpfLabel); // adiciona o cpfLabel ao JFrame
         
-        try {
-            rgTextField = new JFormattedTextField(new MaskFormatter("##.###.###"));
-        } catch(java.text.ParseException e) {
-            e.printStackTrace(System.err);
-        }
+        rgTextField = new JTextField();
         rgTextField.setBounds(400, 220, 150, 20);
         add(rgTextField);
         rgLabel.setToolTipText("Insira o RG");
         rgLabel.setBounds(400, 200, 150, 20);
         add(rgLabel); // adiciona o rgLabel ao JFrame
         
-        try {
-            telefoneTextField = new JFormattedTextField(new MaskFormatter("(##) # ####-####"));
-        } catch(java.text.ParseException e) {
-            e.printStackTrace(System.err);
-        }
+        telefoneTextField = new JTextField();
         telefoneTextField.setBounds(250, 260, 150, 20);
         add(telefoneTextField);
         telefoneLabel.setToolTipText("Insira o telefone");
@@ -136,11 +122,7 @@ public class RegistrarFuncionario extends JFrame{
         idadeLabel.setBounds(400, 240, 150, 20);
         add(idadeLabel); // adiciona o idadeao JFrame
         
-        try {
-            salarioTextField = new JFormattedTextField(new MaskFormatter("R$ ####.##"));
-        } catch(java.text.ParseException e) {
-            e.printStackTrace(System.err);
-        }
+        salarioTextField = new JTextField();
         salarioTextField.setBounds(250, 300, 150, 20);
         add(salarioTextField);
         salarioLabel.setToolTipText("Insira o salário");
@@ -203,6 +185,8 @@ public class RegistrarFuncionario extends JFrame{
             String sobrenome = sobrenomeTextField.getText();
             String endereco = enderecoTextField.getText();
             String email = emailTextField.getText();
+            String cpf = cpfTextField.getText();
+            String rg = rgTextField.getText();
             String password = String.copyValueOf(senhaField.getPassword());
             String confirmPassword = String.copyValueOf(confirmarSenhaField.getPassword());
             String user = usuarioTextField.getText();
@@ -237,19 +221,19 @@ public class RegistrarFuncionario extends JFrame{
                     emailLabel.setForeground(Color.RED);
                 }
                 // valida cpf
-                if (!cpfTextField.getText().equals("   .   .   -  ")){
-                    cpfLabel.setForeground(Color.DARK_GRAY);
-                }
-                else {
-                    cpfLabel.setForeground(Color.RED);
-                }
-                // valida rg
-                if(!rgTextField.getText().equals("  .   .   ")) {
-                    rgLabel.setForeground(Color.DARK_GRAY);
-                }
-                else {
-                    rgLabel.setForeground(Color.RED);
-                }
+//                if (!cpfTextField.getText().equals("   .   .   -  ")){
+//                    cpfLabel.setForeground(Color.DARK_GRAY);
+//                }
+//                else {
+//                    cpfLabel.setForeground(Color.RED);
+//                }
+//                // valida rg
+//                if(!rgTextField.getText().equals("  .   .   ")) {
+//                    rgLabel.setForeground(Color.DARK_GRAY);
+//                }
+//                else {
+//                    rgLabel.setForeground(Color.RED);
+//                }
                 // valida telefone
                 if(!telefoneTextField.getText().equals("(  )       -    ")){
                     telefoneLabel.setForeground(Color.DARK_GRAY);
@@ -258,12 +242,12 @@ public class RegistrarFuncionario extends JFrame{
                     telefoneLabel.setForeground(Color.RED);
                 }
                 // valida salario
-                if(!salarioTextField.getText().equals("R$     .  ")){
-                    salarioLabel.setForeground(Color.DARK_GRAY);
-                }
-                else {
-                    salarioLabel.setForeground(Color.RED);
-                }
+//                if(!salarioTextField.getText().equals("R$     .  ")){
+//                    salarioLabel.setForeground(Color.DARK_GRAY);
+//                }
+//                else {
+//                    salarioLabel.setForeground(Color.RED);
+//                }
                 // valida regime de trabalho
                 if(regimeButton.getSelectedItem() != "") {
                     regimeLabel.setForeground(Color.DARK_GRAY);
