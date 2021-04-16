@@ -137,7 +137,7 @@ public class RegistrarFuncionario extends JFrame{
         add(idadeLabel); // adiciona o idadeao JFrame
         
         try {
-            salarioTextField = new JFormattedTextField(new MaskFormatter("R$ #####,##"));
+            salarioTextField = new JFormattedTextField(new MaskFormatter("R$ ####.##"));
         } catch(java.text.ParseException e) {
             e.printStackTrace(System.err);
         }
@@ -201,9 +201,11 @@ public class RegistrarFuncionario extends JFrame{
         public void actionPerformed(ActionEvent event) {
             String nome = nomeTextField.getText();
             String sobrenome = sobrenomeTextField.getText();
+            String endereco = enderecoTextField.getText();
             String email = emailTextField.getText();
             String password = String.copyValueOf(senhaField.getPassword());
             String confirmPassword = String.copyValueOf(confirmarSenhaField.getPassword());
+            String user = usuarioTextField.getText();
             
             if(event.getSource() == registrarButton){
                 // valida nome
@@ -220,6 +222,13 @@ public class RegistrarFuncionario extends JFrame{
                 else{
                     sobrenomeLabel.setForeground(Color.RED);
                 }
+                // valida endereço
+                if(endereco.length() != 0) {
+                    enderecoLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    enderecoLabel.setForeground(Color.RED);
+                }
                 // valida e-mail
                 if (email.contains("@") && email.length() > 0){
                     emailLabel.setForeground(Color.DARK_GRAY);
@@ -227,14 +236,33 @@ public class RegistrarFuncionario extends JFrame{
                 else {
                     emailLabel.setForeground(Color.RED);
                 }
-                // Valida a senha
-                if(confirmPassword.equals(password) && !(confirmPassword.length() < 6)){
-                    senhaLabel.setForeground(Color.DARK_GRAY);
-                    confirmarSenhaLabel.setForeground(Color.DARK_GRAY);
+                // valida cpf
+                if (!cpfTextField.getText().equals("   .   .   -  ")){
+                    cpfLabel.setForeground(Color.DARK_GRAY);
                 }
-                else{
-                    senhaLabel.setForeground(Color.RED);
-                    confirmarSenhaLabel.setForeground(Color.RED);
+                else {
+                    cpfLabel.setForeground(Color.RED);
+                }
+                // valida rg
+                if(!rgTextField.getText().equals("  .   .   ")) {
+                    rgLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    rgLabel.setForeground(Color.RED);
+                }
+                // valida telefone
+                if(!telefoneTextField.getText().equals("(  )       -    ")){
+                    telefoneLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    telefoneLabel.setForeground(Color.RED);
+                }
+                // valida salario
+                if(!salarioTextField.getText().equals("R$     .  ")){
+                    salarioLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    salarioLabel.setForeground(Color.RED);
                 }
                 // valida regime de trabalho
                 if(regimeButton.getSelectedItem() != "") {
@@ -249,6 +277,29 @@ public class RegistrarFuncionario extends JFrame{
                 }
                 else {
                     idadeLabel.setForeground(Color.RED);
+                }
+                // valida cargo
+                if(cargoButton.getSelectedItem() != "") {
+                    cargoLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    cargoLabel.setForeground(Color.RED);
+                }
+                // valida usuario
+                if(user.length() > 4) {
+                    usuarioLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    usuarioLabel.setForeground(Color.RED);
+                }
+                // Valida a senha
+                if(confirmPassword.equals(password) && !(confirmPassword.length() < 6)){
+                    senhaLabel.setForeground(Color.DARK_GRAY);
+                    confirmarSenhaLabel.setForeground(Color.DARK_GRAY);
+                }
+                else{
+                    senhaLabel.setForeground(Color.RED);
+                    confirmarSenhaLabel.setForeground(Color.RED);
                 }
             }
                 
