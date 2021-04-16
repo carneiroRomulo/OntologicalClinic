@@ -95,21 +95,21 @@ public class RegistrarFuncionario extends JFrame{
         emailLabel.setBounds(250, 160, 300, 20);
         add(emailLabel); // adiciona o emailLabel ao JFrame
         
-        cpfTextField = new JTextField();
+        cpfTextField = new JTextField(11);
         cpfTextField.setBounds(250, 220, 150, 20);
         add(cpfTextField);
         cpfLabel.setToolTipText("Insira o CPF");
         cpfLabel.setBounds(250, 200, 150, 20);
         add(cpfLabel); // adiciona o cpfLabel ao JFrame
         
-        rgTextField = new JTextField();
+        rgTextField = new JTextField(8);
         rgTextField.setBounds(400, 220, 150, 20);
         add(rgTextField);
         rgLabel.setToolTipText("Insira o RG");
         rgLabel.setBounds(400, 200, 150, 20);
         add(rgLabel); // adiciona o rgLabel ao JFrame
         
-        telefoneTextField = new JTextField();
+        telefoneTextField = new JTextField(11);
         telefoneTextField.setBounds(250, 260, 150, 20);
         add(telefoneTextField);
         telefoneLabel.setToolTipText("Insira o telefone");
@@ -122,7 +122,7 @@ public class RegistrarFuncionario extends JFrame{
         idadeLabel.setBounds(400, 240, 150, 20);
         add(idadeLabel); // adiciona o idadeao JFrame
         
-        salarioTextField = new JTextField();
+        salarioTextField = new JTextField("0");
         salarioTextField.setBounds(250, 300, 150, 20);
         add(salarioTextField);
         salarioLabel.setToolTipText("Insira o salário");
@@ -187,6 +187,8 @@ public class RegistrarFuncionario extends JFrame{
             String email = emailTextField.getText();
             String cpf = cpfTextField.getText();
             String rg = rgTextField.getText();
+            String telefone = telefoneTextField.getText();
+            double salario = Double.parseDouble(salarioTextField.getText());
             String password = String.copyValueOf(senhaField.getPassword());
             String confirmPassword = String.copyValueOf(confirmarSenhaField.getPassword());
             String user = usuarioTextField.getText();
@@ -221,33 +223,33 @@ public class RegistrarFuncionario extends JFrame{
                     emailLabel.setForeground(Color.RED);
                 }
                 // valida cpf
-//                if (!cpfTextField.getText().equals("   .   .   -  ")){
-//                    cpfLabel.setForeground(Color.DARK_GRAY);
-//                }
-//                else {
-//                    cpfLabel.setForeground(Color.RED);
-//                }
-//                // valida rg
-//                if(!rgTextField.getText().equals("  .   .   ")) {
-//                    rgLabel.setForeground(Color.DARK_GRAY);
-//                }
-//                else {
-//                    rgLabel.setForeground(Color.RED);
-//                }
+                if (cpf.length() == 11 && cpf.matches("[0-9]*")){
+                    cpfLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    cpfLabel.setForeground(Color.RED);
+                }
+                // valida rg
+                if(rg.length() == 8 && rg.matches("[0-9]*")) {
+                    rgLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    rgLabel.setForeground(Color.RED);
+                }
                 // valida telefone
-                if(!telefoneTextField.getText().equals("(  )       -    ")){
+                if(telefone.length() == 11 && telefone.matches("[0-9]*")){
                     telefoneLabel.setForeground(Color.DARK_GRAY);
                 }
                 else {
                     telefoneLabel.setForeground(Color.RED);
                 }
                 // valida salario
-//                if(!salarioTextField.getText().equals("R$     .  ")){
-//                    salarioLabel.setForeground(Color.DARK_GRAY);
-//                }
-//                else {
-//                    salarioLabel.setForeground(Color.RED);
-//                }
+                if(salario >= 1100){
+                    salarioLabel.setForeground(Color.DARK_GRAY);
+                }
+                else {
+                    salarioLabel.setForeground(Color.RED);
+                }
                 // valida regime de trabalho
                 if(regimeButton.getSelectedItem() != "") {
                     regimeLabel.setForeground(Color.DARK_GRAY);

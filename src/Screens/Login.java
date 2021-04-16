@@ -22,6 +22,7 @@ public class Login extends JFrame{
     private JPasswordField senhaField;
     
     private JButton loginButton; // botao de login
+    private JButton sairButton; // botao de login
     private JLabel warningLabel; // botao de aviso
     
     public Login(){
@@ -33,7 +34,7 @@ public class Login extends JFrame{
         add(usuarioTextField); // adiciona ao JFrame
         usuarioLabel = new JLabel("User"); // variavel que define a caixa de texto
         usuarioLabel.setToolTipText("Enter the user id"); // dica do que faz
-        usuarioLabel.setBounds(300, 180, 150, 20); // define a posição do label na tela
+        usuarioLabel.setBounds(300, 180, 200, 20); // define a posição do label na tela
         add(usuarioLabel); // adiciona ao JFrame
         
         senhaField = new JPasswordField(20); // variavel de inserção de dados
@@ -41,18 +42,24 @@ public class Login extends JFrame{
         add(senhaField); // adiciona ao JFrame
         senhaLabel = new JLabel("Password"); // variavel que define a caixa de texto
         senhaLabel.setToolTipText("Enter the password login"); // dica do que faz
-        senhaLabel.setBounds(300, 230, 150, 20); // define a posição do label na tela
+        senhaLabel.setBounds(300, 230, 200, 20); // define a posição do label na tela
         add(senhaLabel); // adiciona ao JFrame
         
         ValidarLogin handler = new ValidarLogin(); // variavel que lida com as alterações
         loginButton = new JButton("Login"); // botao para acessar o sistema
-        loginButton.setBounds(419, 280, 80, 20); // define a posição do botão na tela
+        loginButton.setBounds(400, 280, 100, 20); // define a posição do botão na tela
         loginButton.setFocusable(false); // retira a caixa que fica em volta do texto do botão
         loginButton.addActionListener(handler); // ouve alterações de comportamento
-        add(loginButton); // adiciona ao JFrame
+        add(loginButton);
+        
+        sairButton = new JButton("Sair"); // botao para acessar o sistema
+        sairButton.setBounds(300, 280, 100, 20); // define a posição do botão na tela
+        sairButton.setFocusable(false); // retira a caixa que fica em volta do texto do botão
+        sairButton.addActionListener(handler); // ouve alterações de comportamento
+        add(sairButton); // adiciona ao JFrame
         
         warningLabel = new JLabel(); // variavel de aviso para entrada invalida
-        warningLabel.setBounds(300, 280, 200, 20); // define a posição do aviso na tela
+        warningLabel.setBounds(300, 300, 200, 20); // define a posição do aviso na tela
         warningLabel.setFont(new Font(null, Font.ITALIC, 12)); // define a fonte do aviso de erro
         add(warningLabel); // adiciona ao JFrame
         
@@ -85,6 +92,9 @@ public class Login extends JFrame{
                     warningLabel.setForeground(Color.red);
                     warningLabel.setText("Acesso Negado");
                 }
+            }
+            if(event.getSource() == sairButton) {
+                dispose();
             }
         }
     }

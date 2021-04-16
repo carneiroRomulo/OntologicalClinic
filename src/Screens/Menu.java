@@ -15,7 +15,7 @@ public class Menu extends JFrame{
     JButton pagarContasButton;
     JButton folhaDePontoButton;
     JButton registrarFuncionarioButton;
-    JButton fecharSistemaButton;
+    JButton logoutSistemaButton;
 
     public Menu(String userID) {
         userLabel = new JLabel(userID);
@@ -53,12 +53,12 @@ public class Menu extends JFrame{
         registrarFuncionarioButton.addActionListener(go);
         add(registrarFuncionarioButton);
         
-        fecharSistemaButton = new JButton("Fechar Sistema");
-        fecharSistemaButton.setBounds(250, 400, 300, 50);
-        fecharSistemaButton.setFocusable(false);
-        fecharSistemaButton.addActionListener(go);
-        add(fecharSistemaButton);
-        
+        logoutSistemaButton = new JButton("Logout");
+        logoutSistemaButton.setBounds(250, 400, 300, 50);
+        logoutSistemaButton.setFocusable(false);
+        logoutSistemaButton.addActionListener(go);
+        add(logoutSistemaButton);
+    
         setTitle("CLINICA CURRAL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -85,8 +85,9 @@ public class Menu extends JFrame{
             else if(event.getSource() == registrarFuncionarioButton) {
                 RegistrarFuncionario registerEmployee = new RegistrarFuncionario();
             }
-            else if(event.getSource() == fecharSistemaButton) {
+            else if(event.getSource() == logoutSistemaButton) {
                 dispose();
+                Login login = new Login();
             }
             dispose();
         }
