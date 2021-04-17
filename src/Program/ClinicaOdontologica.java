@@ -10,6 +10,6 @@ import Screens.Menu;
 public class ClinicaOdontologica {
 
     public static void main(String[] args) {
-        Menu menu = new Menu();
+        Menu menu = new Menu("admin");
     }
 }

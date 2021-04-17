@@ -13,7 +13,9 @@ public class Menu extends JFrame{
     JButton acessarAgendaButton;
     JButton marcarConsultaButton;
     JButton pagarContasButton;
+    JButton pagarSalarioButton;
     JButton folhaDePontoButton;
+    JButton gerarRelatorioButton;
     JButton registrarFuncionarioButton;
     JButton logoutSistemaButton;
 
@@ -24,37 +26,49 @@ public class Menu extends JFrame{
         
         GoTo go = new GoTo();
         acessarAgendaButton = new JButton("Acessar Agenda");
-        acessarAgendaButton.setBounds(250, 100, 300, 50);
+        acessarAgendaButton.setBounds(250, 100, 300, 40);
         acessarAgendaButton.setFocusable(false);
         acessarAgendaButton.addActionListener(go);
         add(acessarAgendaButton);
         
         marcarConsultaButton = new JButton("Marcar Consulta");
-        marcarConsultaButton.setBounds(250, 160, 300, 50);
+        marcarConsultaButton.setBounds(250, 150, 300, 40);
         marcarConsultaButton.setFocusable(false);
         marcarConsultaButton.addActionListener(go);
         add(marcarConsultaButton);
         
         pagarContasButton = new JButton("Pagamento de Contas");
-        pagarContasButton.setBounds(250, 220, 300, 50);
+        pagarContasButton.setBounds(250, 200, 300, 40);
         pagarContasButton.setFocusable(false);
         pagarContasButton.addActionListener(go);
         add(pagarContasButton);
         
+        pagarSalarioButton = new JButton("Pagamento Salario");
+        pagarSalarioButton.setBounds(250, 250, 300, 40);
+        pagarSalarioButton.setFocusable(false);
+        pagarSalarioButton.addActionListener(go);
+        add(pagarSalarioButton);
+        
         folhaDePontoButton = new JButton("Folha de Ponto");
-        folhaDePontoButton.setBounds(250, 280, 300, 50);
+        folhaDePontoButton.setBounds(250, 300, 300, 40);
         folhaDePontoButton.setFocusable(false);
         folhaDePontoButton.addActionListener(go);
         add(folhaDePontoButton);
         
+        gerarRelatorioButton = new JButton("Gerar Relatório");
+        gerarRelatorioButton.setBounds(250, 350, 300, 40);
+        gerarRelatorioButton.setFocusable(false);
+        gerarRelatorioButton.addActionListener(go);
+        add(gerarRelatorioButton);
+        
         registrarFuncionarioButton = new JButton("Registrar Funcionário");
-        registrarFuncionarioButton.setBounds(250, 340, 300, 50);
+        registrarFuncionarioButton.setBounds(250, 400, 300, 40);
         registrarFuncionarioButton.setFocusable(false);
         registrarFuncionarioButton.addActionListener(go);
         add(registrarFuncionarioButton);
         
         logoutSistemaButton = new JButton("Logout");
-        logoutSistemaButton.setBounds(250, 400, 300, 50);
+        logoutSistemaButton.setBounds(250, 450, 300, 40);
         logoutSistemaButton.setFocusable(false);
         logoutSistemaButton.addActionListener(go);
         add(logoutSistemaButton);
@@ -83,8 +97,14 @@ public class Menu extends JFrame{
             else if(event.getSource() == pagarContasButton) {
                 Conta payBills = new Conta();
             }
+            else if(event.getSource() == pagarSalarioButton) {
+                PagarSalario salario = new PagarSalario();
+            }
             else if(event.getSource() == folhaDePontoButton) {
                 FolhaDePonto timeSheet = new FolhaDePonto();
+            }
+            else if(event.getSource() == gerarRelatorioButton) {
+                GerarRelatorio relatorio = new GerarRelatorio();
             }
             else if(event.getSource() == registrarFuncionarioButton) {
                 RegistrarFuncionario registerEmployee = new RegistrarFuncionario();
