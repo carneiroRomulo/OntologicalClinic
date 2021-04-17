@@ -67,6 +67,10 @@ public class Menu extends JFrame{
         setVisible(true); // mostra a tela
     }
 
+    public Menu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private class GoTo implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
@@ -77,7 +81,7 @@ public class Menu extends JFrame{
                 Consulta appointment = new Consulta();
             }
             else if(event.getSource() == pagarContasButton) {
-                Contas payBills = new Contas();
+                Conta payBills = new Conta();
             }
             else if(event.getSource() == folhaDePontoButton) {
                 FolhaDePonto timeSheet = new FolhaDePonto();

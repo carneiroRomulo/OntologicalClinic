@@ -3,16 +3,13 @@
    Bacharelado em Ciência da Computação - Estrutura de Dados II */
 
 package Program;
-//import Screens.Menu;
+import Screens.Menu;
 //import java.util.List;
 //import java.util.ArrayList;
 
 public class ClinicaOdontologica {
 
     public static void main(String[] args) {
-        //Menu menu = new Menu("Romulo");
-        Consulta consulta = new Consulta();
-        Cliente cliente = new Cliente();
-        consulta.receberConsulta(cliente);
+        Menu menu = new Menu();
     }
 }

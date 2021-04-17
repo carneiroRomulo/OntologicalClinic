@@ -67,6 +67,7 @@ public class RegistrarFuncionario extends JFrame{
     JButton backButton = new JButton("Voltar");
     
     public RegistrarFuncionario(){
+        ValidateRegister handler = new ValidateRegister();
         pageLabel = new JLabel("REGISTRAR FUNCIONARIO"); // titulo da tela
         pageLabel.setBounds(250, 40, 200, 20);
         add(pageLabel); // adiciona o pageLabel ao JFrame
@@ -136,30 +137,36 @@ public class RegistrarFuncionario extends JFrame{
         add(regimeLabel); // adiciona o regimeao JFrame
         
         cargoButton.setBounds(250, 340, 300, 20);
+        cargoButton.addActionListener(handler);
         add(cargoButton);
         cargoLabel.setToolTipText("Insira o cargo");
         cargoLabel.setBounds(250, 320, 300, 20);
         add(cargoLabel); // adiciona o cargoao JFrame
         
         usuarioTextField.setBounds(250, 380, 300, 20);
+        usuarioTextField.setVisible(false);
         add(usuarioTextField);
         usuarioLabel.setToolTipText("Insira o ID do usuário");
         usuarioLabel.setBounds(250, 360, 300, 20);
+        usuarioLabel.setVisible(false);
         add(usuarioLabel); // adiciona o usuario ao JFrame
         
         senhaField.setBounds(250, 420, 150, 20);
+        senhaField.setVisible(false);
         add(senhaField);
         senhaLabel.setToolTipText("Insira a senha");
         senhaLabel.setBounds(250, 400, 150, 20);
+        senhaLabel.setVisible(false);
         add(senhaLabel); // adiciona o senhaao JFrame
         
         confirmarSenhaField.setBounds(400, 420, 150, 20);
+        confirmarSenhaField.setVisible(false);
         add(confirmarSenhaField);
         confirmarSenhaLabel.setToolTipText("Confirme a senha");
         confirmarSenhaLabel.setBounds(400, 400, 150, 20);
+        confirmarSenhaLabel.setVisible(false);
         add(confirmarSenhaLabel); // adiciona o confirmsenhaao JFrame
         
-        ValidateRegister handler = new ValidateRegister();
         registrarButton.setBounds(400, 460, 150, 20);
         registrarButton.setFocusable(false);
         registrarButton.addActionListener(handler);
@@ -271,6 +278,7 @@ public class RegistrarFuncionario extends JFrame{
                 else {
                     cargoLabel.setForeground(Color.RED);
                 }
+                
                 // valida usuario
                 if(user.length() > 4) {
                     usuarioLabel.setForeground(Color.DARK_GRAY);
@@ -289,6 +297,25 @@ public class RegistrarFuncionario extends JFrame{
                 }
             }
                 
+            if(event.getSource() == cargoButton) {
+                if (cargoButton.getSelectedItem().equals("Administrador") 
+                        || cargoButton.getSelectedItem().equals("Assistente Administrativo")){
+                    usuarioTextField.setVisible(true);
+                    usuarioLabel.setVisible(true);
+                    senhaField.setVisible(true);
+                    senhaLabel.setVisible(true);
+                    confirmarSenhaField.setVisible(true);
+                    confirmarSenhaLabel.setVisible(true);
+                }
+                else {
+                    usuarioTextField.setVisible(false);
+                    usuarioLabel.setVisible(false);
+                    senhaField.setVisible(false);
+                    senhaLabel.setVisible(false);
+                    confirmarSenhaField.setVisible(false);
+                    confirmarSenhaLabel.setVisible(false);
+                }
+            }
             if(event.getSource() == backButton) {
                 Menu menu = new Menu("admin");
                 dispose();

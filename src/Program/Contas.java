@@ -47,21 +47,21 @@ public class Contas {
     
     /* SETTERS */
     // ALTERA O VALOR DA CONTA
-    protected void setValor(double valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
     // ALTERA A DATA DO VENCIMENTO DA CONTA
-    protected void setDataVencimento (String dataVencimento) {
+    public void setDataVencimento (String dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
     
     // ALTERA A DATA DO PAGAMENTO DA CONTA
-    protected void setDataPagamento (String dataPagamento) {
+    public void setDataPagamento (String dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
  
     // ALTERA O TIPO DE CONTA
-    protected void setTipo(String tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
     
