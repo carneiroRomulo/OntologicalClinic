@@ -6,3 +6,11 @@ Telefone: 98800-0000
 Endereço: avenida presidente dutra, 1398
 Carga Horária: 8
 
+Administrador: romulo
+Idade: 30
+Cargo: 3
+Salário: 2000.0
+Telefone: 98800-0000
+Endereço: avenida presidente dutra, 1398
+Carga Horária: 8
+

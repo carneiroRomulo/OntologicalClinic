@@ -372,7 +372,7 @@ public class Administrador extends Funcionario {
 
             switch(comando) {
                 case 01: {
-                    //agenda.abrirAgenda(dentistas);
+                    agenda.abrirAgenda();
                     break;
                 }
                 case 02: {
@@ -484,7 +484,7 @@ public class Administrador extends Funcionario {
                                 //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
                                 PrintWriter printWriter = new PrintWriter(fileWriter);
                                 for (int i = 0; i < assistentes.size(); i++) {
-                                    printWriter.println("Administrador: " + assistentes.get(i).getNome());
+                                    printWriter.println("Assistente administrativo: " + assistentes.get(i).getNome());
                                     printWriter.println("Idade: " + assistentes.get(i).getIdade());
                                     printWriter.println("Cargo: " + assistentes.get(i).getCargo());
                                     printWriter.println("Salário: " + assistentes.get(i).getSalario());
@@ -526,7 +526,7 @@ public class Administrador extends Funcionario {
                                 //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
                                 PrintWriter printWriter = new PrintWriter(fileWriter);
                                 for (int i = 0; i < dentista.size(); i++) {
-                                    printWriter.println("Administrador: " + dentista.get(i).getNome());
+                                    printWriter.println("Dentista: " + dentista.get(i).getNome());
                                     printWriter.println("Idade: " + dentista.get(i).getIdade());
                                     printWriter.println("Cargo: " + dentista.get(i).getCargo());
                                     printWriter.println("Salário: " + dentista.get(i).getSalario());
@@ -566,7 +566,7 @@ public class Administrador extends Funcionario {
                                 //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
                                 PrintWriter printWriter = new PrintWriter(fileWriter);
                                 for (int i = 0; i < assDentista.size(); i++) {
-                                    printWriter.println("Administrador: " + assDentista.get(i).getNome());
+                                    printWriter.println("Assistende de dentista: " + assDentista.get(i).getNome());
                                     printWriter.println("Idade: " + assDentista.get(i).getIdade());
                                     printWriter.println("Cargo: " + assDentista.get(i).getCargo());
                                     printWriter.println("Salário: " + assDentista.get(i).getSalario());
@@ -606,7 +606,7 @@ public class Administrador extends Funcionario {
                                 //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
                                 PrintWriter printWriter = new PrintWriter(fileWriter);
                                 for (int i = 0; i < recepcionista.size(); i++) {
-                                    printWriter.println("Administrador: " + recepcionista.get(i).getNome());
+                                    printWriter.println("Recepcionista: " + recepcionista.get(i).getNome());
                                     printWriter.println("Idade: " + recepcionista.get(i).getIdade());
                                     printWriter.println("Cargo: " + recepcionista.get(i).getCargo());
                                     printWriter.println("Salário: " + recepcionista.get(i).getSalario());

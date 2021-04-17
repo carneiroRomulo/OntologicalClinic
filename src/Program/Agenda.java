@@ -1,4 +1,5 @@
 package Program;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +11,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.text.ParseException;
 import java.util.Date;
-        
+import java.util.NoSuchElementException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.RandomAccessFile;
+
 public class Agenda {
     String data;
     String horario;
@@ -46,8 +51,37 @@ public class Agenda {
     }
     
     //ABRE A AGENDA DE UM DETERMINADO DENTISTA
-    public void abrirAgenda(List<Dentista> dentistas){
+    public void abrirAgenda(){
         List<Agenda> agenda = new ArrayList<Agenda>();
+        Scanner ler = new Scanner(System.in);
+        Dentista aux = new Dentista();
+        List<Dentista> dentistas = new ArrayList<Dentista>();
+        
+        try {
+            FileReader arq = new FileReader("Dentistas.txt");
+            BufferedReader lerArq = new BufferedReader(arq);
+            
+            //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+            String linha = lerArq.readLine(); // lê a primeira linha
+            String teste;
+            int i = 0;
+            while (linha != null) {
+                if (linha.contains("Administrador: ")) {
+                    teste = linha.replace("Administrador: ", "");
+                    //System.out.printf("%s\n", teste);
+                    aux.setNome(teste);
+                    //System.out.println(aux.getNome());
+                    dentistas.add(i, aux);
+                    System.out.println(dentistas.get(i).getNome());
+                    i++;
+                }
+                linha = lerArq.readLine(); // lê da segunda até a última linha    
+            }
+
+            arq.close();
+        } catch (IOException e) {
+            System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+        }
         
         //DOIS INTEIROS UTILIZADOS COMO VERIFICADORES DE PARADA DO LAÇO
         int encontrou = 0;
@@ -68,8 +102,8 @@ public class Agenda {
             do {
                 //IMPRIME TODOS OS DENTISTAS
                 System.out.println("\nDentistas disponíveis: ");
-                for (int i = 0; i < dentistas.size(); i++) {
-                    System.out.println(dentistas.get(i).getNome());                  
+                for (Dentista i : dentistas) { 
+                    System.out.println(i.getNome());                  
                 }
                 
                 System.out.print("Qual deles você deseja visualizar a agenda? ");
