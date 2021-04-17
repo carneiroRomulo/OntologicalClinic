@@ -11,7 +11,8 @@ public class ClinicaOdontologica {
 
     public static void main(String[] args) {
         //Menu menu = new Menu("Romulo");
-        Agenda agenda = new Agenda();
-        agenda.abrirAgenda();
+        Consulta consulta = new Consulta();
+        Cliente cliente = new Cliente();
+        consulta.receberConsulta(cliente);
     }
 }

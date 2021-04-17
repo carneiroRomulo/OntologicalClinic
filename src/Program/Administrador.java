@@ -1,5 +1,7 @@
 package Program;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -347,7 +349,6 @@ public class Administrador extends Funcionario {
         Agenda agenda = new Agenda();
         Consulta consulta = new Consulta();
         Contas conta = new Contas();
-        List<Cliente> cliente = new ArrayList<>();
         
         File arqAgenda = new File ("Agenda.txt");
         File arqContas = new File ("Contas.txt");
@@ -376,14 +377,41 @@ public class Administrador extends Funcionario {
                     break;
                 }
                 case 02: {
+                    Cliente cliente = new Cliente();
+                    System.out.print("Qual seu nome? ");
+                    String nomePaciente = input.next();
+                    cliente.setNome(nomePaciente);
                     System.out.print("Com qual dentista é a consulta? ");
                     String nome = input.nextLine();
+                    
+                    Scanner ler = new Scanner(System.in);
+                    List<Dentista> dentistas = new ArrayList<Dentista>();
 
-//                    for (Dentista i : dentistas) {
-//                        if (nome.equals(i.getNome())) {
-//                            cliente.add(i.getCliente());
-//                        }
-//                    }
+                    try {
+                        //ABRE O ARQUIVO DE DENTISTAS DISPONIVEIS E JOGA NUMA LIST
+                        FileReader arq = new FileReader("Dentistas.txt");
+                        BufferedReader lerArq = new BufferedReader(arq);
+
+                        //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+                        String linha = lerArq.readLine();
+                        String teste;
+                        while (linha != null) {
+                            //VERIFICA APENAS O NOME DO DENTISTA
+                            if (linha.contains("Administrador: ")) {
+                                teste = linha.replace("Administrador: ", "");
+                                Dentista dentista = new Dentista();
+                                dentista.setNome(teste);
+                                dentistas.add(dentista);
+
+                            }
+                            //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                            linha = lerArq.readLine();
+                        }
+
+                        arq.close();
+                    } catch (IOException e) {
+                        System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                    }
                     
                     consulta.receberConsulta(cliente);
                     break;
@@ -641,22 +669,180 @@ public class Administrador extends Funcionario {
                     System.exit(1);
                 }
             }      
-             System.out.println("");      
+             System.out.println();      
         }
     }
     
     // RETORNA A FOLHA DE PONTO DE UM DETERMINADO FUNCIONARIO
     private void folhaDePonto(){
         Scanner input= new Scanner(System.in);
+        int cargo;
+        boolean valida;
         
-        //VETOR PARA ADICIONAR TODOS OS FUNCIONARIOS
+        // CARGO
+        do {
+            valida = true;
+            System.out.println("\n01 - ADMINISTRADOR");
+            System.out.println("02 - ASSISTENTE ADM");
+            System.out.println("03 - DENTISTA");
+            System.out.println("04 - ASSISTENTE DENT");
+            System.out.println("05 - RECEPCIONISTA");
+            System.out.print("Cargo: ");
+            cargo = input.nextInt();
+
+            if (cargo < 1 || cargo > 5) {
+                System.err.println("Cargo inválido");
+                valida = false;
+            }
+        } while (valida != true);
+        
+        //VETOR PARA ADICIONAR TODOS OS FUNCIONARIOS QUE ESTÃO EM ARQUIVOS
         List<Object> nomes = new ArrayList<>();
-        nomes.add(getAdministradores());
-        nomes.add(getAssistentesAdministrativos());
-        nomes.add(getDentistas());
-        nomes.add(getAssistentesDentistas());
-        nomes.add(getRecepcionistas());
         
+        switch (cargo) {
+            //LÊ TODOS OS ADMINISTRADORES
+            case 1: {
+                try {
+                    FileReader arq = new FileReader("Administradores.txt");
+                    BufferedReader lerArq = new BufferedReader(arq);
+
+                    //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+                    String linha = lerArq.readLine();
+                    String teste;
+                    while (linha != null) {
+                        //VERIFICA APENAS O NOME DO ADM
+                        if (linha.contains("Administrador: ")) {
+                            teste = linha.replace("Administrador: ", "");
+                            String nome;
+                            nome = teste;
+                            nomes.add(nome);
+                        }
+                        //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                        linha = lerArq.readLine();
+                    }
+
+                    arq.close();
+                } catch (IOException e) {
+                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                }
+
+                break;
+            }
+            // LÊ TODOS OS ASSISTENTE ADMINISTRATIVO
+            case 2: {
+                try {
+                    FileReader arq = new FileReader("AssistentesAdm.txt");
+                    BufferedReader lerArq = new BufferedReader(arq);
+
+                    //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+                    String linha = lerArq.readLine();
+                    String teste;
+                    while (linha != null) {
+                        //VERIFICA APENAS O NOME DO DENTISTA
+                        if (linha.contains("Assistente administrativo: ")) {
+                            teste = linha.replace("Assistente administrativo: ", "");
+                            String nome;
+                            nome = teste;
+                            nomes.add(nome);
+                        }
+                        //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                        linha = lerArq.readLine();
+                    }
+                    arq.close();
+                } catch (IOException e) {
+                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                }
+
+                break;
+            }
+
+            // LÊ TODOS OS DENTISTA
+            case 3: {
+                try {
+                    FileReader arq = new FileReader("Dentistas.txt");
+                    BufferedReader lerArq = new BufferedReader(arq);
+
+                    //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+                    String linha = lerArq.readLine();
+                    String teste;
+                    while (linha != null) {
+                        //VERIFICA APENAS O NOME DO DENTISTA
+                        if (linha.contains("Dentista: ")) {
+                            teste = linha.replace("Dentista: ", "");
+                            String nome;
+                            nome = teste;
+                            nomes.add(nome);
+                        }
+                        //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                        linha = lerArq.readLine();
+                    }
+
+                    arq.close();
+                } catch (IOException e) {
+                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                }
+                break;
+            }
+            // LÊ TODOS ASSISTENTES DE DENTISTA
+            case 4: {
+                try {
+                    FileReader arq = new FileReader("AssistentesDeDentistas.txt");
+                    BufferedReader lerArq = new BufferedReader(arq);
+
+                    //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+                    String linha = lerArq.readLine();
+                    String teste;
+                    while (linha != null) {
+                        //VERIFICA APENAS O NOME DO DENTISTA
+                        if (linha.contains("Assistente de dentista: ")) {
+                            teste = linha.replace("Assistente de dentista: ", "");
+                            String nome;
+                            nome = teste;
+                            nomes.add(nome);
+                        }
+                        //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                        linha = lerArq.readLine();
+                    }
+
+                    arq.close();
+                } catch (IOException e) {
+                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                }
+                break;
+            }
+            // LÊ TODOS RECEPCIONISTA
+            case 5: {
+                try {
+                    FileReader arq = new FileReader("Recepcionistas.txt");
+                    BufferedReader lerArq = new BufferedReader(arq);
+
+                    //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+                    String linha = lerArq.readLine();
+                    String teste;
+                    while (linha != null) {
+                        //VERIFICA APENAS O NOME DO DENTISTA
+                        if (linha.contains("Recepcionista: ")) {
+                            teste = linha.replace("Recepcionista: ", "");
+                            String nome;
+                            nome = teste;
+                            nomes.add(nome);
+                        }
+                        //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                        linha = lerArq.readLine();
+                    }
+
+                    arq.close();
+                } catch (IOException e) {
+                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                }
+                break;
+            }
+            default: {
+                System.err.println("Erro no cadastro de funcionario");
+                break;
+            }
+        }
+
         //LEITURA DO NOME DOS FUNCIONARIOS
         System.out.println("------------FUNCIONARIOS------------");
         nomes.forEach(i -> {
@@ -700,20 +886,45 @@ public class Administrador extends Funcionario {
                     }
                 } while (controle != true);
                 
-                
-                
+                //VERIFICA SE TERÁ ALGUMA OBSERVAÇÃO A SER COLOCADA NA FOLHA DE PONTO
                 System.out.print("Alguma observacao a ser feita referente ao dia de trabalho? ");
                 obs = input.next();
 
-                System.out.printf("Folha de Ponto – ", i);
-                System.out.printf("Data \t Observacao", data, "\t", obs);
-
-                System.out.print("Deseja salvar? S ou N");
+                System.out.print("Deseja salvar (S/N)? ");
                 salvar = input.next().charAt(0);
 
                 switch(salvar){
                     case 'S': {
                         System.out.println("Salvo com sucesso");
+                        
+                        //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
+                        File arq = new File("FolhaDePonto.txt");
+                        try {
+                            arq.createNewFile();
+
+                            //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                            //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                            //SENDO TRUE ESCREVE DE ONDE PAROU
+                            FileWriter fileWriter = new FileWriter(arq, true);
+
+                            //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                            PrintWriter printWriter = new PrintWriter(fileWriter);
+                            
+                            printWriter.println("Folha de Ponto - " + i);
+                            printWriter.printf("%-10s %-10s", "Data", "Observação");
+                            printWriter.printf("%-10s", data);
+                            printWriter.printf("%-10s\n", obs);
+                            printWriter.print("\n");
+
+                            //LIBERA A ESCRITA NO ARQUIVO
+                            printWriter.flush();
+
+                            //FECHA O ARQUIVO
+                            printWriter.close();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }                        
                         return;
                     }
                     case 'N': {

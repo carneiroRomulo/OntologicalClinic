@@ -53,8 +53,6 @@ public class Agenda {
     //ABRE A AGENDA DE UM DETERMINADO DENTISTA
     public void abrirAgenda(){
         List<Agenda> agenda = new ArrayList<Agenda>();
-        Scanner ler = new Scanner(System.in);
-        Dentista aux = new Dentista();
         List<Dentista> dentistas = new ArrayList<Dentista>();
         
         try {
@@ -62,20 +60,19 @@ public class Agenda {
             BufferedReader lerArq = new BufferedReader(arq);
             
             //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
-            String linha = lerArq.readLine(); // lê a primeira linha
+            String linha = lerArq.readLine(); 
             String teste;
-            int i = 0;
             while (linha != null) {
+                //VERIFICA APENAS O NOME DO DENTISTA
                 if (linha.contains("Administrador: ")) {
                     teste = linha.replace("Administrador: ", "");
-                    //System.out.printf("%s\n", teste);
-                    aux.setNome(teste);
-                    //System.out.println(aux.getNome());
-                    dentistas.add(i, aux);
-                    System.out.println(dentistas.get(i).getNome());
-                    i++;
-                }
-                linha = lerArq.readLine(); // lê da segunda até a última linha    
+                    Dentista dentista = new Dentista();
+                    dentista.setNome(teste);
+                    dentistas.add(dentista);
+                    
+                } 
+                //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                linha = lerArq.readLine(); 
             }
 
             arq.close();

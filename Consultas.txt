@@ -1,0 +1,2 @@
+Cliente    Valor      Pago       Data do pagamento
+null       100.0      false             null
