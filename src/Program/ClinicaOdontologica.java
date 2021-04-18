@@ -10,6 +10,8 @@ import Screens.Menu;
 public class ClinicaOdontologica {
 
     public static void main(String[] args) {
-        Menu menu = new Menu("admin");
+        //Menu menu = new Menu("admin");
+        Administrador adm = new Administrador();
+        adm.acessarSistema();
     }
 }

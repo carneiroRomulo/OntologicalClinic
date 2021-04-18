@@ -80,7 +80,7 @@ public class Contas {
         conta.tipo = input.nextLine();
         conta.setTipo(conta.tipo);
 
-        System.out.print("Data de vencimento (dd/mm/yyyy)? ");
+        System.out.print("Data de vencimento (dd/mm/yy)? ");
         conta.dataVencimento = input.nextLine();
         conta.setDataVencimento(conta.dataVencimento);
 
@@ -102,7 +102,7 @@ public class Contas {
                 String formatoData = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(data);
                 conta.setDataPagamento(formatoData);
 
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
                 Date dataP = formato.parse(conta.dataPagamento);
                 Date dataV = formato.parse(conta.dataVencimento);
                 //COMPARA SE A CONTA ESTÁ VENCIDA (DATA DE PAGAMENTO É ANTERIOR A DATA DE VENCIMENTO)

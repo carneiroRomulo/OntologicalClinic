@@ -100,11 +100,10 @@ public class Consulta {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.printf("%-10s %-10s %-10s %-10s\n", "Cliente", "Valor", "Pago", "Data do pagamento");
-            //printWriter.printf("Cliente \t Valor \t\t Foi paga \t Data do pagamento\n");
             printWriter.printf("%-11s", cliente.getNome());
             printWriter.printf("%-11s", consulta.getValor());
             printWriter.printf("%-12s", consulta.getPago());
-            printWriter.printf("%10s\n", consulta.getDataPagamento());
+            printWriter.printf("%10s\n\n", consulta.getDataPagamento());
 
             //LIBERA A ESCRITA NO ARQUIVO
             printWriter.flush();

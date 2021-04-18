@@ -336,7 +336,321 @@ public class Administrador extends Funcionario {
     }
 
     // GERA O RELATORIO
-    //private void gerarRelatorio(){}
+    private void gerarRelatorio(){
+        int opcao;
+        System.out.println("\n1 - Relatório de ganhos\n2 - Relatório de gastos\n3 - Relatório de gastos com funcionários");
+        Scanner input = new Scanner(System.in);
+        opcao = input.nextInt();
+        
+        switch(opcao) {
+            case 1: {
+                try {
+                    double ganhos = 0;
+                    FileReader arq = new FileReader("Consultas.txt");
+                    BufferedReader lerArq = new BufferedReader(arq);
+                    List<Consulta> consultas = new ArrayList<Consulta>();
+                    List<Cliente> clientes = new ArrayList<Cliente>();
+                    
+                    //VERIFICA EM QUAL PERÍODO DEVE SER PROCURADO
+                    String dataInicio;
+                    String dataFim;
+                    
+                    System.out.print("Data início (dd/mm/yy): ");
+                    dataInicio = input.next();
+                    
+                    System.out.print("Data fim (dd/mm/yy): ");
+                    dataFim = input.next();
+                    
+                    //Lê A PRIMEIRA LINHA QUE NO CASO É OS ÍNDICES
+                    String linha = lerArq.readLine();
+                    String teste;
+                    String data;
+
+                    while (linha != null) {              
+                        //VERIFICA APENAS O VALOR DA CONSULTA
+                        if (linha.contains("Valor")) {
+                            //LÊ A PRÓXIMA LINHA
+                            linha = lerArq.readLine();
+                            
+                            int comecoNome = linha.indexOf("");
+                            int fimNome = linha.indexOf(" ");
+                            Cliente cliente = new Cliente();
+                            cliente.setNome(linha.substring(comecoNome, fimNome));
+                            clientes.add(cliente);
+
+                            //PEGA A DATA
+                            int comecoData = linha.indexOf("/");
+                            int fimData = linha.indexOf("/");
+                            data = linha.substring(comecoData-2, fimData+6);
+                            
+                            //VERIFICA SE A DATA É VÁLIDA
+                            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+
+                            try {
+                                Date dataDesejadaInicio = formato.parse(dataInicio);
+                                Date dataDesejadaFim = formato.parse(dataFim);
+                                Date dataArquivo = formato.parse(data);
+                                
+                                //COMPARA SE A DATA DESEJADA JÁ PASSOU
+                                if (dataArquivo.after(dataDesejadaInicio) && dataArquivo.before(dataDesejadaFim)) {
+                                    //PARA PEGAR A SUBSTRING VALOR 
+                                    int comeco = linha.indexOf(" ");
+                                    int fim = linha.indexOf(".");
+                                    teste = linha.substring(comeco + 1, fim + 2);
+                                    
+                                    //ADICIONANDO ESSES VALORES A UMA LISTA DE CONSULTA
+                                    Consulta consulta = new Consulta();
+                                    consulta.setValor(Double.parseDouble(teste));
+                                    consulta.setDataPagamento(data);
+                                    
+                                    consultas.add(consulta);
+
+                                    //SOMA TODOS OS VALORES
+                                    ganhos += Double.parseDouble(teste); 
+                                }
+                            } catch (ParseException e) {}
+                        }
+                        //LÊ AS LINHAS QUE SÃO ÍNDICES
+                        linha = lerArq.readLine();
+                    }
+
+                    arq.close();
+                    geraRelatorioGanhos(clientes, consultas, ganhos);
+                    System.out.println(ganhos);
+                } catch (IOException e) {
+                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                }
+                
+                break;
+            }
+            case 2: {
+                try {
+                    double gastos = 0;
+                    FileReader arq = new FileReader("Contas.txt");
+                    BufferedReader lerArq = new BufferedReader(arq);
+                    List<Contas> contas = new ArrayList<Contas>();
+
+                    //VERIFICA EM QUAL PERÍODO DEVE SER PROCURADO
+                    String dataInicio;
+                    String dataFim;
+
+                    System.out.print("Data início (dd/mm/yy): ");
+                    dataInicio = input.next();
+
+                    System.out.print("Data fim (dd/mm/yy): ");
+                    dataFim = input.next();
+
+                    //Lê A PRIMEIRA LINHA QUE NO CASO É OS ÍNDICES
+                    String linha = lerArq.readLine();
+                    String teste;
+                    String data;
+                    while (linha != null) {
+                        
+                        int comecoNome = linha.indexOf("");
+                        int fimNome = linha.indexOf(" ");
+                        Contas conta = new Contas();
+                        conta.setTipo(linha.substring(comecoNome, fimNome));
+                        contas.add(conta);
+                        
+                        //PEGA A DATA
+                        int comecoData = linha.indexOf("/");
+                        int fimData = linha.indexOf("/");
+                        data = linha.substring(comecoData - 2, fimData + 8);
+
+                        //VERIFICA SE A DATA É VÁLIDA
+                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+
+                        try {
+                            Date dataDesejadaInicio = formato.parse(dataInicio);
+                            Date dataDesejadaFim = formato.parse(dataFim);
+                            Date dataArquivo = formato.parse(data);
+
+                            //COMPARA SE A DATA DESEJADA JÁ PASSOU
+                            if (dataArquivo.after(dataDesejadaInicio) && dataArquivo.before(dataDesejadaFim)) {
+                                //PARA PEGAR A SUBSTRING VALOR 
+                                int comeco = linha.indexOf(" ");
+                                int fim = linha.indexOf(".");
+                                teste = linha.substring(comeco + 5, fim + 2);
+                                
+                                conta.setValor(Double.parseDouble(teste));
+                                conta.setDataPagamento(data);
+                                
+                                contas.add(conta);
+                                
+                                //SOMA TODOS OS VALORES
+                                gastos += Double.parseDouble(teste);
+                            }
+                        } catch (ParseException e) {}
+                        
+                        //LÊ AS LINHAS QUE SÃO ÍNDICES
+                        linha = lerArq.readLine();
+                    }
+
+                    arq.close();
+                    System.out.println(gastos);
+                    geraRelatorioGastos(contas, gastos);
+                } catch (IOException e) {
+                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                }
+                break;
+            }
+            case 3: {
+                try {
+                    double salarios = 0;
+                    FileReader arq = new FileReader("Salarios.txt");
+                    BufferedReader lerArq = new BufferedReader(arq);
+
+                    //VERIFICA EM QUAL PERÍODO DEVE SER PROCURADO
+                    String dataInicio;
+                    String dataFim;
+
+                    System.out.print("Data início (dd/mm/yy): ");
+                    dataInicio = input.next();
+
+                    System.out.print("Data fim (dd/mm/yy): ");
+                    dataFim = input.next();
+
+                    //Lê A PRIMEIRA LINHA QUE NO CASO É OS ÍNDICES
+                    String linha = lerArq.readLine();
+                    String teste;
+                    String data;
+                    while (linha != null) {
+                        //VERIFICA APENAS O VALOR DA CONSULTA
+                        if (linha.contains("Valor")) {
+                            //LÊ A PRÓXIMA LINHA
+                            linha = lerArq.readLine();
+
+                            //PEGA A DATA
+                            int comecoData = linha.indexOf("/");
+                            int fimData = linha.indexOf("/");
+                            data = linha.substring(comecoData - 2, fimData + 6);
+
+                            //VERIFICA SE A DATA É VÁLIDA
+                            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+
+                            try {
+                                Date dataDesejadaInicio = formato.parse(dataInicio);
+                                Date dataDesejadaFim = formato.parse(dataFim);
+                                Date dataArquivo = formato.parse(data);
+
+                                //COMPARA SE A DATA DESEJADA JÁ PASSOU
+                                if (dataArquivo.after(dataDesejadaInicio) && dataArquivo.before(dataDesejadaFim)) {
+                                    //PARA PEGAR A SUBSTRING VALOR 
+                                    int comeco = linha.indexOf(" ");
+                                    int fim = linha.indexOf(".");
+                                    teste = linha.substring(comeco + 1, fim + 2);
+
+                                    //SOMA TODOS OS VALORES
+                                    salarios += Double.parseDouble(teste);
+                                }
+                            } catch (ParseException e) {}
+                        }
+                        else if (linha.contains ("R$")) {
+                            //PEGA A DATA
+                            int comecoData = linha.indexOf("/");
+                            int fimData = linha.indexOf("/");
+                            data = linha.substring(comecoData - 2, fimData + 6);
+
+                            //VERIFICA SE A DATA É VÁLIDA
+                            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+
+                            try {
+                                Date dataDesejadaInicio = formato.parse(dataInicio);
+                                Date dataDesejadaFim = formato.parse(dataFim);
+                                Date dataArquivo = formato.parse(data);
+
+                                //COMPARA SE A DATA DESEJADA JÁ PASSOU
+                                if (dataArquivo.after(dataDesejadaInicio) && dataArquivo.before(dataDesejadaFim)) {
+                                    //PARA PEGAR A SUBSTRING VALOR 
+                                    int comeco = linha.indexOf(" ");
+                                    int fim = linha.indexOf(".");
+                                    teste = linha.substring(comeco + 1, fim + 2);
+
+                                    //SOMA TODOS OS VALORES
+                                    salarios += Double.parseDouble(teste);
+                                }
+                            } catch (ParseException e) {}
+                        }
+                        //LÊ AS LINHAS QUE SÃO ÍNDICES
+                        linha = lerArq.readLine();
+                    }
+
+                    arq.close();
+                    System.out.println(salarios);
+                } catch (IOException e) {
+                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                }
+                break;
+            }
+            default: {
+                System.err.println("Erro na geração de relatório");
+                break;
+            }
+        }
+    }
+    
+    public void geraRelatorioGanhos (List<Cliente> clientes, List<Consulta> consultas,double ganhos) {
+        //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
+        File arq = new File("RelatorioGanhos.txt");
+        try {
+            arq.createNewFile();
+
+            //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+            //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+            //SENDO TRUE ESCREVE DE ONDE PAROU
+            FileWriter fileWriter = new FileWriter(arq, false);
+
+            //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            for (int i = 0; i < consultas.size(); i++) {
+                printWriter.printf("%-10s %-10s %-10s\n", "Cliente", "Valor", "Data do pagamento");
+                printWriter.printf("%-11s", clientes.get(i).getNome());
+                printWriter.printf("%-11s", consultas.get(i).getValor());
+                printWriter.printf("%10s\n\n", consultas.get(i).getDataPagamento());
+            }
+            printWriter.println("TOTAL: " + ganhos);
+
+            //LIBERA A ESCRITA NO ARQUIVO
+            printWriter.flush();
+
+            //FECHA O ARQUIVO
+            printWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void geraRelatorioGastos (List<Contas> contas, double gastos) {
+        //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
+        File arq = new File("RelatorioGastos.txt");
+        try {
+            arq.createNewFile();
+
+            //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+            //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+            //SENDO TRUE ESCREVE DE ONDE PAROU
+            FileWriter fileWriter = new FileWriter(arq, false);
+
+            //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            for (int i = 0; i < contas.size(); i++) {
+                printWriter.printf("%-10s %-10s %-10s\n", "Tipo", "Valor", "Data do pagamento");
+                printWriter.printf("%-11s", contas.get(i).getTipo());
+                printWriter.printf("%-11s", contas.get(i).getValor());
+                printWriter.printf("%10s\n\n", contas.get(i).getDataPagamento());
+            }
+            printWriter.println("TOTAL: " + gastos);
+            //LIBERA A ESCRITA NO ARQUIVO
+            printWriter.flush();
+
+            //FECHA O ARQUIVO
+            printWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     // MOSTRA O MENU DE OPÇÕES DO SISTEMA
     protected void mostrarMenu() {
@@ -355,6 +669,7 @@ public class Administrador extends Funcionario {
             System.out.println("03 - Pagamento de Contas");
             System.out.println("04 - Mostrar Folha de Ponto");
             System.out.println("05 - Cadastrar novo Usuário");
+            System.out.println("06 - Gerar relatório");
             System.out.println("00 - Fechar Sistema");
 
             System.out.print("Digite uma opcao: ");
@@ -422,9 +737,12 @@ public class Administrador extends Funcionario {
                     System.out.println("Redirecionando para o menu...");
                     break;
                 }
+                case 06: {
+                    gerarRelatorio();
+                }
                 case 00: {
                     System.out.println("ENCERRANDO SESSÃO...");
-                    System.exit(1);
+                    System.exit(0);
                 }
             }
             System.out.println();

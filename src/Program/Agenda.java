@@ -54,7 +54,6 @@ public class Agenda {
     }
 
     public void lerDentistas(List<Dentista> dentistas) {
-
         try {
             FileReader arq = new FileReader("Dentistas.txt");
             BufferedReader lerArq = new BufferedReader(arq);
