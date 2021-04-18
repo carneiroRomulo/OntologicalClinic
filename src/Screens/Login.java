@@ -1,4 +1,5 @@
 package Screens;
+import Program.Administrador;
 import Program.Clinica;
 
 import java.awt.Color; // alterar cor
@@ -14,6 +15,9 @@ import javax.swing.JTextField; // lida com caixas de inserção de texto
 
 public class Login extends JFrame{
     // lida com entrada de usuario
+    Administrador admin = new Administrador();
+    Clinica clinica = new Clinica(); // criado para fornecer exclusivamente o nome da clinica
+
     private JLabel usuarioLabel;
     private JTextField usuarioTextField;
     
@@ -26,9 +30,8 @@ public class Login extends JFrame{
     private JLabel warningLabel; // botao de aviso
     
     public Login(){
-        Clinica clinica = new Clinica(); // criado para fornecer exclusivamente o nome da clinica
         setTitle(clinica.getNomeEmpresa()); // define o titulo do programa
-        
+
         usuarioTextField = new JTextField(20); // variavel de inserção de dados
         usuarioTextField.setBounds(300, 200, 200, 20); // define a posição da caixa na tela
         add(usuarioTextField); // adiciona ao JFrame
@@ -78,10 +81,10 @@ public class Login extends JFrame{
             if(event.getSource() == loginButton) { // se o botao de login for pressionado
                 String userID = usuarioTextField.getText(); // transforma o campo de inserção em string
                 String passwordID = String.copyValueOf(senhaField.getPassword()); // transforma o campo de inserção em string
-                if(userID.equals("admin")) { // se o usuario for encontrado no banco de dados
-                    if(passwordID.equals("admin")) { // se a senha for encontrada no banco de dados
+                if(userID.equals(admin.getLogin())) { // se o usuario for encontrado no banco de dados
+                    if(passwordID.equals(admin.getSenha())) { // se a senha for encontrada no banco de dados
                         dispose(); // esconde a tela de login
-                        Menu menu = new Menu(userID); // mostra o menu
+                        Menu menu = new Menu(); // mostra o menu
                     }
                     else { // do contrario apresenta um waning de Acesso Negado
                         warningLabel.setForeground(Color.red);

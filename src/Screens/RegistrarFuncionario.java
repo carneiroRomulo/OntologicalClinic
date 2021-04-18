@@ -1,5 +1,7 @@
 package Screens;
 
+import Program.Administrador;
+import Program.Dentista;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class RegistrarFuncionario extends JFrame{
+    Administrador admin = new Administrador();
+    Dentista dentista = new Dentista();
     JLabel pageLabel;
     
     JTextField nomeTextField = new JTextField(20);
@@ -65,6 +69,7 @@ public class RegistrarFuncionario extends JFrame{
     
     JButton registrarButton = new JButton("Registrar");
     JButton backButton = new JButton("Voltar");
+    int contador = 0;
     
     public RegistrarFuncionario(){
         ValidateRegister handler = new ValidateRegister();
@@ -196,104 +201,194 @@ public class RegistrarFuncionario extends JFrame{
             String rg = rgTextField.getText();
             String telefone = telefoneTextField.getText();
             double salario = Double.parseDouble(salarioTextField.getText());
+            String cargaHoraria = regimeButton.getSelectedItem().toString();
+            String cargo = cargoButton.getSelectedItem().toString();
+            String idade = idadeButton.getSelectedItem().toString();
             String password = String.copyValueOf(senhaField.getPassword());
             String confirmPassword = String.copyValueOf(confirmarSenhaField.getPassword());
             String user = usuarioTextField.getText();
-            
+            boolean valid = false;
+
             if(event.getSource() == registrarButton){
                 // valida nome
                 if(nome.length() < 30 && nome.length() > 0 && nome.matches("[a-zA-Z]*")) {
                     nomeLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else{
                     nomeLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida sobrenome
                 if(sobrenome.length() < 30 && sobrenome.length() > 0 && sobrenome.matches("[a-zA-Z]*")) {
                     sobrenomeLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else{
                     sobrenomeLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida endereço
                 if(endereco.length() != 0) {
                     enderecoLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else {
                     enderecoLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida e-mail
                 if (email.contains("@") && email.length() > 0){
                     emailLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else {
                     emailLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida cpf
                 if (cpf.length() == 11 && cpf.matches("[0-9]*")){
                     cpfLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else {
                     cpfLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida rg
                 if(rg.length() == 8 && rg.matches("[0-9]*")) {
                     rgLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else {
                     rgLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida telefone
                 if(telefone.length() == 11 && telefone.matches("[0-9]*")){
                     telefoneLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else {
                     telefoneLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida salario
                 if(salario >= 1100){
                     salarioLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else {
                     salarioLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida regime de trabalho
                 if(regimeButton.getSelectedItem() != "") {
                     regimeLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 } else {
                     regimeLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 
                 // Valida a idade
                 if(idadeButton.getSelectedItem() != "") {
                     idadeLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else {
                     idadeLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 // valida cargo
                 if(cargoButton.getSelectedItem() != "") {
                     cargoLabel.setForeground(Color.DARK_GRAY);
+                    valid = true;
                 }
                 else {
                     cargoLabel.setForeground(Color.RED);
+                    valid = false;
                 }
                 
-                // valida usuario
-                if(user.length() > 4) {
-                    usuarioLabel.setForeground(Color.DARK_GRAY);
+                
+                if(cargoButton.getSelectedItem().equals("Administrador")
+                    || cargoButton.getSelectedItem().equals("Assistente Administrativo")) {
+                    
+                    // valida usuario
+                    if(user.length() > 4) {
+                        usuarioLabel.setForeground(Color.DARK_GRAY);
+                        valid = true;
+                    }
+                    else {
+                        usuarioLabel.setForeground(Color.RED);
+                        valid = false;
+                    }
+                    // valida senha
+                    if (confirmPassword.equals(password) && !(confirmPassword.length() < 6)){
+                        senhaLabel.setForeground(Color.DARK_GRAY);
+                        confirmarSenhaLabel.setForeground(Color.DARK_GRAY);
+                        valid = true;
+                    }
+                    else{
+                        senhaLabel.setForeground(Color.RED);
+                        confirmarSenhaLabel.setForeground(Color.RED);
+                        valid = false;
+                    }
+                }
+                
+                System.out.print(valid);
+
+                if (valid == true){
+                    if(cargoButton.getSelectedItem().equals("Administrador")){
+                        try {
+                            admin.cadastraAdministrador(nome, sobrenome,endereco, email, cpf, rg,
+                                telefone, idade, salarioTextField.getText(), 
+                                cargaHoraria, cargo, user, password);
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                        
+                    }
+                    else if(cargoButton.getSelectedItem().equals("Assistente Administrativo")){
+                        try {
+                            admin.cadastraAssistenteAdm(nome, sobrenome,endereco, email, cpf, rg,
+                                telefone, idade, salarioTextField.getText(), 
+                                cargaHoraria, cargo, user, password);
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                    }
+                    else if(cargoButton.getSelectedItem().equals("Dentista")){
+                        try {
+                            admin.cadastraDentista(nome, sobrenome,endereco, email, cpf, rg,
+                                telefone, idade, salarioTextField.getText(), 
+                                cargaHoraria, cargo);
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                    }
+                    else if(cargoButton.getSelectedItem().equals("Assistente de Dentista")){
+                        try {
+                            admin.cadastraAssistenteDentista(nome, sobrenome,endereco, email, cpf, rg,
+                                telefone, idade, salarioTextField.getText(), 
+                                cargaHoraria, cargo);
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                    }
+                    else if(cargoButton.getSelectedItem().equals("Recepcionista")){
+                        try {
+                            admin.cadastraRecepcionista(nome, sobrenome,endereco, email, cpf, rg,
+                                telefone, idade, salarioTextField.getText(), 
+                                cargaHoraria, cargo);
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                    }
+                    
                 }
                 else {
-                    usuarioLabel.setForeground(Color.RED);
-                }
-                // Valida a senha
-                if(confirmPassword.equals(password) && !(confirmPassword.length() < 6)){
-                    senhaLabel.setForeground(Color.DARK_GRAY);
-                    confirmarSenhaLabel.setForeground(Color.DARK_GRAY);
-                }
-                else{
-                    senhaLabel.setForeground(Color.RED);
-                    confirmarSenhaLabel.setForeground(Color.RED);
+                    System.err.println("Não foi posssivel registrar o funcionario");
                 }
             }
                 
@@ -317,7 +412,7 @@ public class RegistrarFuncionario extends JFrame{
                 }
             }
             if(event.getSource() == backButton) {
-                Menu menu = new Menu("admin");
+                Menu menu = new Menu();
                 dispose();
             }
         }

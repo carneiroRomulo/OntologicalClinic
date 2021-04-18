@@ -158,7 +158,7 @@ public class Agenda extends JFrame{
                 }
             }
             if(event.getSource() == voltarButton) {
-                Menu menu = new Menu("admin");
+                Menu menu = new Menu();
                 dispose();
             }
         }

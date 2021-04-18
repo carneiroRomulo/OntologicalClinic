@@ -63,7 +63,7 @@ public class GerarRelatorio extends JFrame{
                 }
             }
             if(event.getSource() == voltarButton) {
-                Menu menu = new Menu("admin");
+                Menu menu = new Menu();
                 dispose();
             }
         }

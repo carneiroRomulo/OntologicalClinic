@@ -120,7 +120,7 @@ public class RegistrarCliente extends JFrame{
         @Override
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == voltarButton) {
-                Menu menu = new Menu("admin");
+                Menu menu = new Menu();
                 dispose();
             }
         }

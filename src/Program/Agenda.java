@@ -182,7 +182,6 @@ public class Agenda {
                 } while (valida != true);
 
                 paciente.setNome(nomePaciente);
-                paciente.setIdade(idade);
 
                 //ASSOCIA O PACIENTE AO DENTISTA SELECIONADO
                 for (int i = 0; i < dentistas.size(); i++) {

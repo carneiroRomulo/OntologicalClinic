@@ -10,9 +10,9 @@ public class Dentista extends Funcionario {
     public Dentista() {}
 
     public Dentista(List<Funcionario> assistenteConsultorio, Cliente cliente, 
-            List<Agenda> agenda, double salario, int cargaHoraria, int cargo, 
+            List<Agenda> agenda, String salario, String cargaHoraria, String cargo, 
             String nome, String sobrenome, String endereco, String email, String CPF, 
-            String RG, String telefone, int idade) {
+            String RG, String telefone, String idade) {
         super(salario, cargaHoraria, cargo, nome, sobrenome, endereco, email, 
                 CPF, RG, telefone, idade);
         this.assistenteConsultorio = assistenteConsultorio;
