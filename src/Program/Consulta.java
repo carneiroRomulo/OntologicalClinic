@@ -1,4 +1,5 @@
 package Program;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,12 +12,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Consulta {
+
     private double valor;
     private boolean pago;
     private String dataPagamento;
 
     // CONTRUTOR VAZIO
-    public Consulta() {}
+    public Consulta() {
+    }
 
     public Consulta(double valor, boolean pago, String dataPagamento) {
         this.valor = valor;
@@ -29,10 +32,12 @@ public class Consulta {
     public double getValor() {
         return valor;
     }
+
     // RETORNA O STATUS DO PAGAMENTO
     public boolean getPago() {
         return pago;
     }
+
     // RETORNA A DATA DO PAGAMENTO
     public String getDataPagamento() {
         return dataPagamento;
@@ -42,42 +47,46 @@ public class Consulta {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
     // ALTERA O STATUS DO PAGAMENTO
     protected void setPago(boolean pago) {
         this.pago = pago;
     }
+
     // ALTERA A DATA DO PAGAMENTO
     protected void setDataPagamento(String dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
-    
+
     // RECEBER CONSULTA
     public void receberConsulta(Cliente cliente) {
         Consulta consulta = new Consulta();
         Scanner input = new Scanner(System.in);
-        
+
         System.out.print("Valor: ");
         consulta.valor = input.nextDouble();
-        
+
         char opcao;
         System.out.print("Confirmar pagamento (S/N)? ");
         opcao = input.next().charAt(0);
-        
+
         if (opcao == 'S') {
             consulta.setPago(true);
             System.out.println("\nPagamento confirmado.\n");
-            
+
             //PEGA A DATA ATUAL DO SISTEMA
-            Date hoje = new Date();     
+            Date hoje = new Date();
             String dataHoje = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(hoje);
             consulta.setDataPagamento(dataHoje);
-        }
-        else {
+        } else {
             System.out.println("A conta não foi paga");
             consulta.setPago(false);
             consulta.setDataPagamento(null);
         }
-        
+        jogaEmArquivo(consulta, cliente);
+    }
+
+    public void jogaEmArquivo(Consulta consulta, Cliente cliente) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DAS CONSULTAS 
         File arq = new File("Consultas.txt");
         try {
@@ -94,7 +103,7 @@ public class Consulta {
             //printWriter.printf("Cliente \t Valor \t\t Foi paga \t Data do pagamento\n");
             printWriter.printf("%-11s", cliente.getNome());
             printWriter.printf("%-11s", consulta.getValor());
-            printWriter.printf("%-12s",  consulta.getPago());
+            printWriter.printf("%-12s", consulta.getPago());
             printWriter.printf("%10s\n", consulta.getDataPagamento());
 
             //LIBERA A ESCRITA NO ARQUIVO
@@ -106,5 +115,4 @@ public class Consulta {
             e.printStackTrace();
         }
     }
-} 
-
+}
