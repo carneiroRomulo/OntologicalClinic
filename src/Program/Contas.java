@@ -1,14 +1,17 @@
 package Program;
 
+import java.io.BufferedReader;
 import java.text.DateFormat;
 import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class Contas {
 
@@ -131,6 +134,33 @@ public class Contas {
         }
     }
 
+    public void lerContas(List<Contas> contas) {
+        try {
+            FileReader arq = new FileReader("Contas.txt");
+            BufferedReader lerArq = new BufferedReader(arq);
+
+            //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+            String linha = lerArq.readLine();
+            String teste;
+            while (linha != null) {
+                //VERIFICA APENAS O NOME DO DENTISTA
+                if (linha.contains("Dentista: ")) {
+                    teste = linha.replace("Dentista: ", "");
+                    Contas conta = new Contas();
+                    conta.setTipo(teste);
+                    contas.add(conta);
+
+                }
+                //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                linha = lerArq.readLine();
+            }
+
+            arq.close();
+        } catch (IOException e) {
+            System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+        }
+    }
+    
     public void jogaEmArquivo(String tipo, String valor, String dataPagamento) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DAS CONTAS PAGAS
         File arq = new File("Contas.txt");

@@ -4,12 +4,11 @@ import Program.Contas;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class Conta extends Contas{
@@ -27,13 +26,14 @@ public class Conta extends Contas{
     
     JButton voltarButton = new JButton("Voltar"); // volta para o menu
     JButton pagarButton = new JButton("Pagar"); // arquiva a conta paga
-
+    
+    JTable tabela;
     public Conta() {
         paginaLabel.setBounds(320, 40, 200, 20);
         frame.add(paginaLabel); // adiciona o paginaLabel ao JFrame
         
         tipoLabel.setBounds(200, 100, 150, 20);
-        tipoLabel.setToolTipText("Somente dígitos A-Z e tamanho maior que 0 e menor que 30");
+        tipoLabel.setToolTipText("Somente dígitos A-Z e tamanho maior que 0 e menor que 20");
         frame.add(tipoLabel);
         tipoTextField.setBounds(200, 120, 150, 20);
         frame.add(tipoTextField);
@@ -47,7 +47,9 @@ public class Conta extends Contas{
         frame.add(dataLabel);
         dataTextField.setBounds(470, 120, 100, 20);
         frame.add(dataTextField);
-
+        
+        
+        
         ValidarPagamento handler = new ValidarPagamento();
         voltarButton.setBounds(250, 460, 150, 20);
         voltarButton.setFocusable(false);
@@ -59,6 +61,7 @@ public class Conta extends Contas{
         pagarButton.addActionListener(handler);
         frame.add(pagarButton);
         
+                            
         frame.setTitle("CLINICA CURRAL");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -109,6 +112,7 @@ public class Conta extends Contas{
                     conta.jogaEmArquivo(tipoTextField.getText(), valorTextField.getText(), 
                             dataTextField.getText());
                     frame.dispose();
+                    JOptionPane.showMessageDialog(frame, "Pagamento registrado");
                 }
             }
         }

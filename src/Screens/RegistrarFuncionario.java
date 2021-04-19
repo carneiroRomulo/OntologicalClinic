@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -391,6 +392,7 @@ public class RegistrarFuncionario extends JFrame{
                             System.err.println(e);
                         }
                     }
+                    JOptionPane.showMessageDialog(rgLabel, "Funcionário cadastrado");
                     Menu menu = new Menu();
                     dispose();
                 }

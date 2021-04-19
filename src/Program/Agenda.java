@@ -8,14 +8,11 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.NoSuchElementException;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.RandomAccessFile;
+import javax.swing.JList;
 
 public class Agenda {
 
@@ -53,7 +50,7 @@ public class Agenda {
         this.horario = horario;
     }
 
-    public void lerDentistas(List<Dentista> dentistas) {
+    public void lerDentistas(JList<Dentista> dentistas) {
         try {
             FileReader arq = new FileReader("Dentistas.txt");
             BufferedReader lerArq = new BufferedReader(arq);
@@ -78,126 +75,6 @@ public class Agenda {
         } catch (IOException e) {
             System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
         }
-    }
-
-    //ABRE A AGENDA DE UM DETERMINADO DENTISTA
-    public void abrirAgenda() {
-        List<Agenda> agenda = new ArrayList<Agenda>();
-        List<Dentista> dentistas = new ArrayList<Dentista>();
-        lerDentistas(dentistas);
-
-        //DOIS INTEIROS UTILIZADOS COMO VERIFICADORES DE PARADA DO LAÇO
-        int encontrou = 0;
-        int sairDaAgenda = 0;
-
-        String nome;
-        Scanner input = new Scanner(System.in);
-
-        do {
-            //VERIFICA SE EXISTE DENTISTA
-            if ((dentistas.size()) == 0) {
-                //SE NÃO EXISTIR CRIA UM DENTISTA PADRÃO
-                Dentista dentistaPadrao = new Dentista();
-                dentistaPadrao.setNome("Padrao");
-                dentistas.add(dentistaPadrao);
-            }
-
-            do {
-                //IMPRIME TODOS OS DENTISTAS
-                System.out.println("\nDentistas disponíveis: ");
-                for (Dentista i : dentistas) {
-                    System.out.println(i.getNome());
-                }
-
-                System.out.print("Qual deles você deseja visualizar a agenda? ");
-                nome = input.nextLine();
-
-                for (int i = 0; i < dentistas.size(); i++) {
-                    //COMPARA SE O DENTISTA DIGITADO PELO USUÁRIO EXISTE
-                    if (dentistas.get(i).getNome().equals(nome)) {
-                        //SE EXISTIR, IMPRIME A AGENDA DO DENTISTA
-                        System.out.println("Agenda do dentista: " + dentistas.get(i).getNome());
-
-                        for (int j = 0; j < agenda.size(); j++) {
-                            System.out.println(agenda.get(j).getData() + "\t" + agenda.get(j).getHorario());
-                        }
-
-                        //ATUALIZA O VERIFICADOR
-                        encontrou = 1;
-                        break;
-                    }
-                }
-
-                if (encontrou != 1) {
-                    System.err.println("Nome inválido ou incorreto.");
-                }
-
-            } while (encontrou != 1);
-
-            char opcao;
-            //VERIFICA SE A PESSOA ESTÁ DIGITANDO UMA OPÇÃO VÁLIDA
-            do {
-                System.out.print("\nDeseja editar a agenda (S/N)? ");
-                opcao = input.next().charAt(0);
-                if (opcao != 'S' && opcao != 'N') {
-                    System.err.println("Comando inválido, digite novamente.\n");
-                }
-            } while (opcao != 'S' && opcao != 'N');
-
-            if (opcao == 'S') {
-                Cliente paciente = new Cliente();
-                String nomePaciente;
-                int idade;
-
-                boolean valida;
-
-                //VERIFICAÇÃO SE O NOME É VÁLIDO 
-                do {
-                    valida = true;
-
-                    System.out.print("Qual seu nome: ");
-                    nomePaciente = input.next();
-
-                    if (!nomePaciente.matches("[a-zA-Z]*")) {
-                        System.err.println("Nome possui caracteres inválidos");
-                        valida = false;
-                    } else {
-                        valida = true;
-                    }
-
-                } while (valida != true);
-
-                //VERIFICAÇÃO SE A IDADE É VÁLIDA
-                do {
-                    valida = true;
-
-                    System.out.print("Qual sua idade: ");
-                    idade = input.nextInt();
-
-                    if (idade < 18 || idade > 90) {
-                        System.err.println("Idade Mínima: 18 anos\nIdade Máxima: 90 anos");
-                        valida = false;
-                    }
-
-                } while (valida != true);
-
-                paciente.setNome(nomePaciente);
-
-                //ASSOCIA O PACIENTE AO DENTISTA SELECIONADO
-                for (int i = 0; i < dentistas.size(); i++) {
-                    if (dentistas.get(i).getNome().equals(nome)) {
-                        dentistas.get(i).setCliente(paciente);
-                    }
-                }
-
-                editarAgenda(agenda);
-                jogaEmArquivo(agenda, dentistas);
-                sairDaAgenda = 1;
-            } else {
-                sairDaAgenda = 1;
-            }
-
-        } while (sairDaAgenda != 1);
     }
 
     // EDITA A AGENDA DE UM DETERMINADO DENTISTA    

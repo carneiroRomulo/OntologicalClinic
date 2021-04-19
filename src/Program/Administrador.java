@@ -530,14 +530,14 @@ public class Administrador extends Funcionario {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (int i = 0; i < dentistas.size(); i++) {
-                printWriter.print(dentistas.get(i).getNome()+ " " + dentistas.get(i).getSobrenome());
-                printWriter.print("\t"+dentistas.get(i).getIdade());
-                printWriter.print("\t"+dentistas.get(i).getCargo());
-                printWriter.print("\t"+dentistas.get(i).getSalario());
-                printWriter.print("\t"+dentistas.get(i).getTelefone());
-                printWriter.print("\t"+dentistas.get(i).getEmail());
-                printWriter.print("\t"+dentistas.get(i).getEndereco());
-                printWriter.print("\t"+dentistas.get(i).getCargaHoraria());
+                printWriter.println("Nome:\t" + dentistas.get(i).getNome()+ " " + dentistas.get(i).getSobrenome());
+                printWriter.println("Idade:\t"+dentistas.get(i).getIdade());
+                printWriter.println("Cargo:\t"+dentistas.get(i).getCargo());
+                printWriter.println("Salario:\t"+dentistas.get(i).getSalario());
+                printWriter.println("Telefone:\t"+dentistas.get(i).getTelefone());
+                printWriter.println("E-mai:l\t"+dentistas.get(i).getEmail());
+                printWriter.println("Endereço:\t"+dentistas.get(i).getEndereco());
+                printWriter.println("Carga Horária:\t"+dentistas.get(i).getCargaHoraria());
                 printWriter.print("\n");
             }
 
@@ -587,14 +587,14 @@ public class Administrador extends Funcionario {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (int i = 0; i < assDentista.size(); i++) {
-                printWriter.print(assDentista.get(i).getNome()+ " " + assDentista.get(i).getSobrenome());
-                printWriter.print("\t"+assDentista.get(i).getIdade());
-                printWriter.print("\t"+assDentista.get(i).getCargo());
-                printWriter.print("\t"+assDentista.get(i).getSalario());
-                printWriter.print("\t"+assDentista.get(i).getTelefone());
-                printWriter.print("\t"+assDentista.get(i).getEmail());
-                printWriter.print("\t"+assDentista.get(i).getEndereco());
-                printWriter.print("\t"+assDentista.get(i).getCargaHoraria());
+                printWriter.println(assDentista.get(i).getNome()+ " " + assDentista.get(i).getSobrenome());
+                printWriter.println("\t"+assDentista.get(i).getIdade());
+                printWriter.println("\t"+assDentista.get(i).getCargo());
+                printWriter.println("\t"+assDentista.get(i).getSalario());
+                printWriter.println("\t"+assDentista.get(i).getTelefone());
+                printWriter.println("\t"+assDentista.get(i).getEmail());
+                printWriter.println("\t"+assDentista.get(i).getEndereco());
+                printWriter.println("\t"+assDentista.get(i).getCargaHoraria());
                 printWriter.print("\n");
             }
 
@@ -643,14 +643,14 @@ public class Administrador extends Funcionario {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (int i = 0; i < recepcionistas.size(); i++) {
-                printWriter.print(recepcionistas.get(i).getNome()+ " " + recepcionistas.get(i).getSobrenome());
-                printWriter.print("\t"+recepcionistas.get(i).getIdade());
-                printWriter.print("\t"+recepcionistas.get(i).getCargo());
-                printWriter.print("\t"+recepcionistas.get(i).getSalario());
-                printWriter.print("\t"+recepcionistas.get(i).getTelefone());
-                printWriter.print("\t"+recepcionistas.get(i).getEmail());
-                printWriter.print("\t"+recepcionistas.get(i).getEndereco());
-                printWriter.print("\t"+recepcionistas.get(i).getCargaHoraria());
+                printWriter.println(recepcionistas.get(i).getNome()+ " " + recepcionistas.get(i).getSobrenome());
+                printWriter.println("Idade:\t"+recepcionistas.get(i).getIdade());
+                printWriter.println("Cargo:\t"+recepcionistas.get(i).getCargo());
+                printWriter.println("Salario:\t"+recepcionistas.get(i).getSalario());
+                printWriter.println("Telefone\t"+recepcionistas.get(i).getTelefone());
+                printWriter.println("E-mail\t"+recepcionistas.get(i).getEmail());
+                printWriter.println("Endereço\t"+recepcionistas.get(i).getEndereco());
+                printWriter.println("Carga Horária\t"+recepcionistas.get(i).getCargaHoraria());
                 printWriter.print("\n");
             }
 

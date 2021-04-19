@@ -82,7 +82,7 @@ public class Menu extends JFrame{
         @Override
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == acessarAgendaButton) {
-                Agenda agenda = new Agenda();
+                Testando agenda = new Testando();
             }
             else if(event.getSource() == marcarConsultaButton) {
                 Consulta appointment = new Consulta();
