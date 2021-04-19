@@ -154,7 +154,7 @@ public class Agenda extends JFrame{
                     paginaLabel.setText("Selecione um dentista");
                 }
                 else {
-                    paginaLabel.setText("EDITAR");
+                    dentistasButton.getSelectedItem();
                 }
             }
             if(event.getSource() == voltarButton) {

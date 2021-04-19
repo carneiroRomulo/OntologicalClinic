@@ -3,15 +3,11 @@
    Bacharelado em Ciência da Computação - Estrutura de Dados II */
 
 package Program;
-import Screens.Login;
-//import java.util.List;
-//import java.util.ArrayList;
+import Screens.Conta;
 
 public class ClinicaOdontologica {
 
     public static void main(String[] args) {
-        Login login = new Login();
-//        Administrador adm = new Administrador();
-//        adm.acessarSistema();
+        Conta conta = new Conta();
     }
 }

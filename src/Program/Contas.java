@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 
 public class Contas {
 
-    private double valor;
+    String valor;
     String tipo;
     String dataVencimento;
     String dataPagamento;
@@ -21,7 +21,7 @@ public class Contas {
     public Contas() {
     }
 
-    public Contas(double valor, String dataVencimento, String dataPagamento, String tipo) {
+    public Contas(String valor, String dataVencimento, String dataPagamento, String tipo) {
         this.valor = valor;
         this.dataVencimento = dataVencimento;
         this.dataPagamento = dataPagamento;
@@ -30,7 +30,7 @@ public class Contas {
 
     /* GETTERS */
     // RETORNA O VALOR DA CONTA
-    public double getValor() {
+    public String getValor() {
         return valor;
     }
 
@@ -51,7 +51,7 @@ public class Contas {
 
     /* SETTERS */
     // ALTERA O VALOR DA CONTA
-    protected void setValor(double valor) {
+    protected void setValor(String valor) {
         this.valor = valor;
     }
 
@@ -85,7 +85,7 @@ public class Contas {
         conta.setDataVencimento(conta.dataVencimento);
 
         System.out.print("Valor: ");
-        conta.valor = input.nextDouble();
+        conta.valor = input.nextLine();
         conta.setValor(conta.valor);
 
         //USADO PARA PEGAR A DATA DE PAGAMENTO DIRETO DO SISTEMA
@@ -131,7 +131,7 @@ public class Contas {
         }
     }
 
-    public void jogaEmArquivo(Contas conta) {
+    public void jogaEmArquivo(String tipo, String valor, String dataPagamento) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DAS CONTAS PAGAS
         File arq = new File("Contas.txt");
         try {
@@ -139,13 +139,14 @@ public class Contas {
 
             //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
             //O 2º PARÂMETRO SENDO NEGATIVO, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
-            FileWriter fileWriter = new FileWriter(arq, false);
+            FileWriter fileWriter = new FileWriter(arq, true);
 
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.print(conta.getTipo());
-            printWriter.print("\t" + conta.getValor());
-            printWriter.print("\t" + conta.getDataPagamento());
+            printWriter.print(tipo);
+            printWriter.print("\t" + valor);
+            printWriter.print("\t" + dataPagamento);
+            printWriter.print("\n");
 
             //LIBERA A ESCRITA NO ARQUIVO
             printWriter.flush();

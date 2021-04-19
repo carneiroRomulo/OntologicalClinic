@@ -79,13 +79,13 @@ public class RegistrarFuncionario extends JFrame{
         
         nomeTextField.setBounds(250, 100, 150, 20);
         add(nomeTextField);
-        nomeLabel.setToolTipText("Insira o nome");
+        nomeLabel.setToolTipText("O nome deve conter entre 1 e 30 letras");
         nomeLabel.setBounds(250, 80, 300, 20);
         add(nomeLabel); // adiciona o nomeao JFrame
         
         sobrenomeTextField.setBounds(400, 100, 150, 20);
         add(sobrenomeTextField);
-        sobrenomeLabel.setToolTipText("Insira o sobrenome");
+        sobrenomeLabel.setToolTipText("O sobrenome deve conter entre 1 e 30 letras");
         sobrenomeLabel.setBounds(400, 80, 150, 20);
         add(sobrenomeLabel); // adiciona o sobrenome ao JFrame
         
@@ -97,61 +97,61 @@ public class RegistrarFuncionario extends JFrame{
         
         emailTextField.setBounds(250, 180, 300, 20);
         add(emailTextField);
-        emailLabel.setToolTipText("Insira o e-mail");
+        emailLabel.setToolTipText("Endereços de Email devem conter @");
         emailLabel.setBounds(250, 160, 300, 20);
         add(emailLabel); // adiciona o emailLabel ao JFrame
         
         cpfTextField = new JTextField(11);
         cpfTextField.setBounds(250, 220, 150, 20);
         add(cpfTextField);
-        cpfLabel.setToolTipText("Insira o CPF");
+        cpfLabel.setToolTipText("CPF deve ter 11 dígitos e ser composto apenas por números");
         cpfLabel.setBounds(250, 200, 150, 20);
         add(cpfLabel); // adiciona o cpfLabel ao JFrame
         
         rgTextField = new JTextField(8);
         rgTextField.setBounds(400, 220, 150, 20);
         add(rgTextField);
-        rgLabel.setToolTipText("Insira o RG");
+        rgLabel.setToolTipText("RG deve ter 8 dígitos e ser composto apenas por números");
         rgLabel.setBounds(400, 200, 150, 20);
         add(rgLabel); // adiciona o rgLabel ao JFrame
         
         telefoneTextField = new JTextField(11);
         telefoneTextField.setBounds(250, 260, 150, 20);
         add(telefoneTextField);
-        telefoneLabel.setToolTipText("Insira o telefone");
+        telefoneLabel.setToolTipText("Telefone deve ter 11 dígitos e ser composto apenas por números");
         telefoneLabel.setBounds(250, 240, 150, 20);
         add(telefoneLabel); // adiciona o telefoneao JFrame
         
         idadeButton.setBounds(400, 260, 150, 20);
         add(idadeButton);
-        idadeLabel.setToolTipText("Insira a idade");
+        idadeLabel.setToolTipText("Deve ser diferente de nulo");
         idadeLabel.setBounds(400, 240, 150, 20);
         add(idadeLabel); // adiciona o idadeao JFrame
         
         salarioTextField = new JTextField("0");
         salarioTextField.setBounds(250, 300, 150, 20);
         add(salarioTextField);
-        salarioLabel.setToolTipText("Insira o salário");
+        salarioLabel.setToolTipText("O mínimo é 1100");
         salarioLabel.setBounds(250, 280, 150, 20);
         add(salarioLabel); // adiciona o salarioao JFrame
         
         regimeButton.setBounds(400, 300, 150, 20);
         add(regimeButton);
-        regimeLabel.setToolTipText("Insira o regime de trabalho");
+        regimeLabel.setToolTipText("Deve ser diferente de nulo");
         regimeLabel.setBounds(400, 280, 150, 20);
         add(regimeLabel); // adiciona o regimeao JFrame
         
         cargoButton.setBounds(250, 340, 300, 20);
         cargoButton.addActionListener(handler);
         add(cargoButton);
-        cargoLabel.setToolTipText("Insira o cargo");
+        cargoLabel.setToolTipText("Deve ser diferente de nulo");
         cargoLabel.setBounds(250, 320, 300, 20);
         add(cargoLabel); // adiciona o cargoao JFrame
         
         usuarioTextField.setBounds(250, 380, 300, 20);
         usuarioTextField.setVisible(false);
         add(usuarioTextField);
-        usuarioLabel.setToolTipText("Insira o ID do usuário");
+        usuarioLabel.setToolTipText("Deve possuir pelo menos 5 caracteres");
         usuarioLabel.setBounds(250, 360, 300, 20);
         usuarioLabel.setVisible(false);
         add(usuarioLabel); // adiciona o usuario ao JFrame
@@ -159,7 +159,7 @@ public class RegistrarFuncionario extends JFrame{
         senhaField.setBounds(250, 420, 150, 20);
         senhaField.setVisible(false);
         add(senhaField);
-        senhaLabel.setToolTipText("Insira a senha");
+        senhaLabel.setToolTipText("Deve possuir pelo menos 6 caracteres");
         senhaLabel.setBounds(250, 400, 150, 20);
         senhaLabel.setVisible(false);
         add(senhaLabel); // adiciona o senhaao JFrame
@@ -167,7 +167,7 @@ public class RegistrarFuncionario extends JFrame{
         confirmarSenhaField.setBounds(400, 420, 150, 20);
         confirmarSenhaField.setVisible(false);
         add(confirmarSenhaField);
-        confirmarSenhaLabel.setToolTipText("Confirme a senha");
+        confirmarSenhaLabel.setToolTipText("Deve ser o mesmo que a senha");
         confirmarSenhaLabel.setBounds(400, 400, 150, 20);
         confirmarSenhaLabel.setVisible(false);
         add(confirmarSenhaLabel); // adiciona o confirmsenhaao JFrame
@@ -338,7 +338,9 @@ public class RegistrarFuncionario extends JFrame{
                 
                 System.out.print(valid);
 
+                // Se todos os campos forem devidamente preenchidos o funcionario é criado
                 if (valid == true){
+                    // caso seja um administrador
                     if(cargoButton.getSelectedItem().equals("Administrador")){
                         try {
                             admin.cadastraAdministrador(nome, sobrenome,endereco, email, cpf, rg,
@@ -349,6 +351,7 @@ public class RegistrarFuncionario extends JFrame{
                         }
                         
                     }
+                    // caso seja um assistente administrativo
                     else if(cargoButton.getSelectedItem().equals("Assistente Administrativo")){
                         try {
                             admin.cadastraAssistenteAdm(nome, sobrenome,endereco, email, cpf, rg,
@@ -358,6 +361,7 @@ public class RegistrarFuncionario extends JFrame{
                             System.err.println(e);
                         }
                     }
+                    // caso seja um dentista
                     else if(cargoButton.getSelectedItem().equals("Dentista")){
                         try {
                             admin.cadastraDentista(nome, sobrenome,endereco, email, cpf, rg,
@@ -367,6 +371,7 @@ public class RegistrarFuncionario extends JFrame{
                             System.err.println(e);
                         }
                     }
+                    // caso seja um assistente de dentista
                     else if(cargoButton.getSelectedItem().equals("Assistente de Dentista")){
                         try {
                             admin.cadastraAssistenteDentista(nome, sobrenome,endereco, email, cpf, rg,
@@ -376,6 +381,7 @@ public class RegistrarFuncionario extends JFrame{
                             System.err.println(e);
                         }
                     }
+                    // caso seja um recepcionista
                     else if(cargoButton.getSelectedItem().equals("Recepcionista")){
                         try {
                             admin.cadastraRecepcionista(nome, sobrenome,endereco, email, cpf, rg,
@@ -385,14 +391,17 @@ public class RegistrarFuncionario extends JFrame{
                             System.err.println(e);
                         }
                     }
-                    
+                    Menu menu = new Menu();
+                    dispose();
                 }
                 else {
-                    System.err.println("Não foi posssivel registrar o funcionario");
+                    System.err.println("Não foi posssivel registrar o funcionario, campos inválidos");
                 }
             }
                 
             if(event.getSource() == cargoButton) {
+                // checa se o funcionario é um administrador ou assistente administrativo
+                // caso sejam o campo de usuario e senha é apresentado para eles
                 if (cargoButton.getSelectedItem().equals("Administrador") 
                         || cargoButton.getSelectedItem().equals("Assistente Administrativo")){
                     usuarioTextField.setVisible(true);
@@ -402,6 +411,7 @@ public class RegistrarFuncionario extends JFrame{
                     confirmarSenhaField.setVisible(true);
                     confirmarSenhaLabel.setVisible(true);
                 }
+                // caso contrário os campos permanecem escondidos
                 else {
                     usuarioTextField.setVisible(false);
                     usuarioLabel.setVisible(false);
