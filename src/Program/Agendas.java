@@ -12,18 +12,17 @@ import java.util.Scanner;
 import java.text.ParseException;
 import java.util.Date;
 import java.io.FileReader;
-import javax.swing.JList;
 
-public class Agenda {
+public class Agendas {
 
     String data;
     String horario;
 
     // CONSTRUTOR VAZIO
-    public Agenda() {
+    public Agendas() {
     }
 
-    public Agenda(String data, String horario) {
+    public Agendas(String data, String horario) {
         this.data = data;
         this.horario = horario;
     }
@@ -50,25 +49,23 @@ public class Agenda {
         this.horario = horario;
     }
 
-    public void lerDentistas(JList<Dentista> dentistas) {
+    public void lerDentistas(List<String> dentistas) {
         try {
             FileReader arq = new FileReader("Dentistas.txt");
             BufferedReader lerArq = new BufferedReader(arq);
 
             //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
             String linha = lerArq.readLine();
-            String teste;
+            String nome;
             while (linha != null) {
                 //VERIFICA APENAS O NOME DO DENTISTA
-                if (linha.contains("Dentista: ")) {
-                    teste = linha.replace("Dentista: ", "");
-                    Dentista dentista = new Dentista();
-                    dentista.setNome(teste);
-                    dentistas.add(dentista);
-
+                if (linha.contains("Dentista:\t")) {
+                    nome = linha.replace("Dentista:\t", "");
+                    dentistas.add(nome);
                 }
                 //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
                 linha = lerArq.readLine();
+
             }
 
             arq.close();
@@ -78,9 +75,9 @@ public class Agenda {
     }
 
     // EDITA A AGENDA DE UM DETERMINADO DENTISTA    
-    public void editarAgenda(List<Agenda> agenda) {
+    public void editarAgenda(List<Agendas> agenda) {
         Scanner input = new Scanner(System.in);
-        Agenda aux = new Agenda();
+        Agendas aux = new Agendas();
         int comando;
 
         System.out.print("Digite um comando (1/2/3): ");
@@ -209,7 +206,7 @@ public class Agenda {
         }
     }
 
-    public void jogaEmArquivo(List<Agenda> agenda, List<Dentista> dentistas) {
+    public void jogaEmArquivo(List<Agendas> agenda, List<Dentista> dentistas) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
         File arq = new File("Agenda.txt");
         try {

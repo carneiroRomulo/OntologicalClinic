@@ -530,7 +530,7 @@ public class Administrador extends Funcionario {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (int i = 0; i < dentistas.size(); i++) {
-                printWriter.println("Nome:\t" + dentistas.get(i).getNome()+ " " + dentistas.get(i).getSobrenome());
+                printWriter.println("Dentista:\t" + dentistas.get(i).getNome()+ " " + dentistas.get(i).getSobrenome());
                 printWriter.println("Idade:\t"+dentistas.get(i).getIdade());
                 printWriter.println("Cargo:\t"+dentistas.get(i).getCargo());
                 printWriter.println("Salario:\t"+dentistas.get(i).getSalario());

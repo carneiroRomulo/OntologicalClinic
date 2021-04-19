@@ -3,11 +3,11 @@
    Bacharelado em Ciência da Computação - Estrutura de Dados II */
 
 package Program;
-import Screens.Conta;
+import Screens.Agenda;
 
 public class ClinicaOdontologica {
 
     public static void main(String[] args) {
-        Conta conta = new Conta();
+        Agenda agenda = new Agenda();
     }
 }

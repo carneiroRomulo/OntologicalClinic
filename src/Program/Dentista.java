@@ -4,13 +4,13 @@ import java.util.List;
 public class Dentista extends Funcionario {
     private List<Funcionario> assistenteConsultorio;
     private Cliente cliente;
-    private List<Agenda> agenda;
+    private List<Agendas> agenda;
 
     // CONSTRUTOR VAZIO
     public Dentista() {}
 
     public Dentista(List<Funcionario> assistenteConsultorio, Cliente cliente, 
-            List<Agenda> agenda, String salario, String cargaHoraria, String cargo, 
+            List<Agendas> agenda, String salario, String cargaHoraria, String cargo, 
             String nome, String sobrenome, String endereco, String email, String CPF, 
             String RG, String telefone, String idade) {
         super(salario, cargaHoraria, cargo, nome, sobrenome, endereco, email, 
@@ -31,7 +31,7 @@ public class Dentista extends Funcionario {
         return cliente;
     }
     // RETORNA A AGENDA DO CLIENTE
-    public List<Agenda> getAgenda() {
+    public List<Agendas> getAgenda() {
         return agenda;
     }
 
@@ -45,7 +45,7 @@ public class Dentista extends Funcionario {
         this.cliente = cliente;
     }
     // ALTERA A AGENDA DO DENTISTA
-    protected void setAgenda(List<Agenda> agenda) {
+    protected void setAgenda(List<Agendas> agenda) {
         this.agenda = agenda;
     }
     
