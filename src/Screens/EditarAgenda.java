@@ -69,9 +69,12 @@ public class EditarAgenda extends JFrame{
     JButton registrarButton = new JButton("Agendar");
     JButton voltarButton = new JButton("Voltar");
     
+    String dentista;
     
     public EditarAgenda(String dentista) {
         ValidarConsulta handler = new ValidarConsulta();
+        this.dentista = dentista;
+        
         paginaLabel = new JLabel("MARCAR CONSULTA");
         paginaLabel.setBounds(250, 40, 150, 20);
         add(paginaLabel);
@@ -302,7 +305,7 @@ public class EditarAgenda extends JFrame{
                     }
 
                     JOptionPane.showMessageDialog(rgLabel, "Cliente cadastrado");
-                    EditarAgenda editar = new EditarAgenda();
+                    EditarAgenda editar = new EditarAgenda(dentista);
                     dispose();
                 }
                 else {
@@ -374,9 +377,15 @@ public class EditarAgenda extends JFrame{
                 idadeLabel.setVisible(false);
             }
             
-//            if(event.getSource() == registrarButton && clienteExistente.isSelected()) {
-//                consulta
-//            }
+            // GRAVA NA AGENDA DO DENTISTA SELECIONADO A CONSULTA MARCADA
+            if(event.getSource() == registrarButton && clienteExistente.isSelected()) {
+                Agendas agenda = new Agendas();
+                agenda.gravaAgenda(dentista, clientesButton.getSelectedItem().toString(), 
+                        dataTextField.getText(), horarioTextField.getText());
+                JOptionPane.showMessageDialog(rgLabel, "Consulta agendada");
+                dispose();
+                
+            }
             
         }
     }

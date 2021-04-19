@@ -203,7 +203,7 @@ public class Agendas {
     }
 
     // ARMAZENA A AGENDA EM UM ARQUIVO
-    public void jogaEmArquivo(List<Agendas> agenda, List<Dentista> dentistas) {
+    public void gravaAgenda(String dentista, String cliente, String data, String hora) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
         File arq = new File("Agenda.txt");
         try {
@@ -212,17 +212,15 @@ public class Agendas {
             //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
             //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
             //SENDO TRUE ESCREVE DE ONDE PAROU
-            FileWriter fileWriter = new FileWriter(arq, false);
+            FileWriter fileWriter = new FileWriter(arq, true);
 
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            for (int i = 0; i < agenda.size(); i++) {
-                printWriter.println("Dentista: " + dentistas.get(i).getNome());
-                printWriter.print(dentistas.get(i).getCliente().getNome());
-                printWriter.print("\t" + agenda.get(i).getData());
-                printWriter.println("\t" + agenda.get(i).getHorario());
-                printWriter.print("\n");
-            }
+            printWriter.println("Dentista:\t" + dentista);
+            printWriter.println("Cliente:\t"+ cliente);
+            printWriter.println("Data:\t" + data);
+            printWriter.println("Horário:\t" + hora);
+            printWriter.print("\n");
 
             //LIBERA A ESCRITA NO ARQUIVO
             printWriter.flush();

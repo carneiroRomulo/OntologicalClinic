@@ -64,6 +64,10 @@ public class Agenda extends JFrame{
         setLayout(null);
         setVisible(true); // show the frame
     }
+
+    Agenda(String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
     private class ValidateSchedule implements ActionListener {
         @Override

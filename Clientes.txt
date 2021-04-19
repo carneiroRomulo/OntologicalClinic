@@ -22,3 +22,19 @@ Endereço:	asasa
 RG:	11111111
 CPF:	11111111111
 
+Cliente:	sasasa sasa
+Idade:	18
+Telefone:	11111111111
+E-mai:l	2@
+Endereço:	sasasa
+RG:	11111111
+CPF:	11111111111
+
+Cliente:	tes teste
+Idade:	18
+Telefone:	11111111111
+E-mai:l	@
+Endereço:	dasa
+RG:	11111111
+CPF:	11111111111
+
