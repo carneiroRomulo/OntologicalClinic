@@ -56,12 +56,19 @@ public class Agendas {
 
             //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
             String linha = lerArq.readLine();
-            String nome;
+            String dentista;
             while (linha != null) {
                 //VERIFICA APENAS O NOME DO DENTISTA
                 if (linha.contains("Dentista:\t")) {
-                    nome = linha.replace("Dentista:\t", "");
-                    dentistas.add(nome);
+                    dentista = linha.replace("Dentista:\t", "");
+                    dentistas.add(dentista);
+                    
+//                    FileReader arq2 = new FileReader("Clientes.txt");
+//                    BufferedReader lerArq2 = new BufferedReader(arq2);
+//                    String linha2 = lerArq.readLine();
+//                    String cliente = linha.replace("Cliente:\t", "");
+//                    String horario = linha.replace("Horario:")
+//                    clientes.add(cliente);
                 }
                 //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
                 linha = lerArq.readLine();
@@ -206,6 +213,7 @@ public class Agendas {
         }
     }
 
+    // ARMAZENA A AGENDA EM UM ARQUIVO
     public void jogaEmArquivo(List<Agendas> agenda, List<Dentista> dentistas) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
         File arq = new File("Agenda.txt");

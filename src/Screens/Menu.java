@@ -28,7 +28,7 @@ public class Menu extends JFrame{
         acessarAgendaButton.addActionListener(go);
         add(acessarAgendaButton);
         
-        marcarConsultaButton = new JButton("Marcar Consulta");
+        marcarConsultaButton = new JButton("Receber Consulta");
         marcarConsultaButton.setBounds(250, 110, 300, 40);
         marcarConsultaButton.setFocusable(false);
         marcarConsultaButton.addActionListener(go);
@@ -85,7 +85,7 @@ public class Menu extends JFrame{
                 Agenda agenda = new Agenda();
             }
             else if(event.getSource() == marcarConsultaButton) {
-                Consulta appointment = new Consulta();
+                ReceberConsulta appointment = new ReceberConsulta();
             }
             else if(event.getSource() == pagarContasButton) {
                 Conta payBills = new Conta();

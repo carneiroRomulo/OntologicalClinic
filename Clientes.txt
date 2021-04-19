@@ -1,0 +1,24 @@
+Cliente:	Cliente A
+Idade:	19
+Telefone:	11111111111
+E-mai:l	@
+Endereço:	sasas
+RG:	11111111
+CPF:	11111111111
+
+Cliente:	Ananda Mendes
+Idade:	19
+Telefone:	11111111111
+E-mai:l	@
+Endereço:	sasa
+RG:	11111111
+CPF:	11111111111
+
+Cliente:	sasa sasas
+Idade:	18
+Telefone:	11111111111
+E-mai:l	@
+Endereço:	asasa
+RG:	11111111
+CPF:	11111111111
+

@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class RegistrarCliente extends JFrame{
@@ -45,10 +44,6 @@ public class RegistrarCliente extends JFrame{
     JButton voltarButton = new JButton("Voltar");
     
     public RegistrarCliente() {
-        paginaLabel = new JLabel("REGISTRAR CLIENTE"); // titulo da tela
-        paginaLabel.setBounds(250, 40, 300, 20);
-        add(paginaLabel); // adiciona o paginaLabel ao JFrame
-        
         nomeTextField.setBounds(250, 100, 150, 20);
         add(nomeTextField);
         nomeLabel.setToolTipText("Insira o nome");

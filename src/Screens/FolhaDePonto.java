@@ -2,6 +2,8 @@ package Screens;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,14 +18,15 @@ public class FolhaDePonto extends JFrame{
     JButton editarButton = new JButton("Editar");
     JButton voltarButton = new JButton("Voltar");
 
+    List<String> funcionarios = new ArrayList<>();
+    
     public FolhaDePonto() {
         ValidaFolhaDePonto handler = new ValidaFolhaDePonto();
 
         paginaLabel.setBounds(250, 40, 200, 20);
         add(paginaLabel); // adiciona o paginaLabel ao JFrame
         
-        String[] funcionarios = {"", "Joao", "Maria", "Fernando", "Luis"};
-        funcionarioButton = new JComboBox(funcionarios);
+        funcionarioButton = new JComboBox(funcionarios.toArray());
         funcionarioLabel = new JLabel("Funcionario");
         funcionarioButton.setBounds(250, 100, 300, 20);
         funcionarioButton.addActionListener(handler);

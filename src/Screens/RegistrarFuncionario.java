@@ -208,107 +208,96 @@ public class RegistrarFuncionario extends JFrame{
             String password = String.copyValueOf(senhaField.getPassword());
             String confirmPassword = String.copyValueOf(confirmarSenhaField.getPassword());
             String user = usuarioTextField.getText();
-            boolean valid = false;
+            int valid = 0;
 
             if(event.getSource() == registrarButton){
                 // valida nome
                 if(nome.length() < 30 && nome.length() > 0 && nome.matches("[a-zA-Z]*")) {
                     nomeLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else{
                     nomeLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida sobrenome
                 if(sobrenome.length() < 30 && sobrenome.length() > 0 && sobrenome.matches("[a-zA-Z]*")) {
                     sobrenomeLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else{
                     sobrenomeLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida endereço
                 if(endereco.length() != 0) {
                     enderecoLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else {
                     enderecoLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida e-mail
                 if (email.contains("@") && email.length() > 0){
                     emailLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else {
                     emailLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida cpf
                 if (cpf.length() == 11 && cpf.matches("[0-9]*")){
                     cpfLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else {
                     cpfLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida rg
                 if(rg.length() == 8 && rg.matches("[0-9]*")) {
                     rgLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else {
                     rgLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida telefone
                 if(telefone.length() == 11 && telefone.matches("[0-9]*")){
                     telefoneLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else {
                     telefoneLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida salario
                 if(salario >= 1100){
                     salarioLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else {
                     salarioLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida regime de trabalho
                 if(regimeButton.getSelectedItem() != "") {
                     regimeLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 } else {
                     regimeLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 
                 // Valida a idade
                 if(idadeButton.getSelectedItem() != "") {
                     idadeLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else {
                     idadeLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 // valida cargo
                 if(cargoButton.getSelectedItem() != "") {
                     cargoLabel.setForeground(Color.DARK_GRAY);
-                    valid = true;
+                    valid++;
                 }
                 else {
                     cargoLabel.setForeground(Color.RED);
-                    valid = false;
                 }
                 
                 
@@ -318,52 +307,31 @@ public class RegistrarFuncionario extends JFrame{
                     // valida usuario
                     if(user.length() > 4) {
                         usuarioLabel.setForeground(Color.DARK_GRAY);
-                        valid = true;
+                        valid++;
                     }
                     else {
                         usuarioLabel.setForeground(Color.RED);
-                        valid = false;
                     }
                     // valida senha
                     if (confirmPassword.equals(password) && !(confirmPassword.length() < 6)){
                         senhaLabel.setForeground(Color.DARK_GRAY);
                         confirmarSenhaLabel.setForeground(Color.DARK_GRAY);
-                        valid = true;
+                        valid++;
                     }
                     else{
                         senhaLabel.setForeground(Color.RED);
                         confirmarSenhaLabel.setForeground(Color.RED);
-                        valid = false;
                     }
                 }
                 
                 System.out.print(valid);
 
                 // Se todos os campos forem devidamente preenchidos o funcionario é criado
-                if (valid == true){
-                    // caso seja um administrador
-                    if(cargoButton.getSelectedItem().equals("Administrador")){
-                        try {
-                            admin.cadastraAdministrador(nome, sobrenome,endereco, email, cpf, rg,
-                                telefone, idade, salarioTextField.getText(), 
-                                cargaHoraria, cargo, user, password);
-                        } catch (Exception e) {
-                            System.err.println(e);
-                        }
-                        
-                    }
-                    // caso seja um assistente administrativo
-                    else if(cargoButton.getSelectedItem().equals("Assistente Administrativo")){
-                        try {
-                            admin.cadastraAssistenteAdm(nome, sobrenome,endereco, email, cpf, rg,
-                                telefone, idade, salarioTextField.getText(), 
-                                cargaHoraria, cargo, user, password);
-                        } catch (Exception e) {
-                            System.err.println(e);
-                        }
-                    }
+                if (valid == 11 && !cargoButton.getSelectedItem().equals("Administrador")
+                        && !cargoButton.getSelectedItem().equals("Assistente Administrativo")){
+                    
                     // caso seja um dentista
-                    else if(cargoButton.getSelectedItem().equals("Dentista")){
+                    if(cargoButton.getSelectedItem().equals("Dentista")){
                         try {
                             admin.cadastraDentista(nome, sobrenome,endereco, email, cpf, rg,
                                 telefone, idade, salarioTextField.getText(), 
@@ -388,6 +356,32 @@ public class RegistrarFuncionario extends JFrame{
                             admin.cadastraRecepcionista(nome, sobrenome,endereco, email, cpf, rg,
                                 telefone, idade, salarioTextField.getText(), 
                                 cargaHoraria, cargo);
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                    }
+                    JOptionPane.showMessageDialog(rgLabel, "Funcionário cadastrado");
+                    Menu menu = new Menu();
+                    dispose();
+                }
+                else if(valid == 13) {
+                    // caso seja um administrador
+                    if(cargoButton.getSelectedItem().equals("Administrador")){
+                        try {
+                            admin.cadastraAdministrador(nome, sobrenome,endereco, email, cpf, rg,
+                                telefone, idade, salarioTextField.getText(), 
+                                cargaHoraria, cargo, user, password);
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                        
+                    }
+                    // caso seja um assistente administrativo
+                    else if(cargoButton.getSelectedItem().equals("Assistente Administrativo")){
+                        try {
+                            admin.cadastraAssistenteAdm(nome, sobrenome,endereco, email, cpf, rg,
+                                telefone, idade, salarioTextField.getText(), 
+                                cargaHoraria, cargo, user, password);
                         } catch (Exception e) {
                             System.err.println(e);
                         }
