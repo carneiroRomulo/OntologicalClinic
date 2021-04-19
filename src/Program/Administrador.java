@@ -737,8 +737,8 @@ public class Administrador extends Funcionario {
                     String teste;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO DENTISTA
-                        if (linha.contains("Dentista: ")) {
-                            teste = linha.replace("Dentista: ", "");
+                        if (linha.contains("Dentista:\t")) {
+                            teste = linha.replace("Dentista:\t", "");
                             String nome;
                             nome = teste;
                             nomes.add(nome);
@@ -847,7 +847,8 @@ public class Administrador extends Funcionario {
         nomes.forEach(i -> {
             System.out.println(i);
         });
-
+        
+        input = new Scanner(System.in);
         System.out.print("Qual funcionario deseja editar a folha de ponto? ");
         String nome = input.nextLine();
 
@@ -903,15 +904,15 @@ public class Administrador extends Funcionario {
                             //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
                             //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
                             //SENDO TRUE ESCREVE DE ONDE PAROU
-                            FileWriter fileWriter = new FileWriter(arq, true);
+                            FileWriter fileWriter = new FileWriter(arq, false);
 
                             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
                             PrintWriter printWriter = new PrintWriter(fileWriter);
 
                             printWriter.println("Folha de Ponto - " + i);
-                            printWriter.printf("%-10s %-10s", "Data", "Observação");
-                            printWriter.printf("%-10s", data);
-                            printWriter.printf("%-10s\n", obs);
+                            printWriter.printf("%-10s %-10s\n", "Data", "Observação");
+                            printWriter.printf("%-12s", data);
+                            printWriter.printf("%s\n", obs);
                             printWriter.print("\n");
 
                             //LIBERA A ESCRITA NO ARQUIVO
@@ -971,149 +972,154 @@ public class Administrador extends Funcionario {
         nomes.forEach(i -> {
             System.out.println(i);
         });
-
+        
+        input = new Scanner(System.in);
         System.out.print("Qual funcionario que deseja pagar o salário? ");
         String nome = input.nextLine();
+        
+        System.out.println("1 - Folha de ponto\n2 - Efetuar pagamento\n0 - Sair");
+        int opcao = input.nextInt();
 
         for (Object i : nomes) {
             if (nome.equals(i)) {
-                System.out.println("1 - Folha de ponto\n2 - Efetuar pagamento");
-                char opcao = input.next().charAt(0);
-                if (opcao == 1) {
-                    try {
-                        int diasTrabalhados = 0;
-                        FileReader arq = new FileReader("FolhaDePonto.txt");
-                        BufferedReader lerArq = new BufferedReader(arq);
+                while (opcao != 0) {
+                    if (opcao == 1) {
+                        try {
+                            int diasTrabalhados = 0;
+                            FileReader arq = new FileReader("FolhaDePonto.txt");
+                            BufferedReader lerArq = new BufferedReader(arq);
 
-                        //VERIFICA EM QUAL PERÍODO DEVE SER PROCURADO
-                        String dataInicio;
-                        String dataFim;
+                            //VERIFICA EM QUAL PERÍODO DEVE SER PROCURADO
+                            String dataInicio;
+                            String dataFim;
 
-                        System.out.print("Data início (dd/mm/yy): ");
-                        dataInicio = input.next();
+                            System.out.print("Data início (dd/mm/yy): ");
+                            dataInicio = input.next();
 
-                        System.out.print("Data fim (dd/mm/yy): ");
-                        dataFim = input.next();
+                            System.out.print("Data fim (dd/mm/yy): ");
+                            dataFim = input.next();
 
-                        //Lê A PRIMEIRA LINHA QUE NO CASO É OS ÍNDICES
-                        String linha = lerArq.readLine();
+                            //Lê A PRIMEIRA LINHA QUE NO CASO É OS ÍNDICES
+                            String linha = lerArq.readLine();
+                            String data, obs;
+
+                            while (linha != null) {
+
+                                //VERIFICA APENAS O VALOR DA CONSULTA
+                                if (linha.contains((CharSequence) i)) {
+
+                                    System.out.println("\nFolha de Ponto - " + i);
+                                    System.out.printf("%-10s %-10s\n", "Data", "Observação");
+
+                                    linha = lerArq.readLine();
+                                    linha = lerArq.readLine();
+
+                                    while (linha != null) {
+                                        //PEGA A DATA
+                                        int comecoData = linha.indexOf("/");
+                                        int fimData = linha.indexOf("/");
+                                        //System.out.println(linha.substring(comecoData - 2, fimData+6));
+                                        data = linha.substring(comecoData - 2, fimData + 6);
+                                        //VERIFICA SE A DATA É VÁLIDA
+                                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+
+                                        try {
+                                            Date dataDesejadaInicio = formato.parse(dataInicio);
+                                            Date dataDesejadaFim = formato.parse(dataFim);
+                                            Date dataArquivo = formato.parse(data);
+
+                                            //COMPARA SE A DATA DESEJADA JÁ PASSOU
+                                            if (dataArquivo.after(dataDesejadaInicio) && dataArquivo.before(dataDesejadaFim)) {
+                                                if (linha.contains("---")) {
+                                                    diasTrabalhados++;
+                                                    obs = "   ---";
+                                                } else {
+                                                    int comecoObs = linha.indexOf(" ");
+                                                    int fimObs = linha.indexOf(".");
+                                                    obs = linha.substring(comecoObs + 1, fimObs);
+                                                }
+
+                                                System.out.printf("%-10s", data);
+                                                System.out.printf("%s\n", obs);
+
+                                            }
+                                        } catch (ParseException e) {
+                                        }
+
+                                        linha = lerArq.readLine();
+                                    }
+                                }
+                                //LÊ AS PRÓXIMAS LINHAS
+                                linha = lerArq.readLine();
+                            }
+
+                            arq.close();                           
+                        } catch (IOException e) {
+                            System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                        }
+                    } else if (opcao == 2) {
+                        System.out.println("Valor a ser pago: ");
+                        double valor = input.nextDouble();
+                        char pagar;
+                        System.out.print("Deseja pagar (S/N)? ");
+                        pagar = input.next().charAt(0);
+
                         String data, obs;
 
-                        while (linha != null) {
-                             
-                            //VERIFICA APENAS O VALOR DA CONSULTA
-                            if (linha.contains((CharSequence) i)) {
+                        switch (pagar) {
+                            case 'S': {
+                                //PEGA A DATA ATUAL DO SISTEMA
+                                Date hoje = new Date();
+                                data = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(hoje);
                                 
-                                System.out.println("Folha de Ponto - " + i);
-                                System.out.printf("%-10s %-10s", "Data", "Observação");
-                                
-                                linha = lerArq.readLine();
-                                linha = lerArq.readLine();
-                                
-                                while (linha != null) {
-                                    //PEGA A DATA
-                                    int comecoData = linha.indexOf("/");
-                                    int fimData = linha.indexOf("/");
-                                    data = linha.substring(comecoData - 2, fimData + 6);
+                                input = new Scanner(System.in);
+                                System.out.print("Algum comentário a ser feito? ");
+                                obs = input.nextLine();
 
-                                    //VERIFICA SE A DATA É VÁLIDA
-                                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+                                //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
+                                File arq = new File("Salarios.txt");
+                                try {
+                                    arq.createNewFile();
 
-                                    try {
-                                        Date dataDesejadaInicio = formato.parse(dataInicio);
-                                        Date dataDesejadaFim = formato.parse(dataFim);
-                                        Date dataArquivo = formato.parse(data);
+                                    //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+                                    //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+                                    //SENDO TRUE ESCREVE DE ONDE PAROU
+                                    FileWriter fileWriter = new FileWriter(arq, false);
 
-                                        //COMPARA SE A DATA DESEJADA JÁ PASSOU
-                                        if (dataArquivo.after(dataDesejadaInicio) && dataArquivo.before(dataDesejadaFim)) {
-                                            if (linha.contains("---")) {
-                                                diasTrabalhados++;
-                                                obs = "---";
-                                            }
-                                            else {
-                                                int comecoObs = linha.indexOf("/");
-                                                int fimObs = linha.indexOf(".");
-                                                obs = linha.substring (comecoObs + 5, fimObs);
-                                            }
-                                            
-                                            System.out.printf("%-10s", data);
-                                            System.out.printf("%-10s\n", obs);
-                                            System.out.print("\n");
-                                            
-                                        }
-                                    } catch (ParseException e) {}
-                                    
-                                    linha = lerArq.readLine();
-                                }                                
+                                    //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                                    PrintWriter printWriter = new PrintWriter(fileWriter);
+
+                                    printWriter.println("Folha de Pagamento - " + i);
+                                    printWriter.printf("%-20s %-20s %-20s\n", "Data", "Valor", "Descrição");
+                                    printWriter.printf("%s", data);
+                                    printWriter.printf("\t%s", valor);
+                                    printWriter.printf("\t%s\n", obs);
+
+                                    //LIBERA A ESCRITA NO ARQUIVO
+                                    printWriter.flush();
+
+                                    //FECHA O ARQUIVO
+                                    printWriter.close();
+                                    System.out.println("Salário pago");
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                return;
                             }
-                            //LÊ AS PRÓXIMAS LINHAS
-                            linha = lerArq.readLine();
+                            case 'N': {
+                                return;
+                            }
+                            default: {
+                                System.err.println("Opção inválida");
+                                return;
+                            }
                         }
-
-                        arq.close();
-                    } catch (IOException e) {
-                        System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
                     }
+                    System.out.println("\n1 - Folha de ponto\n2 - Efetuar pagamento");
+                    opcao = input.nextInt();
                 }
-                else if (opcao == 2) {
-                    System.out.println("Valor a ser pago: ");
-                    double valor = input.nextDouble();
-                    char pagar;
-                    System.out.print("Deseja pagar (S/N)? ");
-                    pagar = input.next().charAt(0);
                     
-                    String data, obs;
-
-                    switch (pagar) {
-                        case 'S': {
-                            System.out.println("Salário pago");
-                            
-                            //PEGA A DATA ATUAL DO SISTEMA
-                            Date hoje = new Date();
-                            data = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(hoje);
-                            
-                            System.out.print("Algum comentário a ser feito? ");
-                            obs = input.next();
-                            
-                            //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
-                            File arq = new File("Salarios.txt");
-                            try {
-                                arq.createNewFile();
-
-                                //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
-                                //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
-                                //SENDO TRUE ESCREVE DE ONDE PAROU
-                                FileWriter fileWriter = new FileWriter(arq, true);
-
-                                //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
-                                PrintWriter printWriter = new PrintWriter(fileWriter);
-
-                                printWriter.println("Folha de Pagamento - " + i);
-                                printWriter.printf("%-10s %-10s %-10s", "Data", "Valor", "Descrição");
-                                printWriter.printf("%-10s", data);
-                                printWriter.printf("%-10s\n", obs);
-                                printWriter.print("\n");
-
-                                //LIBERA A ESCRITA NO ARQUIVO
-                                printWriter.flush();
-
-                                //FECHA O ARQUIVO
-                                printWriter.close();
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            return;
-                        }
-                        case 'N': {
-                            return;
-                        }
-                        default: {
-                            System.err.println("Opção inválida");
-                            return;
-                        }
-                    }
-                }
             }
         }
         

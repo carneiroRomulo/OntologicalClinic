@@ -79,7 +79,7 @@ public class Consulta {
             String dataHoje = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(hoje);
             consulta.setDataPagamento(dataHoje);
         } else {
-            System.out.println("A conta não foi paga");
+            System.out.println("A consulta não foi paga");
             consulta.setPago(false);
             consulta.setDataPagamento(null);
         }

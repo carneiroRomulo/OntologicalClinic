@@ -166,22 +166,11 @@ public class Agendas {
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
                 formato.setLenient(false);
 
-                //PEGA A DATA ATUAL DO SISTEMA
-                Date hoje = new Date();
-                String dataHoje = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(hoje);
-
                 SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
                 hora.setLenient(false);
 
                 try {
                     Date dat = formato.parse(data);
-                    Date datHoje = formato.parse(dataHoje);
-                    //COMPARA SE A DATA DESEJADA JÁ PASSOU
-                    if (dat.after(datHoje) || dat.equals(datHoje)) {
-                        controle = true;
-                    } else {
-                        System.err.println("Essa data já passou. Consultas a partir do dia de hoje: " + dataHoje);
-                    }
                     hora.parse(horario);
                     controle = true;
                 } catch (ParseException e) {
