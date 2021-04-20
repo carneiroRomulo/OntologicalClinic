@@ -245,10 +245,11 @@ public class Agendas {
             while (linha != null) {
                 //VERIFICA APENAS O NOME DO DENTISTA
                 if (linha.contains("Dentista:\t"+dentista)) {
-                    linha = lerArq.readLine();
-                    String cpfLido = linha.replace("CPF:\t", "");
                     
-                    linha = lerArq.readLine(); // Pula o nome na hora de mostrar a agenda do dentista
+                    linha = lerArq.readLine(); // Pula o CPF na hora de mostrar a agenda do dentista
+                    linha = lerArq.readLine(); // Pula o nome
+                    String nomeLido = linha.replace("Cliente:\t", "");
+
                     linha = lerArq.readLine(); // Pula o valor na consulta
                     linha = lerArq.readLine(); // pula o status do pagamento
                     
@@ -259,10 +260,10 @@ public class Agendas {
                     String horaLida = linha.replace("Horário:\t", "");
                     
                     String spaces = "";
-                        for(int i = 0; i < 25; i++) {
+                        for(int i = 0; i < 20; i++) {
                         spaces += " "; 
                     }
-                    String lido = cpfLido.substring(0, 5) + spaces + dataLida + spaces + horaLida;
+                    String lido = nomeLido + spaces + dataLida + spaces + horaLida;
                     agendado.add(lido);
                 }
                 //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA

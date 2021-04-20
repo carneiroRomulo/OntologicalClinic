@@ -873,27 +873,6 @@ public class Administrador extends Funcionario {
     
     // RETORNA A FOLHA DE PAGAMENTO DE UM DETERMINADO FUNCIONÁRIO
     private void pagarSalario () {
-        Scanner input = new Scanner(System.in);
-        int cargo;
-        boolean valida;
-
-        // CARGO
-        do {
-            valida = true;
-            System.out.println("\n01 - ADMINISTRADOR");
-            System.out.println("02 - ASSISTENTE ADM");
-            System.out.println("03 - DENTISTA");
-            System.out.println("04 - ASSISTENTE DENT");
-            System.out.println("05 - RECEPCIONISTA");
-            System.out.print("Cargo: ");
-            cargo = input.nextInt();
-
-            if (cargo < 1 || cargo > 5) {
-                System.err.println("Cargo inválido");
-                valida = false;
-            }
-        } while (valida != true);
-
         //VETOR PARA ADICIONAR TODOS OS FUNCIONARIOS QUE ESTÃO EM ARQUIVOS
         List<Object> nomes = new ArrayList<>();
 

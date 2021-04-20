@@ -73,67 +73,6 @@ public class Contas {
         this.tipo = tipo;
     }
 
-    //REALIZA O PAGAMENTO DAS CONTAS
-    protected void pagamentoContas() {
-        Scanner input = new Scanner(System.in);
-
-        Contas conta = new Contas();
-
-        System.out.print("Qual conta deseja pagar? ");
-        conta.tipo = input.nextLine();
-        conta.setTipo(conta.tipo);
-
-        System.out.print("Data de vencimento (dd/mm/yy)? ");
-        conta.dataVencimento = input.nextLine();
-        conta.setDataVencimento(conta.dataVencimento);
-
-        System.out.print("Valor: ");
-        conta.valor = input.nextLine();
-        conta.setValor(conta.valor);
-
-        //USADO PARA PEGAR A DATA DE PAGAMENTO DIRETO DO SISTEMA
-        Date data = new Date();
-
-        //VERIFICA SE DESEJA REALIZAR O PAGAMENTO
-        char opcao;
-        System.out.print("Deseja realizar o pagamento (S/N)? ");
-        opcao = input.next().charAt(0);
-
-        if (opcao == 'S') {
-            try {
-                //PEGA A DATA NO INSTANTE DO PAGAMENTO E COLOCA A DATA EM FORMATO DD/MM/AA 
-                String formatoData = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(data);
-                conta.setDataPagamento(formatoData);
-
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
-                Date dataP = formato.parse(conta.dataPagamento);
-                Date dataV = formato.parse(conta.dataVencimento);
-                //COMPARA SE A CONTA ESTÁ VENCIDA (DATA DE PAGAMENTO É ANTERIOR A DATA DE VENCIMENTO)
-                if (dataP.before(dataV)) {
-                    System.out.println("A data de pagamento foi: " + conta.dataPagamento);
-                } else {
-                    //ADICIONA UM PERCENTUAL DE 3% DE MULTA PELO ATRASO
-                    conta.valor = conta.valor + (conta.valor * 0.03);
-                    setValor(conta.valor);
-                    System.out.println("\nA conta está vencida, será acrescido uma multa de 3% no valor da conta. \nNovo valor: " + conta.valor);
-
-                    System.out.print("Deseja realizar o pagamento (S/N)? ");
-                    opcao = input.next().charAt(0);
-
-                    if (opcao == 'S') {
-                        System.out.println("A data de pagamento foi: " + conta.dataPagamento);
-                    } else {
-                        System.out.println("A conta não foi paga");
-                    }
-                }
-                jogaEmArquivo(conta);
-            } catch (ParseException ex) {
-            }
-        } else {
-            System.out.println("A conta não foi paga");
-        }
-    }
-
     public void lerContas(List<String> tipo, List<String> valor, 
             List<String> dataPagamento, List<String> dataVencimento) {
         try {
