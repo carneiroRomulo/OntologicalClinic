@@ -1,6 +1,5 @@
 package Screens;
 
-import Program.Agendas;
 import Program.Consultas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,18 +20,18 @@ public class ReceberConsulta extends JFrame {
     JButton voltarButton;
 
     Consultas consulta = new Consultas();
-    List<String> cpf = new ArrayList<>();
+    List<String> code = new ArrayList<>();
     List<String> valor = new ArrayList<>();
     List<String> status = new ArrayList<>();
     List<String> agendado = new ArrayList<>();
     String aux = "";
-    JLabel cpfLabel;
-    JTextField cpfTextField = new JTextField();
+    JLabel identificacaoLabel;
+    JTextField identificacaoTextField = new JTextField();
     
     JLabel valorLabel;
     JTextField valorTextField = new JTextField();
     
-    JLabel cpfMostradoLabel = new JLabel("Identificação");
+    JLabel identificacaoMostradoLabel = new JLabel("Identificação");
     JLabel valorMostradoLabel = new JLabel("Valor");
     JLabel statusMostradoLabel = new JLabel("Status");
     
@@ -44,13 +42,13 @@ public class ReceberConsulta extends JFrame {
     public ReceberConsulta(){
         ValidateConsulta handler = new ValidateConsulta();
         
-        cpfLabel = new JLabel("Identificação");
-        cpfLabel.setToolTipText("O número digitado deve ser igual a algum dos CPFs mostrados");
-        cpfLabel.setBounds(250, 80, 150, 20);
-        add(cpfLabel); // adiciona o cpfLabel JFrame
-        cpfTextField.setBounds(250, 100, 150, 20);
-        cpfTextField.addActionListener(handler);
-        add(cpfTextField);
+        identificacaoLabel = new JLabel("Identificação");
+        identificacaoLabel.setToolTipText("O número digitado deve ser igual a algum dos codes mostrados");
+        identificacaoLabel.setBounds(250, 80, 150, 20);
+        add(identificacaoLabel); // adiciona o identificacaoJFrame
+        identificacaoTextField.setBounds(250, 100, 150, 20);
+        identificacaoTextField.addActionListener(handler);
+        add(identificacaoTextField);
         
         valorLabel = new JLabel("Preço");
         valorLabel.setToolTipText("Preço da conta");
@@ -60,8 +58,8 @@ public class ReceberConsulta extends JFrame {
         valorTextField.addActionListener(handler);
         add(valorTextField);
         
-        cpfMostradoLabel.setBounds(200, 130, 100, 20);
-        add(cpfMostradoLabel);
+        identificacaoMostradoLabel.setBounds(200, 130, 100, 20);
+        add(identificacaoMostradoLabel);
         valorMostradoLabel.setBounds(360, 130, 100, 20);
         add(valorMostradoLabel);
         statusMostradoLabel.setBounds(490, 130, 100, 20);
@@ -71,13 +69,13 @@ public class ReceberConsulta extends JFrame {
         paginaLabel.setBounds(250, 40, 200, 20);
         add(paginaLabel); // adiciona o paginaLabel ao JFrame
         
-        consulta.lerConsultas(cpf, valor, status);
-        for(int i = 0; i < cpf.size(); i++) {
+        consulta.lerConsultas(code, valor, status);
+        for(int i = 0; i < code.size(); i++) {
             String spaces = "";
             for (int k = 0; k < 25; k++) {
                 spaces += " ";
             }
-            aux = cpf.get(i) + spaces + valor.get(i) + spaces + status.get(i);
+            aux = code.get(i) + spaces + valor.get(i) + spaces + status.get(i);
             agendado.add(aux);
         }
         for(String i : agendado) {
@@ -111,26 +109,26 @@ public class ReceberConsulta extends JFrame {
         @Override
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == pagarButton) {
-                String cpfInput = cpfTextField.getText();
+                String codeInput = identificacaoTextField.getText();
                 String valorInput = valorTextField.getText();
                 
                 l1.removeAllElements();
                 agendado.clear();
-                cpf.clear();
-                consulta.lerConsultas(cpf, valor, status);
-                for (int i = 0; i < cpf.size(); i++) {
+                code.clear();
+                consulta.lerConsultas(code, valor, status);
+                for (int i = 0; i < code.size(); i++) {
                     String spaces = "";
                     for (int k = 0; k < 25; k++) {
                         spaces += " ";
                     }
                     
-                    if (cpf.get(i).equals(cpfInput) && valor.get(i).equals(valorInput)
+                    if (code.get(i).equals(codeInput) && valor.get(i).equals(valorInput)
                             && status.get(i).equals("pendente")) {
-                        aux = cpf.get(i) + spaces + valor.get(i) + spaces + "pago";
+                        aux = code.get(i) + spaces + valor.get(i) + spaces + "pago";
                         agendado.add(aux);
                     }
                     else {
-                        aux = cpf.get(i) + spaces + valor.get(i) + spaces + status.get(i);
+                        aux = code.get(i) + spaces + valor.get(i) + spaces + status.get(i);
                         agendado.add(aux);
                     }
                 }

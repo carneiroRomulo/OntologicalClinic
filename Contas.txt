@@ -1,1 +1,10 @@
-sasa	1000	12121212
+Tipo:	Luz
+Valor:	100.00
+Data de Pagamento:	10/12/12
+Data de Vencimento:	12/12/12
+
+Tipo:	Energia
+Valor:	200.00
+Data de Pagamento:	21/03/21
+Data de Vencimento:	04/04/21
+

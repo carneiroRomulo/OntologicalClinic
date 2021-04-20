@@ -134,22 +134,36 @@ public class Contas {
         }
     }
 
-    public void lerContas(List<Contas> contas) {
+    public void lerContas(List<String> tipo, List<String> valor, 
+            List<String> dataPagamento, List<String> dataVencimento) {
         try {
             FileReader arq = new FileReader("Contas.txt");
             BufferedReader lerArq = new BufferedReader(arq);
 
             //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
             String linha = lerArq.readLine();
-            String teste;
+            String tipoInput;
+            String valorInput;
+            String pagamentoInput;
+            String vencimentoInput;
             while (linha != null) {
                 //VERIFICA APENAS O NOME DO DENTISTA
-                if (linha.contains("Dentista: ")) {
-                    teste = linha.replace("Dentista: ", "");
-                    Contas conta = new Contas();
-                    conta.setTipo(teste);
-                    contas.add(conta);
-
+                if (linha.contains("Tipo:\t")) {
+                    tipoInput = linha.replace("Tipo:\t", "");
+                    
+                    linha = lerArq.readLine();
+                    valorInput = linha.replace("Valor:\t", "");
+                    
+                    linha = lerArq.readLine();
+                    pagamentoInput = linha.replace("Data de Pagamento:\t", "");
+                    
+                    linha = lerArq.readLine();
+                    vencimentoInput = linha.replace("Data de Vencimento:\t", "");
+                    
+                    tipo.add(tipoInput);
+                    valor.add(valorInput);
+                    dataPagamento.add(pagamentoInput);
+                    dataVencimento.add(vencimentoInput);
                 }
                 //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
                 linha = lerArq.readLine();
@@ -173,10 +187,10 @@ public class Contas {
 
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.print("Tipo:\t"+tipo);
-            printWriter.print("Valor:\t" + valor);
-            printWriter.print("Data de Pagamento:\t" + dataPagamento);
-            printWriter.print("Data de Vencimento:\t" + dataVencimento);
+            printWriter.println("Tipo:\t"+tipo);
+            printWriter.println("Valor:\t" + valor);
+            printWriter.println("Data de Pagamento:\t" + dataPagamento);
+            printWriter.println("Data de Vencimento:\t" + dataVencimento);
             printWriter.print("\n");
 
             //LIBERA A ESCRITA NO ARQUIVO

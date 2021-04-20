@@ -225,7 +225,4 @@ public class Consultas {
         }
     }
 
-    public void lerConsultas(List<String> agendado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

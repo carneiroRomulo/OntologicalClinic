@@ -808,7 +808,7 @@ public class Administrador extends Funcionario {
     }
     
     // GRAVA A FOLHA DE PONTO 
-    public void gravarFolhaDePonto(List<String> dados) {
+    public void gravarFolhaDePonto(String funcionario, String data, String observacao) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
         File arq = new File("FolhaDePonto.txt");
         try {
@@ -817,15 +817,14 @@ public class Administrador extends Funcionario {
             //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
             //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
             //SENDO TRUE ESCREVE DE ONDE PAROU
-            FileWriter fileWriter = new FileWriter(arq, false);
+            FileWriter fileWriter = new FileWriter(arq, true);
+            
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            for(int i = 0; i < dados.size(); i++) {
-                //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
-                printWriter.println("Folha de Ponto:\t" + dados.get(i));
-                printWriter.printf("Data:\t" + dados.get(i));
-                printWriter.printf("Observação:\t" + dados.get(i));
-                printWriter.print("\n");
-            }
+            //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+            printWriter.println("Folha de Ponto:\t" + funcionario);
+            printWriter.println("Data:\t" + data);
+            printWriter.println("Observação:\t" + observacao);
+            printWriter.print("\n");
             
 
             //LIBERA A ESCRITA NO ARQUIVO

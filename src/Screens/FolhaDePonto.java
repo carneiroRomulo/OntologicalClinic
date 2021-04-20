@@ -31,7 +31,7 @@ public class FolhaDePonto extends JFrame{
     JComboBox funcionariosButton = new JComboBox();
     JLabel funcionariosLabel = new JLabel();
     
-    JButton editarButton = new JButton("Editar");
+    JButton aplicarButton = new JButton("Editar");
     JButton voltarButton = new JButton("Voltar");
     
     List<String> dataList = new ArrayList<>();
@@ -80,15 +80,16 @@ public class FolhaDePonto extends JFrame{
         add(obsLabel);
         obsTextField.setBounds(350, 180, 200, 20);
         add(obsTextField);
+        
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setBounds(250, 200, 300, 200);
         add(scroll);
         
-        editarButton = new JButton("Editar");
-        editarButton.setBounds(400, 460, 150, 20);
-        editarButton.setFocusable(false);
-        editarButton.addActionListener(handler);
-        add(editarButton);
+        aplicarButton = new JButton("Adicionar");
+        aplicarButton.setBounds(400, 460, 150, 20);
+        aplicarButton.setFocusable(false);
+        aplicarButton.addActionListener(handler);
+        add(aplicarButton);
         
         voltarButton.setBounds(250, 460, 150, 20);
         voltarButton.setFocusable(false);
@@ -141,7 +142,7 @@ public class FolhaDePonto extends JFrame{
                 }
             }
 
-            if(event.getSource() == editarButton) {
+            if(event.getSource() == aplicarButton) {
                 String func = funcionariosButton.getSelectedItem().toString();
                 String data = dataTextField.getText();
                 String obs = obsTextField.getText();
@@ -167,8 +168,7 @@ public class FolhaDePonto extends JFrame{
                         obsLabel.setForeground(Color.RED);
                     }
                     if(valid == 2) {
-                        System.out.println(folhaPontoList.size());
-                        admin.gravarFolhaDePonto(folhaPontoList);
+                        admin.gravarFolhaDePonto(func, data, obs);
                     }
                 }
             }
