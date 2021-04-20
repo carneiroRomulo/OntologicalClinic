@@ -1,16 +1,21 @@
 package Screens;
 
 import Program.Administrador;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 public class FolhaDePonto extends JFrame{
     Administrador admin = new Administrador();
@@ -28,6 +33,19 @@ public class FolhaDePonto extends JFrame{
     
     JButton editarButton = new JButton("Editar");
     JButton voltarButton = new JButton("Voltar");
+    
+    List<String> dataList = new ArrayList<>();
+    List<String> observacaoList = new ArrayList<>();
+    
+    JLabel dataLabel = new JLabel("Data");
+    JTextField dataTextField = new JTextField();
+    JLabel obsLabel = new JLabel("Observação");
+    JTextField obsTextField = new JTextField();
+    
+    DefaultListModel<String> l1 = new DefaultListModel<>();
+    JList<String> list = new JList<>(l1);
+    JScrollPane scroll = new JScrollPane(list);
+    List<String> folhaPontoList = new ArrayList<>();
 
     
     public FolhaDePonto() {
@@ -54,6 +72,18 @@ public class FolhaDePonto extends JFrame{
         funcionariosLabel.setVisible(false);
         add(funcionariosLabel); // adiciona o funcionariosao JFrame
         
+        dataLabel.setBounds(250, 160, 300, 20);
+        add(dataLabel);
+        dataTextField.setBounds(250, 180, 100, 20);
+        add(dataTextField);
+        obsLabel.setBounds(350, 160, 300, 20);
+        add(obsLabel);
+        obsTextField.setBounds(350, 180, 200, 20);
+        add(obsTextField);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setBounds(250, 200, 300, 200);
+        add(scroll);
+        
         editarButton = new JButton("Editar");
         editarButton.setBounds(400, 460, 150, 20);
         editarButton.setFocusable(false);
@@ -79,44 +109,67 @@ public class FolhaDePonto extends JFrame{
             if(event.getSource() == cargoButton) {
                 String cargo = cargoButton.getSelectedItem().toString();
                 if(funcionariosButton.getItemCount() != 0) {
-                    System.out.println("Limpa");
                     funcionarios.clear();
                 }
                 if (!cargo.equals("")) {
                     funcionariosLabel.setVisible(true);
                     funcionariosButton.setVisible(true);
+                    admin.lerFuncionarios(cargoButton.getSelectedItem().toString(), funcionarios);
+                    funcionariosButton.setModel(new DefaultComboBoxModel<>(funcionarios.toArray(new String[0])));
+                    
+                    String func = funcionariosButton.getSelectedItem().toString();
+                    l1.removeAllElements();
+                    folhaPontoList.clear();
+                    admin.lerFolhaDePonto(func, folhaPontoList);
+                    for (String i : folhaPontoList) {
+                        l1.addElement(i);
+                    }
                 }
                 else{
                     funcionariosLabel.setVisible(false);
                     funcionariosButton.setVisible(false);
                 }
-                if (cargo.equals("Administrador")){
-                    admin.lerFuncionarios(cargoButton.getSelectedItem().toString(), funcionarios);
-                    funcionariosButton.setModel(new DefaultComboBoxModel<String>(funcionarios.toArray(new String[0])));
-                }
-                else if(cargo.equals("Assistente Administrativo")){
-                    admin.lerFuncionarios(cargoButton.getSelectedItem().toString(), funcionarios);
-                    funcionariosButton.setModel(new DefaultComboBoxModel<String>(funcionarios.toArray(new String[0])));
-                }
-                else if(cargo.equals("Dentista")){
-                    admin.lerFuncionarios(cargoButton.getSelectedItem().toString(), funcionarios);
-                    funcionariosButton.setModel(new DefaultComboBoxModel<String>(funcionarios.toArray(new String[0])));
-                }
-                else if(cargo.equals("Assistente de Dentista")){
-                    admin.lerFuncionarios(cargoButton.getSelectedItem().toString(), funcionarios);
-                    funcionariosButton.setModel(new DefaultComboBoxModel<String>(funcionarios.toArray(new String[0])));
-                }
-                else if(cargo.equals("Recepcionista")){
-                    admin.lerFuncionarios(cargoButton.getSelectedItem().toString(), funcionarios);
-                    funcionariosButton.setModel(new DefaultComboBoxModel<String>(funcionarios.toArray(new String[0])));
+            }
+            if(event.getSource() == funcionariosButton) {
+                String cargo = cargoButton.getSelectedItem().toString();
+                String func = funcionariosButton.getSelectedItem().toString();
+                l1.removeAllElements();
+                folhaPontoList.clear();
+                admin.lerFolhaDePonto(func, folhaPontoList);
+                for (String i : folhaPontoList) {
+                    l1.addElement(i);
                 }
             }
+
             if(event.getSource() == editarButton) {
-                if(cargoButton.getSelectedItem() == "") {
-                    paginaLabel.setText("Selecione um funcionario");
-                }
-                else {
-                    paginaLabel.setText("EDITAR");
+                String func = funcionariosButton.getSelectedItem().toString();
+                String data = dataTextField.getText();
+                String obs = obsTextField.getText();
+                if(!cargoButton.getSelectedItem().equals("")) {
+                    int valid = 0;
+                    // VALIDA A DATA
+                    if(data.matches("[0-9/]*") && data.length() == 8 && data.charAt(2) == '/'
+                        && data.charAt(5) == '/') {
+                        dataLabel.setForeground(Color.DARK_GRAY);
+                        valid++;
+                    } else {
+                        dataLabel.setForeground(Color.RED);
+                    }
+                    // VALIDA A OBS
+                    if(obs.length() == 0) {
+                        obsTextField.setText("---");
+                    }
+                    if(obs.length() < 30) {
+                        obsLabel.setForeground(Color.DARK_GRAY);
+                        valid++;
+                    }
+                    else {
+                        obsLabel.setForeground(Color.RED);
+                    }
+                    if(valid == 2) {
+                        System.out.println(folhaPontoList.size());
+                        admin.gravarFolhaDePonto(folhaPontoList);
+                    }
                 }
             }
             if(event.getSource() == voltarButton) {

@@ -707,13 +707,11 @@ public class Administrador extends Funcionario {
 
                     //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
                     String linha = lerArq.readLine();
-                    String teste;
+                    String nome;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO DENTISTA
                         if (linha.contains("Ass.Adm:\t")) {
-                            teste = linha.replace("Ass.Adm:\t", "");
-                            String nome;
-                            nome = teste;
+                            nome = linha.replace("Ass.Adm:\t", "");
                             nomes.add(nome);
                         }
                         //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
@@ -735,13 +733,11 @@ public class Administrador extends Funcionario {
 
                     //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
                     String linha = lerArq.readLine();
-                    String teste;
+                    String nome;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO DENTISTA
                         if (linha.contains("Dentista:\t")) {
-                            teste = linha.replace("Dentista:\t", "");
-                            String nome;
-                            nome = teste;
+                            nome = linha.replace("Dentista:\t", "");
                             nomes.add(nome);
                         }
                         //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
@@ -762,13 +758,11 @@ public class Administrador extends Funcionario {
 
                     //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
                     String linha = lerArq.readLine();
-                    String teste;
+                    String nome;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO DENTISTA
                         if (linha.contains("Ass.Dentista:\t")) {
-                            teste = linha.replace("Ass.Dentista:\t", "");
-                            String nome;
-                            nome = teste;
+                            nome = linha.replace("Ass.Dentista:\t", "");
                             nomes.add(nome);
                         }
                         //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
@@ -789,13 +783,11 @@ public class Administrador extends Funcionario {
 
                     //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
                     String linha = lerArq.readLine();
-                    String teste;
+                    String nome;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO DENTISTA
                         if (linha.contains("Recepcionista:\t")) {
-                            teste = linha.replace("Recepcionista:\t", "");
-                            String nome;
-                            nome = teste;
+                            nome = linha.replace("Recepcionista:\t", "");
                             nomes.add(nome);
                         }
                         //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
@@ -815,129 +807,69 @@ public class Administrador extends Funcionario {
         }
     }
     
-    // RETORNA A FOLHA DE PONTO DE UM DETERMINADO FUNCIONÁRIO
-    private void folhaDePonto() {
-        Scanner input = new Scanner(System.in);
-        int cargo;
-        boolean valida;
-
-        // CARGO
-        do {
-            valida = true;
-            System.out.println("\n01 - ADMINISTRADOR");
-            System.out.println("02 - ASSISTENTE ADM");
-            System.out.println("03 - DENTISTA");
-            System.out.println("04 - ASSISTENTE DENT");
-            System.out.println("05 - RECEPCIONISTA");
-            System.out.print("Cargo: ");
-            cargo = input.nextInt();
-
-            if (cargo < 1 || cargo > 5) {
-                System.err.println("Cargo inválido");
-                valida = false;
+    // GRAVA A FOLHA DE PONTO 
+    public void gravarFolhaDePonto(List<String> dados) {
+        //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
+        File arq = new File("FolhaDePonto.txt");
+        try {
+            arq.createNewFile();
+            
+            //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
+            //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
+            //SENDO TRUE ESCREVE DE ONDE PAROU
+            FileWriter fileWriter = new FileWriter(arq, false);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            for(int i = 0; i < dados.size(); i++) {
+                //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
+                printWriter.println("Folha de Ponto:\t" + dados.get(i));
+                printWriter.printf("Data:\t" + dados.get(i));
+                printWriter.printf("Observação:\t" + dados.get(i));
+                printWriter.print("\n");
             }
-        } while (valida != true);
+            
 
-        //VETOR PARA ADICIONAR TODOS OS FUNCIONARIOS QUE ESTÃO EM ARQUIVOS
-        List<Object> nomes = new ArrayList<>();
-        
-        lerFuncionarios(cargo, nomes);
+            //LIBERA A ESCRITA NO ARQUIVO
+            printWriter.flush();
 
-        //LEITURA DO NOME DOS FUNCIONARIOS
-        System.out.println("------------FUNCIONARIOS------------");
-        nomes.forEach(i -> {
-            System.out.println(i);
-        });
-        
-        input = new Scanner(System.in);
-        System.out.print("Qual funcionario deseja editar a folha de ponto? ");
-        String nome = input.nextLine();
+            //FECHA O ARQUIVO
+            printWriter.close();
 
-        for (Object i : nomes) {
-            if (nome.equals(i)) {
-                String data, obs;
-                char salvar;
-
-                //VERIFICA SE A DATA É VÁLIDA
-                boolean controle = false;
-                do {
-                    System.out.print("Data (dd/mm/yy): ");
-                    data = input.next();
-
-                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
-                    formato.setLenient(false);
-
-                    //PEGA A DATA ATUAL DO SISTEMA
-                    Date hoje = new Date();
-                    String dataHoje = java.text.DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(hoje);
-
-                    try {
-                        Date dat = formato.parse(data);
-                        Date datHoje = formato.parse(dataHoje);
-                        //COMPARA SE A DATA DESEJADA JÁ PASSOU
-                        if (dat.after(datHoje) || dat.equals(datHoje)) {
-                            controle = true;
-                        } else {
-                            System.err.println("Essa data já passou. Consultas a partir do dia de hoje: " + dataHoje);
-                        }
-                    } catch (ParseException e) {
-                        System.err.println("Data inválida, digite novamente...");
-                        controle = false;
-                    }
-                } while (controle != true);
-
-                //VERIFICA SE TERÁ ALGUMA OBSERVAÇÃO A SER COLOCADA NA FOLHA DE PONTO
-                System.out.print("Alguma observacao a ser feita referente ao dia de trabalho? ");
-                obs = input.next();
-
-                System.out.print("Deseja salvar (S/N)? ");
-                salvar = input.next().charAt(0);
-
-                switch (salvar) {
-                    case 'S': {
-                        System.out.println("Salvo com sucesso");
-
-                        //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
-                        File arq = new File("FolhaDePonto.txt");
-                        try {
-                            arq.createNewFile();
-
-                            //APONTA O PONTEIRO PARA A PRIMEIRA POSIÇÃO DO ARQUIVO
-                            //O 2º PARÂMETRO SENDO FALSE, SOBREESCREVE O ARQUIVO COM O NOVO CONTEÚDO
-                            //SENDO TRUE ESCREVE DE ONDE PAROU
-                            FileWriter fileWriter = new FileWriter(arq, false);
-
-                            //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
-                            PrintWriter printWriter = new PrintWriter(fileWriter);
-
-                            printWriter.println("Folha de Ponto - " + i);
-                            printWriter.printf("%-10s %-10s\n", "Data", "Observação");
-                            printWriter.printf("%-12s", data);
-                            printWriter.printf("%s\n", obs);
-                            printWriter.print("\n");
-
-                            //LIBERA A ESCRITA NO ARQUIVO
-                            printWriter.flush();
-
-                            //FECHA O ARQUIVO
-                            printWriter.close();
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return;
-                    }
-                    case 'N': {
-                        return;
-                    }
-                    default: {
-                        System.err.println("Opção inválida");
-                        return;
-                    }
-                }
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.err.println("Esse funcionario não existe na clínica");
+    }
+    
+    // LÊ A FOLHA DE PONTO DE UM DETERMINADO FUNCIONARIO
+    public void lerFolhaDePonto(String funcionario, List<String> agendado) {
+        try {
+            FileReader arq = new FileReader("FolhaDePonto.txt");
+            BufferedReader lerArq = new BufferedReader(arq);
+            //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+            String linha = lerArq.readLine();
+            while (linha != null) {
+                //VERIFICA APENAS O NOME DO DENTISTA
+                if (linha.contains("Folha de Ponto:\t" + funcionario)) {
+                    linha = lerArq.readLine();
+                    String dataLida = linha.replace("Data:\t", "");
+
+                    linha = lerArq.readLine();
+                    String obsLida = linha.replace("Observação:\t", "");
+
+                    String spaces = "";
+                    for (int i = 0; i < 10; i++) {
+                        spaces += " ";
+                    }
+                    String lido = dataLida + spaces + obsLida;
+                    agendado.add(lido);
+                }
+                //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                linha = lerArq.readLine();
+            }
+
+            arq.close();
+        } catch (IOException e) {
+            System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+        }
     }
     
     // RETORNA A FOLHA DE PAGAMENTO DE UM DETERMINADO FUNCIONÁRIO

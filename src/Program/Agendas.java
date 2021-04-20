@@ -221,7 +221,7 @@ public class Agendas {
             printWriter.println("Cliente:\t"+ cliente);
             printWriter.println("Valor:\t"+ valor);
             printWriter.println("Data:\t" + data);
-            printWriter.println("Valor:\t" + "pendente");
+            printWriter.println("Status:\t" + "pendente");
             printWriter.println("Horário:\t" + hora);
             printWriter.print("\n");
 
