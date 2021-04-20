@@ -1,0 +1,11 @@
+Ass.Adm:	Maria Helena
+Idade:	49
+Cargo:	Assistente Administrativo
+Salario:	2500
+Telefone:	95482467231
+E-mai:l	maria@yahoo.com.br
+Endereço:	Rua das Acacias, nº56, Centro, Ubatuba
+Carga Horária:	8
+Login:	maria@1
+Senha:	maria123abc
+

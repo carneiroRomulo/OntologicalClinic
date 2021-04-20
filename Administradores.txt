@@ -1,0 +1,11 @@
+Administrador:	Paula Brandao
+Idade:	50
+Cargo:	Administrador
+Salario:	5000
+Telefone:	31999999999
+E-mai:l	paula@gmail.com
+Endereço:	Rua das Acassias, nº14, Centro, Ouro Branco
+Carga Horária:	8
+Login:	paulaA2
+Senha:	paula123@
+

@@ -93,16 +93,16 @@ public class Administrador extends Funcionario {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (int i = 0; i < administradores.size(); i++) {
-                printWriter.print(administradores.get(i).getNome() + " " + administradores.get(i).getSobrenome());
-                printWriter.print("\t" + administradores.get(i).getIdade());
-                printWriter.print("\t" + administradores.get(i).getCargo());
-                printWriter.print("\t" + administradores.get(i).getSalario());
-                printWriter.print("\t" + administradores.get(i).getTelefone());
-                printWriter.print("\t" + administradores.get(i).getEmail());
-                printWriter.print("\t" + administradores.get(i).getEndereco());
-                printWriter.print("\t" + administradores.get(i).getCargaHoraria());
-                printWriter.println("\t" + administradores.get(i).getLogin());
-                printWriter.println("\t" + administradores.get(i).getSenha());
+                printWriter.println("Administrador:\t" + administradores.get(i).getNome() + " " + administradores.get(i).getSobrenome());
+                printWriter.println("Idade:\t" + administradores.get(i).getIdade());
+                printWriter.println("Cargo:\t" + administradores.get(i).getCargo());
+                printWriter.println("Salario:\t" + administradores.get(i).getSalario());
+                printWriter.println("Telefone:\t" + administradores.get(i).getTelefone());
+                printWriter.println("E-mai:l\t" + administradores.get(i).getEmail());
+                printWriter.println("Endereço:\t" + administradores.get(i).getEndereco());
+                printWriter.println("Carga Horária:\t" + administradores.get(i).getCargaHoraria());
+                printWriter.println("Login:\t" + administradores.get(i).getLogin());
+                printWriter.println("Senha:\t" + administradores.get(i).getSenha());
                 printWriter.print("\n");
             }
 
@@ -154,16 +154,16 @@ public class Administrador extends Funcionario {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (int i = 0; i < assistentes.size(); i++) {
-                printWriter.print(assistentes.get(i).getNome() + " " + assistentes.get(i).getSobrenome());
-                printWriter.print("\t" + assistentes.get(i).getIdade());
-                printWriter.print("\t" + assistentes.get(i).getCargo());
-                printWriter.print("\t" + assistentes.get(i).getSalario());
-                printWriter.print("\t" + assistentes.get(i).getTelefone());
-                printWriter.print("\t" + assistentes.get(i).getEmail());
-                printWriter.print("\t" + assistentes.get(i).getEndereco());
-                printWriter.print("\t" + assistentes.get(i).getCargaHoraria());
-                printWriter.println("\t" + assistentes.get(i).getLogin());
-                printWriter.println("\t" + assistentes.get(i).getSenha());
+                printWriter.println("Ass.Adm:\t" + assistentes.get(i).getNome() + " " + assistentes.get(i).getSobrenome());
+                printWriter.println("Idade:\t" + assistentes.get(i).getIdade());
+                printWriter.println("Cargo:\t" + assistentes.get(i).getCargo());
+                printWriter.println("Salario:\t" + assistentes.get(i).getSalario());
+                printWriter.println("Telefone:\t" + assistentes.get(i).getTelefone());
+                printWriter.println("E-mai:l\t" + assistentes.get(i).getEmail());
+                printWriter.println("Endereço:\t" + assistentes.get(i).getEndereco());
+                printWriter.println("Carga Horária:\t" + assistentes.get(i).getCargaHoraria());
+                printWriter.println("Login:\t" + assistentes.get(i).getLogin());
+                printWriter.println("Senha:\t" + assistentes.get(i).getSenha());
                 printWriter.print("\n");
             }
 
@@ -270,14 +270,14 @@ public class Administrador extends Funcionario {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (int i = 0; i < assDentista.size(); i++) {
-                printWriter.println(assDentista.get(i).getNome() + " " + assDentista.get(i).getSobrenome());
-                printWriter.println("\t" + assDentista.get(i).getIdade());
-                printWriter.println("\t" + assDentista.get(i).getCargo());
-                printWriter.println("\t" + assDentista.get(i).getSalario());
-                printWriter.println("\t" + assDentista.get(i).getTelefone());
-                printWriter.println("\t" + assDentista.get(i).getEmail());
-                printWriter.println("\t" + assDentista.get(i).getEndereco());
-                printWriter.println("\t" + assDentista.get(i).getCargaHoraria());
+                printWriter.println("Ass.Dentista:\t" + assDentista.get(i).getNome() + " " + assDentista.get(i).getSobrenome());
+                printWriter.println("Idade:\t" + assDentista.get(i).getIdade());
+                printWriter.println("Cargo:\t" + assDentista.get(i).getCargo());
+                printWriter.println("Salario:\t" + assDentista.get(i).getSalario());
+                printWriter.println("Telefone:\t" + assDentista.get(i).getTelefone());
+                printWriter.println("E-mai:l\t" + assDentista.get(i).getEmail());
+                printWriter.println("Endereço:\t" + assDentista.get(i).getEndereco());
+                printWriter.println("Carga Horária:\t" + assDentista.get(i).getCargaHoraria());
                 printWriter.print("\n");
             }
 
@@ -326,14 +326,14 @@ public class Administrador extends Funcionario {
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for (int i = 0; i < recepcionistas.size(); i++) {
-                printWriter.println(recepcionistas.get(i).getNome() + " " + recepcionistas.get(i).getSobrenome());
+                printWriter.println("Recepcionista:\t" + recepcionistas.get(i).getNome() + " " + recepcionistas.get(i).getSobrenome());
                 printWriter.println("Idade:\t" + recepcionistas.get(i).getIdade());
                 printWriter.println("Cargo:\t" + recepcionistas.get(i).getCargo());
                 printWriter.println("Salario:\t" + recepcionistas.get(i).getSalario());
-                printWriter.println("Telefone\t" + recepcionistas.get(i).getTelefone());
-                printWriter.println("E-mail\t" + recepcionistas.get(i).getEmail());
-                printWriter.println("Endereço\t" + recepcionistas.get(i).getEndereco());
-                printWriter.println("Carga Horária\t" + recepcionistas.get(i).getCargaHoraria());
+                printWriter.println("Telefone:\t" + recepcionistas.get(i).getTelefone());
+                printWriter.println("E-mai:l\t" + recepcionistas.get(i).getEmail());
+                printWriter.println("Endereço:\t" + recepcionistas.get(i).getEndereco());
+                printWriter.println("Carga Horária:\t" + recepcionistas.get(i).getCargaHoraria());
                 printWriter.print("\n");
             }
 
@@ -361,7 +361,7 @@ public class Administrador extends Funcionario {
                     double ganhos = 0;
                     FileReader arq = new FileReader("Consultas.txt");
                     BufferedReader lerArq = new BufferedReader(arq);
-                    List<Consulta> consultas = new ArrayList<Consulta>();
+                    List<Consultas> consultas = new ArrayList<Consultas>();
                     List<Cliente> clientes = new ArrayList<Cliente>();
                     
                     //VERIFICA EM QUAL PERÍODO DEVE SER PROCURADO
@@ -412,8 +412,8 @@ public class Administrador extends Funcionario {
                                     teste = linha.substring(comeco + 1, fim + 2);
                                     
                                     //ADICIONANDO ESSES VALORES A UMA LISTA DE CONSULTA
-                                    Consulta consulta = new Consulta();
-                                    consulta.setValor(Double.parseDouble(teste));
+                                    Consultas consulta = new Consultas();
+                                    consulta.setValor(teste);
                                     consulta.setDataPagamento(data);
                                     
                                     consultas.add(consulta);
@@ -485,7 +485,7 @@ public class Administrador extends Funcionario {
                                 int fim = linha.indexOf(".");
                                 teste = linha.substring(comeco + 5, fim + 2);
                                 
-                                conta.setValor(Double.parseDouble(teste));
+                                conta.setValor(teste);
                                 conta.setDataPagamento(data);
                                 
                                 contas.add(conta);
@@ -603,7 +603,7 @@ public class Administrador extends Funcionario {
     }
     
     // JOGA O RELATÓRIO DE GANHOS EM UM ARQUIVO 
-    public void geraRelatorioGanhos (List<Cliente> clientes, List<Consulta> consultas,double ganhos) {
+    public void geraRelatorioGanhos (List<Cliente> clientes, List<Consultas> consultas,double ganhos) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DA AGENDA
         File arq = new File("RelatorioGanhos.txt");
         try {
@@ -619,8 +619,8 @@ public class Administrador extends Funcionario {
             for (int i = 0; i < consultas.size(); i++) {
                 printWriter.printf("%-10s %-10s %-10s\n", "Cliente", "Valor", "Data do pagamento");
                 printWriter.printf("%-11s", clientes.get(i).getNome());
-                printWriter.printf("%-11s", consultas.get(i).getValor());
-                printWriter.printf("%10s\n\n", consultas.get(i).getDataPagamento());
+                printWriter.printf("%-11s", consultas.get(i));
+                printWriter.printf("%10s\n\n", consultas.get(i));
             }
             printWriter.println("TOTAL: " + ganhos);
 
@@ -668,23 +668,24 @@ public class Administrador extends Funcionario {
     }
     
     //LÊ TODOS OS FUNCIONÁRIOS E JOGA EM UMA LISTA DE NOMES
-    public void lerFuncionarios(int cargo, List<Object> nomes) {
+    public void lerFuncionarios(String cargo, List<String> nomes) {
         switch (cargo) {
             //LÊ TODOS OS ADMINISTRADORES
-            case 1: {
+            case "": {
+                break;
+            }
+            case "Administrador": {
                 try {
                     FileReader arq = new FileReader("Administradores.txt");
                     BufferedReader lerArq = new BufferedReader(arq);
 
                     //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
                     String linha = lerArq.readLine();
-                    String teste;
+                    String nome;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO ADM
-                        if (linha.contains("Administrador: ")) {
-                            teste = linha.replace("Administrador: ", "");
-                            String nome;
-                            nome = teste;
+                        if (linha.contains("Administrador:\t")) {
+                            nome = linha.replace("Administrador:\t", "");
                             nomes.add(nome);
                         }
                         //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
@@ -693,13 +694,13 @@ public class Administrador extends Funcionario {
 
                     arq.close();
                 } catch (IOException e) {
-                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                    System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
                 }
 
                 break;
             }
             // LÊ TODOS OS ASSISTENTE ADMINISTRATIVO
-            case 2: {
+            case "Assistente Administrativo": {
                 try {
                     FileReader arq = new FileReader("AssistentesAdm.txt");
                     BufferedReader lerArq = new BufferedReader(arq);
@@ -709,8 +710,8 @@ public class Administrador extends Funcionario {
                     String teste;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO DENTISTA
-                        if (linha.contains("Assistente administrativo: ")) {
-                            teste = linha.replace("Assistente administrativo: ", "");
+                        if (linha.contains("Ass.Adm:\t")) {
+                            teste = linha.replace("Ass.Adm:\t", "");
                             String nome;
                             nome = teste;
                             nomes.add(nome);
@@ -720,14 +721,14 @@ public class Administrador extends Funcionario {
                     }
                     arq.close();
                 } catch (IOException e) {
-                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                    System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
                 }
 
                 break;
             }
 
             // LÊ TODOS OS DENTISTA
-            case 3: {
+            case "Dentista": {
                 try {
                     FileReader arq = new FileReader("Dentistas.txt");
                     BufferedReader lerArq = new BufferedReader(arq);
@@ -749,14 +750,14 @@ public class Administrador extends Funcionario {
 
                     arq.close();
                 } catch (IOException e) {
-                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                    System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
                 }
                 break;
             }
             // LÊ TODOS ASSISTENTES DE DENTISTA
-            case 4: {
+            case "Assistente de Dentista": {
                 try {
-                    FileReader arq = new FileReader("AssistentesDeDentistas.txt");
+                    FileReader arq = new FileReader("AssistentesDeDentista.txt");
                     BufferedReader lerArq = new BufferedReader(arq);
 
                     //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
@@ -764,8 +765,8 @@ public class Administrador extends Funcionario {
                     String teste;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO DENTISTA
-                        if (linha.contains("Assistente de dentista: ")) {
-                            teste = linha.replace("Assistente de dentista: ", "");
+                        if (linha.contains("Ass.Dentista:\t")) {
+                            teste = linha.replace("Ass.Dentista:\t", "");
                             String nome;
                             nome = teste;
                             nomes.add(nome);
@@ -776,12 +777,12 @@ public class Administrador extends Funcionario {
 
                     arq.close();
                 } catch (IOException e) {
-                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                    System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
                 }
                 break;
             }
             // LÊ TODOS RECEPCIONISTA
-            case 5: {
+            case "Recepcionista": {
                 try {
                     FileReader arq = new FileReader("Recepcionistas.txt");
                     BufferedReader lerArq = new BufferedReader(arq);
@@ -791,8 +792,8 @@ public class Administrador extends Funcionario {
                     String teste;
                     while (linha != null) {
                         //VERIFICA APENAS O NOME DO DENTISTA
-                        if (linha.contains("Recepcionista: ")) {
-                            teste = linha.replace("Recepcionista: ", "");
+                        if (linha.contains("Recepcionista:\t")) {
+                            teste = linha.replace("Recepcionista:\t", "");
                             String nome;
                             nome = teste;
                             nomes.add(nome);
@@ -803,7 +804,7 @@ public class Administrador extends Funcionario {
 
                     arq.close();
                 } catch (IOException e) {
-                    System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+                    System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
                 }
                 break;
             }

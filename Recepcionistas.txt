@@ -1,0 +1,9 @@
+Recepcionista:	Beatriz Bento
+Idade:	52
+Cargo:	Recepcionista
+Salario:	2000
+Telefone:	31923657931
+E-mai:l	beatriz@gmail.com
+Endereço:	Rua Maria Tereza, nº 93, Centro, Vila Velha
+Carga Horária:	9
+

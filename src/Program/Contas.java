@@ -161,7 +161,7 @@ public class Contas {
         }
     }
     
-    public void jogaEmArquivo(String tipo, String valor, String dataPagamento) {
+    public void jogaEmArquivo(String tipo, String valor, String dataPagamento, String dataVencimento) {
         //CRIA UM ARQUIVO PARA JOGAR OS DADOS DAS CONTAS PAGAS
         File arq = new File("Contas.txt");
         try {
@@ -173,9 +173,10 @@ public class Contas {
 
             //USANDO A CLASSE PrintWriter PARA ESCREVER NO ARQUIVO
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.print(tipo);
-            printWriter.print("\t" + valor);
-            printWriter.print("\t" + dataPagamento);
+            printWriter.print("Tipo:\t"+tipo);
+            printWriter.print("Valor:\t" + valor);
+            printWriter.print("Data de Pagamento:\t" + dataPagamento);
+            printWriter.print("Data de Vencimento:\t" + dataVencimento);
             printWriter.print("\n");
 
             //LIBERA A ESCRITA NO ARQUIVO

@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class Consultas {
 
-    private double valor;
+    private String valor;
     private boolean pago;
     private String dataPagamento;
 
@@ -22,7 +22,7 @@ public class Consultas {
     public Consultas() {
     }
 
-    public Consultas(double valor, boolean pago, String dataPagamento) {
+    public Consultas(String valor, boolean pago, String dataPagamento) {
         this.valor = valor;
         this.pago = pago;
         this.dataPagamento = dataPagamento;
@@ -30,7 +30,7 @@ public class Consultas {
 
     /* GETTERS */
     // RETORNA O VALOR DA CONSULTA
-    public double getValor() {
+    public String getValor() {
         return valor;
     }
 
@@ -45,7 +45,7 @@ public class Consultas {
     }
 
     // ALTERA O VALOR DO PAGAMENTO
-    public void setValor(double valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
 
@@ -65,7 +65,7 @@ public class Consultas {
         Scanner input = new Scanner(System.in);
 
         System.out.print("Valor: ");
-        consulta.valor = input.nextDouble();
+        consulta.valor = input.nextString();
 
         char opcao;
         System.out.print("Confirmar pagamento (S/N)? ");
@@ -190,5 +190,42 @@ public class Consultas {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void lerConsultas(List<String> cpf, List<String> valor, List<String> status) {
+        try {
+            FileReader arq = new FileReader("Agenda.txt");
+            BufferedReader lerArq = new BufferedReader(arq);
+            //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+            String linha = lerArq.readLine();
+            while (linha != null) {
+                //VERIFICA APENAS O NOME DO DENTISTA
+                if (linha.contains("Dentista:\t")) {
+                    linha = lerArq.readLine();
+                    String cpfLido = linha.replace("CPF:\t", "");
+                    linha = lerArq.readLine(); // pula o nome do cliente na hora de mostrar a 
+                    linha = lerArq.readLine();
+                    
+                    String valorLido = linha.replace("Valor:\t", "");
+                    
+                    linha = lerArq.readLine();
+                    String statusLido = linha.replace("Status:\t", "");
+                    
+                    cpf.add(cpfLido.substring(0, 5));
+                    valor.add(valorLido);
+                    status.add(statusLido);
+                }
+                //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                linha = lerArq.readLine();
+            }
+
+            arq.close();
+        } catch (IOException e) {
+            System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+        }
+    }
+
+    public void lerConsultas(List<String> agendado) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

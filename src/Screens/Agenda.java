@@ -59,11 +59,12 @@ public class Agenda extends JFrame{
         horarioLabel.setBounds(490, 130, 100, 20);
         add(horarioLabel);
         
-        
+
         agenda.lerAgenda(dentistasButton.getSelectedItem().toString(), agendado);
         for(String i : agendado) {
             l1.addElement(i);
         }
+
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setBounds(200, 150, 400, 200);
         add(scroll);
@@ -92,6 +93,8 @@ public class Agenda extends JFrame{
         @Override
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == dentistasButton) {
+                l1.removeAllElements();
+                agendado.clear();
                 agenda.lerAgenda(dentistasButton.getSelectedItem().toString(), agendado);
                 for(String i : agendado) {
                     l1.addElement(i);

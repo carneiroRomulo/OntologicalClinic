@@ -383,6 +383,8 @@ public class EditarAgenda extends JFrame{
                 String data = dataTextField.getText();
                 String hora = horarioTextField.getText();
                 String valor = valorTextField.getText();
+                String cpf = cpfTextField.getText();
+                String nome = clientesButton.getSelectedItem().toString();
                 // VALIDA DATA
                 int valid = 0;
                 if(data.matches("[0-9/]*") && data.length() == 8 && data.charAt(2) == '/'
@@ -410,11 +412,11 @@ public class EditarAgenda extends JFrame{
                     valorLabel.setForeground(Color.RED);
                 }
                 if(valid == 3) {
-                    Agendas agenda = new Agendas();
-                    agenda.gravaAgenda(dentista, clientesButton.getSelectedItem().toString(), 
-                        dataTextField.getText(), horarioTextField.getText());
+                    Agendas agendaLogic = new Agendas();
+                    agendaLogic.gravaAgenda(dentista, cpf, nome, data, hora, valor);
                     JOptionPane.showMessageDialog(rgLabel, "Consulta agendada");
                     dispose();
+                    Agenda screen = new Agenda();
                 }
                 else {
                     System.err.println("Não agendar horário, campos inválidos");

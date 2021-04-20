@@ -1,40 +1,24 @@
-Cliente:	Cliente A
-Idade:	19
-Telefone:	11111111111
-E-mai:l	@
-Endereço:	sasas
-RG:	11111111
-CPF:	11111111111
+Cliente:	Romulo Carneiro
+Idade:	21
+Telefone:	31999235024
+E-mai:l	romulo@hotmail.com
+Endereço:	Rua Alfa, nº25, Bauxita, Ouro Preto
+RG:	13572954
+CPF:	36875943821
 
-Cliente:	Ananda Mendes
-Idade:	19
-Telefone:	11111111111
-E-mai:l	@
-Endereço:	sasa
-RG:	11111111
-CPF:	11111111111
+Cliente:	Ana Bento
+Idade:	20
+Telefone:	35983230543
+E-mai:l	ana@hotmail.com
+Endereço:	Rua Ipiranga, nº23, Vila Velha
+RG:	24562223
+CPF:	24529346753
 
-Cliente:	sasa sasas
-Idade:	18
-Telefone:	11111111111
-E-mai:l	@
-Endereço:	asasa
-RG:	11111111
-CPF:	11111111111
-
-Cliente:	sasasa sasa
-Idade:	18
-Telefone:	11111111111
-E-mai:l	2@
-Endereço:	sasasa
-RG:	11111111
-CPF:	11111111111
-
-Cliente:	tes teste
-Idade:	18
-Telefone:	11111111111
-E-mai:l	@
-Endereço:	dasa
-RG:	11111111
-CPF:	11111111111
+Cliente:	Fernanda Teixeira
+Idade:	39
+Telefone:	29458325821
+E-mai:l	fernanda@gmail.com
+Endereço:	Rua Juana, nº 24, Centro, Belo Horizonte
+RG:	02948562
+CPF:	39468569345
 

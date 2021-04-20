@@ -1,0 +1,9 @@
+Ass.Dentista:	Lucas Abrahaao
+Idade:	47
+Cargo:	Assistente de Dentista
+Salario:	3000
+Telefone:	92568274864
+E-mai:l	lucas@hotmail.como
+Endereço:	Rua Teixeira, nº32, Centro, Juiz de Fora
+Carga Horária:	10
+
