@@ -103,6 +103,7 @@ public class EditarAgenda extends JFrame{
         
         dataLabel = new JLabel("Data");
         dataLabel.setBounds(250, 160, 300, 20);
+        dataLabel.setToolTipText("Data deve estar no formato ##/##/##");
         add(dataLabel);
         dataTextField = new JTextField();
         dataTextField.setBounds(250, 180, 300, 20);
@@ -110,6 +111,7 @@ public class EditarAgenda extends JFrame{
         
         horarioLabel = new JLabel("Horário");
         horarioLabel.setBounds(250, 200, 300, 20);
+        horarioLabel.setToolTipText("Horário deve estar no formato hh:mm");
         add(horarioLabel);
         horarioTextField = new JTextField();
         horarioTextField.setBounds(250, 220, 300, 20);
@@ -117,6 +119,7 @@ public class EditarAgenda extends JFrame{
         
         valorLabel = new JLabel("Valor");
         valorLabel.setBounds(250, 240, 300, 20);
+        valorLabel.setToolTipText("Valor deve estar no formato ###.##");
         add(valorLabel);
         valorTextField = new JTextField();
         valorTextField.setBounds(250, 260, 300, 20);
@@ -227,7 +230,6 @@ public class EditarAgenda extends JFrame{
                 String telefone = telefoneTextField.getText();
                 String idade = idadeButton.getSelectedItem().toString();
                 int valid = 0;
-                System.out.println(nome);
 
                 // valida nome
                 if(nome.length() < 30 && nome.length() > 0 && nome.matches("[a-zA-Z]*")) {
@@ -293,7 +295,6 @@ public class EditarAgenda extends JFrame{
                 else {
                     idadeLabel.setForeground(Color.RED);
                 }
-                System.out.println(valid);
                 // Se todos os campos forem devidamente preenchidos o funcionario é criado
                 if (valid == 8){
                     // caso seja um administrador
@@ -379,11 +380,45 @@ public class EditarAgenda extends JFrame{
             
             // GRAVA NA AGENDA DO DENTISTA SELECIONADO A CONSULTA MARCADA
             if(event.getSource() == registrarButton && clienteExistente.isSelected()) {
-                Agendas agenda = new Agendas();
-                agenda.gravaAgenda(dentista, clientesButton.getSelectedItem().toString(), 
+                String data = dataTextField.getText();
+                String hora = horarioTextField.getText();
+                String valor = valorTextField.getText();
+                // VALIDA DATA
+                int valid = 0;
+                if(data.matches("[0-9/]*") && data.length() == 8 && data.charAt(2) == '/'
+                        && data.charAt(5) == '/') {
+                    dataLabel.setForeground(Color.DARK_GRAY);
+                    valid++;
+                }
+                else {
+                    dataLabel.setForeground(Color.RED);
+                }
+                // VALIDA HORARIO
+                if(hora.matches("[0-9:]*") && hora.length() == 5 && hora.charAt(2) == ':') {
+                    horarioLabel.setForeground(Color.DARK_GRAY);
+                    valid++;
+                }
+                else {
+                    horarioLabel.setForeground(Color.RED);
+                }
+                // VALIDA VALOR
+                if(valor.matches("[0-9.]*") && valor.length() > 3) {
+                    valorLabel.setForeground(Color.DARK_GRAY);
+                    valid++;
+                }
+                else {
+                    valorLabel.setForeground(Color.RED);
+                }
+                if(valid == 3) {
+                    Agendas agenda = new Agendas();
+                    agenda.gravaAgenda(dentista, clientesButton.getSelectedItem().toString(), 
                         dataTextField.getText(), horarioTextField.getText());
-                JOptionPane.showMessageDialog(rgLabel, "Consulta agendada");
-                dispose();
+                    JOptionPane.showMessageDialog(rgLabel, "Consulta agendada");
+                    dispose();
+                }
+                else {
+                    System.err.println("Não agendar horário, campos inválidos");
+                }
                 
             }
             

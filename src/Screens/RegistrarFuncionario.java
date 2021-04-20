@@ -324,8 +324,6 @@ public class RegistrarFuncionario extends JFrame{
                     }
                 }
                 
-                System.out.print(valid);
-
                 // Se todos os campos forem devidamente preenchidos o funcionario é criado
                 if (valid == 11 && !cargoButton.getSelectedItem().equals("Administrador")
                         && !cargoButton.getSelectedItem().equals("Assistente Administrativo")){

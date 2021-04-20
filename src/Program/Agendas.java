@@ -232,4 +232,52 @@ public class Agendas {
             e.printStackTrace();
         }
     }
+    
+    public void lerAgenda(String dentista, List<String> agendado) {
+        try {
+            FileReader arq = new FileReader("Agenda.txt");
+            BufferedReader lerArq = new BufferedReader(arq);
+            //Lê A PRIMEIRA LINHA QUE NO CASO É O NOME DO DENTISTA
+            String linha = lerArq.readLine();
+            while (linha != null) {
+                //VERIFICA APENAS O NOME DO DENTISTA
+                if (linha.contains("Dentista:\t"+dentista)) {
+                    linha = lerArq.readLine();
+                    String clienteLido = linha.replace("Cliente:\t", "");
+                    
+                    linha = lerArq.readLine();
+                    String dataLida = linha.replace("Data:\t", "");
+                    
+                    linha = lerArq.readLine();
+                    String horaLida = linha.replace("Horário:\t", "");
+                    
+                    String cliente = clienteLido;
+                    if(cliente.length() > 10) {
+                        cliente = clienteLido.substring(0, 10);
+                    }
+                    else {
+                        int spaces = 10 - cliente.length();
+                        System.out.println(spaces);
+                        cliente += '.';
+                        for(int i = 0; i < spaces; i++){
+                            cliente += " ";
+                        }
+                    }
+                    String spaces = "";
+                    for(int i = 0; i < 20; i++) {
+                        spaces += " "; 
+                    }
+                    spaces += '\t';
+                    String lido = cliente + spaces + dataLida + spaces + horaLida;
+                    agendado.add(lido);
+                }
+                //LÊ DA SEGUNDA ATÉ A ÚLTIMA LINHA
+                linha = lerArq.readLine();
+            }
+
+            arq.close();
+        } catch (IOException e) {
+            System.out.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+        }
+    }
 }

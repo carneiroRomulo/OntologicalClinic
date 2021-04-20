@@ -5,10 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class Agenda extends JFrame{
     JLabel paginaLabel; // titulo da tela
@@ -16,17 +19,21 @@ public class Agenda extends JFrame{
     JComboBox dentistasButton; // botao para escolher qual dentista deve ser selecionado
     JLabel dentistasLabel;
     
-    JLabel clienteLabel1 = new JLabel("Carlos");
-    JLabel dataLabel1 = new JLabel("20/10/15");
-    JLabel horarioLabel1 = new JLabel("14:00");
+    JLabel clienteLabel = new JLabel("Cliente");
+    JLabel dataLabel = new JLabel("Data");
+    JLabel horarioLabel = new JLabel("Horário");
     
     JButton editarButton;
     JButton voltarButton;
     
     Agendas agenda = new Agendas();
     List<String> dentistas = new ArrayList<>();
-    List<String> clientes = new ArrayList<>();
+    List<String> agendado = new ArrayList<>();
 
+    DefaultListModel<String> l1 = new DefaultListModel<>();
+    JList<String> list = new JList<>(l1);
+    JScrollPane scroll = new JScrollPane(list);
+    
     public Agenda() {
         ValidateSchedule handler = new ValidateSchedule();
         
@@ -45,6 +52,22 @@ public class Agenda extends JFrame{
         dentistasLabel.setBounds(250, 80, 300, 20);
         add(dentistasLabel); // adiciona o dentistasLabel ao JFrame
         
+        clienteLabel.setBounds(200, 130, 100, 20);
+        add(clienteLabel);
+        dataLabel.setBounds(360, 130, 100, 20);
+        add(dataLabel);
+        horarioLabel.setBounds(490, 130, 100, 20);
+        add(horarioLabel);
+        
+        
+        agenda.lerAgenda(dentistasButton.getSelectedItem().toString(), agendado);
+        for(String i : agendado) {
+            l1.addElement(i);
+        }
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setBounds(200, 150, 400, 200);
+        add(scroll);
+        
         editarButton = new JButton("Editar");
         editarButton.setBounds(400, 460, 150, 20);
         editarButton.setFocusable(false);
@@ -60,28 +83,18 @@ public class Agenda extends JFrame{
         setTitle("CLINICA CURRAL");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(800, 600); // ajust the size of the frame
+        setSize(800, 600); // ajusta o tamanho do frame
         setLayout(null);
-        setVisible(true); // show the frame
+        setVisible(true); // mostra o frame
     }
 
-    Agenda(String toString) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-   
     private class ValidateSchedule implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == dentistasButton) {
-                if(dentistasButton.getSelectedItem().equals("Maria")){
-
-                    add(clienteLabel1);
-                    add(dataLabel1);
-                    add(horarioLabel1);
-                    
-                    clienteLabel1.setVisible(true);
-                    dataLabel1.setVisible(true);
-                    horarioLabel1.setVisible(true);
+                agenda.lerAgenda(dentistasButton.getSelectedItem().toString(), agendado);
+                for(String i : agendado) {
+                    l1.addElement(i);
                 }
             }
             if(event.getSource() == editarButton) {
